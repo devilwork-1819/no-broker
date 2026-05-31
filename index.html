@@ -1,27 +1,743 @@
-All 5 features selected! Let me build the updated version now.
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="theme-color" content="#0f3d2a"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-title" content="NO BROKER"/>
+<meta name="description" content="নো ব্রোকার - বীরভূমের সরাসরি জমি কেনাবেচার প্ল্যাটফর্ম"/>
+<title>NO BROKER | নো ব্রোকার</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{min-height:100%;font-family:'Hind Siliguri',Georgia,serif;background:#0f3d2a;color:#fdf6e3;overflow-x:hidden;}
+input,textarea,button,select{font-family:'Hind Siliguri',Georgia,serif;}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.35);}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#d4a017!important;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:rgba(212,160,23,0.4);border-radius:2px;}
 
-Your updated **NO BROKER** file is ready with all 5 new features! ✅
+.app{min-height:100vh;background:linear-gradient(160deg,#0f3d2a 0%,#1a1a2e 60%,#2d1b00 100%);}
+.bgfx{position:fixed;top:0;left:0;right:0;bottom:0;background:
+  radial-gradient(circle at 15% 15%,rgba(212,160,23,0.08) 0%,transparent 50%),
+  radial-gradient(circle at 85% 85%,rgba(26,122,74,0.14) 0%,transparent 50%);
+  pointer-events:none;z-index:0;}
+.wrap{max-width:480px;margin:0 auto;padding-bottom:70px;position:relative;z-index:1;}
 
-Here's what's new:
+/* HEADER */
+.hdr{padding:14px 16px 10px;border-bottom:1px solid rgba(212,160,23,0.2);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,0.35);backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:100;}
+.logo{font-size:20px;font-weight:800;letter-spacing:1px;
+  background:linear-gradient(90deg,#d4a017,#f5c842);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.logo-sub{font-size:8px;color:rgba(212,160,23,0.6);letter-spacing:2px;text-transform:uppercase;margin-top:-2px;}
+.lang-btn{background:rgba(212,160,23,0.12);border:1px solid #d4a017;color:#d4a017;
+  border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit;}
 
-**📞 Call & WhatsApp buttons** — Every listing now has 3 buttons: Call, WhatsApp, and Interested. Buyers can call or WhatsApp the seller directly with one tap.
+/* SCREENS */
+.screen{display:none;padding:16px;}
+.screen.active{display:block;}
+#home-screen{display:block;padding:0;}
 
-**🔍 Search & Filter** — Buyers can search by area/P.O. name, filter by land type, price range (under 5 lakh / 5–10 lakh / above 10 lakh), and negotiable/fixed price.
+/* HOME */
+.hero{padding:28px 16px 16px;text-align:center;}
+.hero-icon{font-size:52px;margin-bottom:10px;}
+.hero-title{font-size:22px;font-weight:800;line-height:1.25;
+  background:linear-gradient(135deg,#fff 0%,#d4a017 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:300px;margin:0 auto 24px;}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 16px;}
+.card{background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);
+  border-radius:16px;padding:18px 12px;cursor:pointer;text-align:center;transition:background 0.2s;}
+.card:active{background:rgba(26,122,74,0.3);}
+.card-icon{font-size:34px;margin-bottom:8px;}
+.card-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:5px;}
+.card-desc{font-size:11px;color:rgba(255,255,255,0.55);line-height:1.5;}
+.list-btn{margin:0 14px 16px;background:rgba(212,160,23,0.1);
+  border:1px solid rgba(212,160,23,0.35);border-radius:14px;padding:14px;
+  text-align:center;cursor:pointer;color:#d4a017;font-size:14px;font-weight:600;}
+.footer-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.25);padding:0 16px 16px;}
 
-**🌿 Land details** — Sellers can now add land size (Katha/Bigha/Decimal/Acre), land type (Agricultural/Residential/Commercial/Garden/Pond), and facing direction (North/South/East/West).
+/* FORM ELEMENTS */
+.back-btn{background:transparent;border:none;color:rgba(255,255,255,0.55);
+  font-size:13px;cursor:pointer;padding:0 0 14px;display:block;font-family:inherit;}
+.form-title{font-size:20px;font-weight:800;margin-bottom:3px;color:#fff;}
+.form-sub{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:18px;}
+.lbl{font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:5px;display:block;font-weight:600;}
+.inp{width:100%;background:rgba(255,255,255,0.07);
+  border:1.5px solid rgba(255,255,255,0.14);border-radius:11px;
+  padding:12px 13px;color:#fff;font-size:14px;font-family:inherit;
+  outline:none;display:block;margin-bottom:13px;transition:border-color 0.2s;}
+.inp[readonly]{color:rgba(255,255,255,0.5);}
+textarea.inp{min-height:80px;resize:none;}
+select.inp{appearance:none;-webkit-appearance:none;cursor:pointer;}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
-**📸 Photos + Google Maps** — Sellers can upload up to 5 photos, and add a Google Maps link so buyers can see the exact location.
+/* VIDEO / PHOTO BOX */
+.media-box{border:2px dashed rgba(212,160,23,0.35);border-radius:13px;
+  padding:18px 14px;text-align:center;margin-bottom:13px;cursor:pointer;
+  background:rgba(212,160,23,0.04);}
+.media-box-icon{font-size:30px;margin-bottom:6px;}
+.media-box-lbl{font-size:12px;color:rgba(255,255,255,0.45);}
+.media-name{font-size:11px;color:#d4a017;margin-top:6px;}
+.photo-preview{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px;}
+.photo-thumb{width:70px;height:70px;object-fit:cover;border-radius:8px;
+  border:1.5px solid rgba(212,160,23,0.4);}
 
-**🎥 Video limit** — Increased from 1 minute to 3 minutes.
+.check-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.check-row input[type=checkbox]{width:18px;height:18px;accent-color:#d4a017;cursor:pointer;flex-shrink:0;}
+.submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);
+  border:2px solid #d4a017;border-radius:13px;color:#fff;font-size:15px;
+  font-weight:700;cursor:pointer;font-family:inherit;
+  box-shadow:0 6px 22px rgba(26,122,74,0.35);margin-top:4px;}
+.submit-btn:active{opacity:0.85;}
+.success-box{background:rgba(26,122,74,0.25);border:1px solid #d4a017;
+  border-radius:13px;padding:14px;text-align:center;font-size:14px;
+  font-weight:700;color:#d4a017;margin-bottom:15px;display:none;}
+.error-box{background:rgba(180,40,40,0.2);border:1px solid rgba(255,100,100,0.4);
+  border-radius:11px;padding:11px 13px;font-size:12px;color:#ff9999;
+  margin-bottom:13px;display:none;}
+.section-divider{font-size:11px;font-weight:700;color:rgba(212,160,23,0.7);
+  text-transform:uppercase;letter-spacing:1px;margin:6px 0 12px;
+  padding-bottom:6px;border-bottom:1px solid rgba(212,160,23,0.15);}
 
----
+/* SEARCH BAR */
+.search-wrap{padding:12px 14px 0;}
+.search-inp{width:100%;background:rgba(255,255,255,0.08);
+  border:1.5px solid rgba(255,255,255,0.15);border-radius:12px;
+  padding:11px 14px 11px 38px;color:#fff;font-size:14px;
+  font-family:inherit;outline:none;margin-bottom:10px;}
+.search-wrap-inner{position:relative;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  font-size:15px;pointer-events:none;}
+.filter-row{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;}
+.filter-select{background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.14);
+  border-radius:10px;padding:8px 12px;color:#fff;font-size:12px;
+  font-family:inherit;outline:none;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.filter-select option{background:#1a1a2e;color:#fff;}
+.result-count{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:10px;padding:0 14px;}
 
-**Now upload this to GitHub to update your website:**
+/* LISTINGS */
+.listing-card{background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:16px;padding:14px;margin-bottom:12px;}
+.listing-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.listing-price{font-size:19px;font-weight:800;color:#d4a017;}
+.listing-neg{font-size:10px;color:rgba(212,160,23,0.7);margin-top:1px;}
+.listing-type-badge{font-size:10px;background:rgba(26,122,74,0.3);
+  border:1px solid rgba(26,122,74,0.5);border-radius:6px;
+  padding:3px 8px;color:rgba(255,255,255,0.8);margin-top:4px;display:inline-block;}
+.media-tag{background:rgba(26,122,74,0.2);border:1px solid rgba(26,122,74,0.35);
+  border-radius:9px;padding:8px 11px;display:flex;align-items:center;gap:6px;
+  margin-bottom:10px;font-size:12px;color:rgba(255,255,255,0.7);}
+.listing-photos{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;}
+.listing-photo{width:64px;height:64px;object-fit:cover;border-radius:8px;
+  border:1px solid rgba(212,160,23,0.3);flex-shrink:0;}
+.info-row{font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:5px;display:flex;gap:8px;}
+.info-lbl{color:rgba(255,255,255,0.38);min-width:64px;flex-shrink:0;}
+.action-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-top:11px;}
+.btn-call{padding:11px 6px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);
+  border:1px solid rgba(26,122,74,0.6);border-radius:10px;
+  color:#fff;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-align:center;text-decoration:none;display:block;}
+.btn-wa{padding:11px 6px;background:linear-gradient(135deg,#25d366,#128c3e);
+  border:none;border-radius:10px;
+  color:#fff;font-size:12px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-align:center;text-decoration:none;display:block;}
+.btn-interest{padding:11px 6px;background:linear-gradient(135deg,#d4a017,#b8860b);
+  border:none;border-radius:10px;color:#1a1a2e;
+  font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;}
+.btn-interest.notified{background:rgba(26,122,74,0.25);color:#d4a017;cursor:default;}
+.btn-maps{display:block;width:100%;padding:9px;margin-top:7px;
+  background:rgba(66,133,244,0.15);border:1px solid rgba(66,133,244,0.35);
+  border-radius:10px;color:#7ab3ff;font-size:12px;font-weight:600;
+  cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;}
+.share-btn{display:block;width:100%;padding:8px;margin-top:6px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+  border-radius:10px;color:rgba(255,255,255,0.6);font-size:12px;
+  cursor:pointer;font-family:inherit;text-align:center;}
+.no-listings{text-align:center;padding:40px 0;color:rgba(255,255,255,0.35);font-size:14px;}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="bgfx"></div>
+<div class="wrap">
 
-1. Go to **github.com/devilwork-1819/no-broker**
-2. Tap **index.html**
-3. Tap the **pencil (edit) icon**
-4. Select all text → Delete → Paste the new code
-5. Tap **Commit changes**
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <div class="logo" id="app-name">নো ব্রোকার</div>
+    <div class="logo-sub">NO BROKER · নো ব্রোকার</div>
+  </div>
+  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">English</button>
+</div>
 
-Your live website will update automatically in 2–3 minutes! 🎉
+<!-- HOME -->
+<div id="home-screen" class="screen active">
+  <div class="hero">
+    <div class="hero-icon">🏡</div>
+    <div class="hero-title" id="h-tagline">সরাসরি জমির কেনাবেচা। কোনো দালাল নেই।</div>
+    <div class="hero-sub" id="h-sub">বীরভূমের ক্রেতা ও বিক্রেতাদের সাথে সরাসরি যোগাযোগ করুন</div>
+  </div>
+  <div class="card-row">
+    <div class="card" onclick="showScreen('seller-screen')">
+      <div class="card-icon">🌾</div>
+      <div class="card-title" id="h-sell">জমি বিক্রি করুন</div>
+      <div class="card-desc" id="h-sell-desc">ভিডিও ও ছবি সহ আপনার প্লট লিস্ট করুন</div>
+    </div>
+    <div class="card" onclick="showScreen('buyer-screen')">
+      <div class="card-icon">🔍</div>
+      <div class="card-title" id="h-buy">জমি কিনুন</div>
+      <div class="card-desc" id="h-buy-desc">সরাসরি আপনার পছন্দের জমি খুঁজুন</div>
+    </div>
+  </div>
+  <div class="list-btn" onclick="showScreen('listings-screen')">
+    🗺️ <span id="h-view-listings">সব তালিকা দেখুন</span> (<span id="listing-count">3</span>)
+  </div>
+  <div class="footer-note">বীরভূম জেলার সরাসরি জমি কেনাবেচার প্ল্যাটফর্ম</div>
+</div>
+
+<!-- SELLER SCREEN -->
+<div id="seller-screen" class="screen">
+  <button class="back-btn" onclick="showScreen('home-screen')" id="s-back">← ফিরে যান</button>
+  <div class="form-title" id="s-title">🌾 আপনার জমির তথ্য দিন</div>
+  <div class="form-sub">📍 <span id="s-dist-lbl">বীরভূম</span></div>
+  <div class="success-box" id="s-success">✓ আপনার জমি সফলভাবে তালিকাভুক্ত হয়েছে!</div>
+  <div class="error-box" id="s-error">⚠️ অনুগ্রহ করে সব তথ্য পূরণ করুন।</div>
+
+  <div class="section-divider" id="s-sec1">📹 ভিডিও ও ছবি</div>
+
+  <label class="lbl" id="s-video-lbl">জমির ভিডিও (সর্বোচ্চ ৩ মিনিট)</label>
+  <div class="media-box" onclick="document.getElementById('video-input').click()">
+    <div class="media-box-icon">🎥</div>
+    <div class="media-box-lbl" id="s-video-tap">ভিডিও বেছে নিতে চাপুন (সর্বোচ্চ ৩ মিনিট)</div>
+    <div class="media-name" id="video-name-display"></div>
+  </div>
+  <input type="file" id="video-input" accept="video/*" style="display:none" onchange="videoSelected(this)"/>
+
+  <label class="lbl" id="s-photo-lbl">জমির ছবি (সর্বোচ্চ ৫টি)</label>
+  <div class="media-box" onclick="document.getElementById('photo-input').click()">
+    <div class="media-box-icon">📸</div>
+    <div class="media-box-lbl" id="s-photo-tap">ছবি বেছে নিতে চাপুন (সর্বোচ্চ ৫টি)</div>
+  </div>
+  <input type="file" id="photo-input" accept="image/*" multiple style="display:none" onchange="photosSelected(this)"/>
+  <div class="photo-preview" id="photo-preview"></div>
+
+  <div class="section-divider" id="s-sec2">📍 অবস্থান</div>
+
+  <label class="lbl" id="s-district-lbl">জেলা</label>
+  <input class="inp" id="s-district-val" readonly/>
+
+  <label class="lbl" id="s-po-lbl">পোস্ট অফিস (পি.ও.) *</label>
+  <input class="inp" id="s-po" placeholder="যেমন: সিউড়ি, বোলপুর, রামপুরহাট..."/>
+
+  <label class="lbl" id="s-road-lbl">রাস্তা / এলাকা</label>
+  <input class="inp" id="s-road" placeholder="যেমন: NH14, গ্রামের রাস্তা..."/>
+
+  <label class="lbl" id="s-landmark-lbl">ল্যান্ড মার্ক</label>
+  <input class="inp" id="s-landmark" placeholder="যেমন: স্কুলের পাশে, পুকুরের পাশে..."/>
+
+  <label class="lbl" id="s-maps-lbl">Google Maps লিঙ্ক (ঐচ্ছিক)</label>
+  <input class="inp" id="s-maps" placeholder="https://maps.google.com/..."/>
+
+  <div class="section-divider" id="s-sec3">🌿 জমির বিবরণ</div>
+
+  <div class="inp-row">
+    <div>
+      <label class="lbl" id="s-size-lbl">জমির পরিমাণ *</label>
+      <input class="inp" id="s-size" type="number" placeholder="যেমন: 5"/>
+    </div>
+    <div>
+      <label class="lbl" id="s-unit-lbl">একক</label>
+      <select class="inp" id="s-unit">
+        <option value="কাঠা">কাঠা</option>
+        <option value="বিঘা">বিঘা</option>
+        <option value="ডেসিমাল">ডেসিমাল</option>
+        <option value="একর">একর</option>
+      </select>
+    </div>
+  </div>
+
+  <label class="lbl" id="s-type-lbl">জমির ধরন *</label>
+  <select class="inp" id="s-type">
+    <option value="">-- বেছে নিন --</option>
+    <option value="কৃষি জমি">কৃষি জমি (Agricultural)</option>
+    <option value="বাসস্থান">বাসস্থান (Residential)</option>
+    <option value="বাণিজ্যিক">বাণিজ্যিক (Commercial)</option>
+    <option value="বাগান">বাগান (Garden/Orchard)</option>
+    <option value="পুকুর সহ">পুকুর সহ (With Pond)</option>
+  </select>
+
+  <label class="lbl" id="s-facing-lbl">মুখ (Facing)</label>
+  <select class="inp" id="s-facing">
+    <option value="">-- বেছে নিন --</option>
+    <option value="উত্তর">উত্তর (North)</option>
+    <option value="দক্ষিণ">দক্ষিণ (South)</option>
+    <option value="পূর্ব">পূর্ব (East)</option>
+    <option value="পশ্চিম">পশ্চিম (West)</option>
+  </select>
+
+  <div class="section-divider" id="s-sec4">💰 মূল্য ও যোগাযোগ</div>
+
+  <label class="lbl" id="s-price-lbl">বিক্রয় মূল্য (₹) *</label>
+  <input class="inp" id="s-price" type="text" placeholder="যেমন: ৫,০০,০০০"/>
+
+  <div class="check-row">
+    <input type="checkbox" id="s-neg"/>
+    <label class="lbl" style="margin-bottom:0" id="s-neg-lbl">দাম দরাদরি যোগ্য</label>
+  </div>
+
+  <label class="lbl" id="s-mob-lbl">মোবাইল নম্বর (WhatsApp) *</label>
+  <input class="inp" id="s-mobile" type="tel" placeholder="১০ সংখ্যার মোবাইল নম্বর"/>
+
+  <button class="submit-btn" onclick="submitSeller()" id="s-submit">জমির বিজ্ঞাপন দিন</button>
+</div>
+
+<!-- BUYER SCREEN -->
+<div id="buyer-screen" class="screen">
+  <button class="back-btn" onclick="showScreen('home-screen')" id="b-back">← ফিরে যান</button>
+  <div class="form-title" id="b-title">🔍 আগ্রহ দেখান</div>
+  <div class="form-sub">📍 <span id="b-dist-lbl">বীরভূম</span></div>
+  <div class="success-box" id="b-success">✓ আপনার তথ্য পাঠানো হয়েছে! বিক্রেতারা যোগাযোগ করবেন।</div>
+  <div class="error-box" id="b-error">⚠️ অনুগ্রহ করে মোবাইল নম্বর দিন।</div>
+
+  <label class="lbl" id="b-mob-lbl">মোবাইল নম্বর *</label>
+  <input class="inp" id="b-mobile" type="tel" placeholder="১০ সংখ্যার মোবাইল নম্বর"/>
+
+  <label class="lbl" id="b-po-lbl">পোস্ট অফিস (পি.ও.)</label>
+  <input class="inp" id="b-po" placeholder="যেমন: সিউড়ি, বোলপুর, রামপুরহাট..."/>
+
+  <label class="lbl" id="b-district-lbl">জেলা</label>
+  <input class="inp" id="b-district-val" readonly/>
+
+  <label class="lbl" id="b-budget-lbl">বাজেট (₹)</label>
+  <input class="inp" id="b-budget" type="text" placeholder="যেমন: ৫,০০,০০০"/>
+
+  <label class="lbl" id="b-type-lbl">জমির ধরন</label>
+  <select class="inp" id="b-type">
+    <option value="">-- যেকোনো --</option>
+    <option value="কৃষি জমি">কৃষি জমি</option>
+    <option value="বাসস্থান">বাসস্থান</option>
+    <option value="বাণিজ্যিক">বাণিজ্যিক</option>
+    <option value="বাগান">বাগান</option>
+  </select>
+
+  <label class="lbl" id="b-remarks-lbl">মন্তব্য / প্রয়োজনীয়তা</label>
+  <textarea class="inp" id="b-remarks" placeholder="নির্দিষ্ট কোনো প্রয়োজন থাকলে লিখুন..."></textarea>
+
+  <button class="submit-btn" onclick="submitBuyer()" id="b-submit">আগ্রহ দেখান ও বিক্রেতাকে জানান</button>
+</div>
+
+<!-- LISTINGS SCREEN -->
+<div id="listings-screen" class="screen" style="padding:0;">
+  <div style="padding:14px 14px 0;">
+    <button class="back-btn" onclick="showScreen('home-screen')" id="l-back">← ফিরে যান</button>
+    <div class="form-title" id="l-title">🗺️ উপলব্ধ জমির তালিকা</div>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="search-wrap">
+    <div class="search-wrap-inner">
+      <span class="search-icon">🔍</span>
+      <input class="search-inp" id="search-inp" placeholder="এলাকা বা পি.ও. দিয়ে খুঁজুন..." oninput="applyFilters()"/>
+    </div>
+    <div class="filter-row">
+      <select class="filter-select" id="filter-type" onchange="applyFilters()">
+        <option value="">🌿 সব ধরন</option>
+        <option value="কৃষি জমি">কৃষি জমি</option>
+        <option value="বাসস্থান">বাসস্থান</option>
+        <option value="বাণিজ্যিক">বাণিজ্যিক</option>
+        <option value="বাগান">বাগান</option>
+        <option value="পুকুর সহ">পুকুর সহ</option>
+      </select>
+      <select class="filter-select" id="filter-price" onchange="applyFilters()">
+        <option value="">💰 সব দাম</option>
+        <option value="low">৫ লাখের নিচে</option>
+        <option value="mid">৫–১০ লাখ</option>
+        <option value="high">১০ লাখের বেশি</option>
+      </select>
+      <select class="filter-select" id="filter-neg" onchange="applyFilters()">
+        <option value="">🤝 সব</option>
+        <option value="yes">দরাদরি যোগ্য</option>
+        <option value="no">নির্দিষ্ট দাম</option>
+      </select>
+    </div>
+  </div>
+  <div class="result-count" id="result-count"></div>
+  <div style="padding:0 14px;" id="listings-container"></div>
+</div>
+
+</div><!-- /wrap -->
+</div><!-- /app -->
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────────
+var lang = 'bn';
+var notifiedIds = [];
+var photoDataUrls = []; // store selected photos as data URLs
+
+var listings = [
+  {id:1, po:'Bolpur', road:'NH14', landmark:'Near Visva-Bharati University',
+   price:'8,00,000', priceNum:800000, negotiable:true, mobile:'9876500000',
+   hasVideo:true, photos:[], size:'10', unit:'কাঠা', type:'বাসস্থান', facing:'উত্তর',
+   maps:'https://maps.google.com/?q=Bolpur+West+Bengal'},
+  {id:2, po:'Suri', road:'Village Road', landmark:'Near Old Pond',
+   price:'3,50,000', priceNum:350000, negotiable:false, mobile:'7012400000',
+   hasVideo:true, photos:[], size:'5', unit:'কাঠা', type:'কৃষি জমি', facing:'দক্ষিণ',
+   maps:''},
+  {id:3, po:'Rampurhat', road:'Rampurhat-Nalhati Road', landmark:'Near Bus Stand',
+   price:'12,00,000', priceNum:1200000, negotiable:true, mobile:'9123400000',
+   hasVideo:false, photos:[], size:'2', unit:'বিঘা', type:'বাণিজ্যিক', facing:'পূর্ব',
+   maps:'https://maps.google.com/?q=Rampurhat+West+Bengal'},
+];
+
+// ── Translations ──────────────────────────────────────────────────────────────
+var T = {
+  bn:{
+    appName:'নো ব্রোকার', langBtn:'English',
+    tagline:'সরাসরি জমির কেনাবেচা। কোনো দালাল নেই।',
+    sub:'বীরভূমের ক্রেতা ও বিক্রেতাদের সাথে সরাসরি যোগাযোগ করুন',
+    sell:'জমি বিক্রি করুন', sellDesc:'ভিডিও ও ছবি সহ আপনার প্লট লিস্ট করুন',
+    buy:'জমি কিনুন', buyDesc:'সরাসরি আপনার পছন্দের জমি খুঁজুন',
+    viewListings:'সব তালিকা দেখুন', back:'← ফিরে যান',
+    district:'বীরভূম', totalListings:'টি তালিকা পাওয়া গেছে',
+    sTitle:'🌾 আপনার জমির তথ্য দিন',
+    sSec1:'📹 ভিডিও ও ছবি', sSec2:'📍 অবস্থান', sSec3:'🌿 জমির বিবরণ', sSec4:'💰 মূল্য ও যোগাযোগ',
+    sVideoLbl:'জমির ভিডিও (সর্বোচ্চ ৩ মিনিট)',
+    sVideoTap:'ভিডিও বেছে নিতে চাপুন (সর্বোচ্চ ৩ মিনিট)',
+    sPhotoLbl:'জমির ছবি (সর্বোচ্চ ৫টি)', sPhotoTap:'ছবি বেছে নিতে চাপুন (সর্বোচ্চ ৫টি)',
+    sDistrictLbl:'জেলা', sPo:'পোস্ট অফিস (পি.ও.) *', sPoPh:'যেমন: সিউড়ি, বোলপুর...',
+    sRoad:'রাস্তা / এলাকা', sRoadPh:'যেমন: NH14, গ্রামের রাস্তা...',
+    sLandmark:'ল্যান্ড মার্ক', sLandmarkPh:'যেমন: স্কুলের পাশে...',
+    sMaps:'Google Maps লিঙ্ক (ঐচ্ছিক)', sMapsPh:'https://maps.google.com/...',
+    sSizeLbl:'জমির পরিমাণ *', sSizePh:'যেমন: 5',
+    sUnitLbl:'একক', sTypeLbl:'জমির ধরন *', sFacingLbl:'মুখ (Facing)',
+    sPrice:'বিক্রয় মূল্য (₹) *', sPricePh:'যেমন: ৫,০০,০০০',
+    sNeg:'দাম দরাদরি যোগ্য', sMob:'মোবাইল নম্বর (WhatsApp) *', sMobPh:'১০ সংখ্যার মোবাইল নম্বর',
+    sSubmit:'জমির বিজ্ঞাপন দিন',
+    sSuccess:'✓ আপনার জমি সফলভাবে তালিকাভুক্ত হয়েছে!',
+    sError:'⚠️ অনুগ্রহ করে সব তথ্য পূরণ করুন।',
+    bTitle:'🔍 আগ্রহ দেখান', bMob:'মোবাইল নম্বর *', bMobPh:'১০ সংখ্যার মোবাইল নম্বর',
+    bPo:'পোস্ট অফিস (পি.ও.)', bPoPh:'যেমন: সিউড়ি, বোলপুর...',
+    bDistrict:'জেলা', bBudget:'বাজেট (₹)', bBudgetPh:'যেমন: ৫,০০,০০০',
+    bType:'জমির ধরন', bRemarks:'মন্তব্য / প্রয়োজনীয়তা', bRemarksPh:'নির্দিষ্ট কোনো প্রয়োজন থাকলে লিখুন...',
+    bSubmit:'আগ্রহ দেখান ও বিক্রেতাকে জানান',
+    bSuccess:'✓ আপনার তথ্য পাঠানো হয়েছে! বিক্রেতারা যোগাযোগ করবেন।',
+    bError:'⚠️ অনুগ্রহ করে মোবাইল নম্বর দিন।',
+    lTitle:'🗺️ উপলব্ধ জমির তালিকা',
+    searchPh:'এলাকা বা পি.ও. দিয়ে খুঁজুন...',
+    location:'অবস্থান', contact:'যোগাযোগ', road:'রাস্তা', landmark:'ল্যান্ড মার্ক',
+    size:'পরিমাণ', type:'ধরন', facing:'মুখ',
+    videoAvail:'ভিডিও আছে', negotiable:'দরাদরি যোগ্য', fixed:'নির্দিষ্ট দাম',
+    callBtn:'📞 কল করুন', waBtn:'💬 WhatsApp', intBtn:'⭐ আগ্রহী',
+    notified:'✓ জানানো হয়েছে', mapsBtn:'🗺️ Google Maps এ দেখুন',
+    shareBtn:'📤 WhatsApp এ শেয়ার করুন',
+    noListings:'কোনো তালিকা পাওয়া যায়নি।',
+    filterAll:'🌿 সব ধরন', filterLow:'৫ লাখের নিচে', filterMid:'৫–১০ লাখ', filterHigh:'১০ লাখের বেশি',
+  },
+  en:{
+    appName:'NO BROKER', langBtn:'বাংলা',
+    tagline:'Direct Land Deals. No Middleman.',
+    sub:'Connect directly with buyers & sellers in Birbhum',
+    sell:'Sell Land', sellDesc:'List your plot with video & photos',
+    buy:'Buy Land', buyDesc:'Find your perfect land directly',
+    viewListings:'View All Listings', back:'← Back',
+    district:'Birbhum', totalListings:'listings found',
+    sTitle:'🌾 List Your Land',
+    sSec1:'📹 Video & Photos', sSec2:'📍 Location', sSec3:'🌿 Land Details', sSec4:'💰 Price & Contact',
+    sVideoLbl:'Land Video (max 3 minutes)',
+    sVideoTap:'Tap to select video (max 3 minutes)',
+    sPhotoLbl:'Land Photos (max 5)', sPhotoTap:'Tap to select photos (max 5)',
+    sDistrictLbl:'District', sPo:'Post Office (P.O.) *', sPoPh:'e.g. Suri, Bolpur...',
+    sRoad:'Road / Area', sRoadPh:'e.g. NH14, Village Road...',
+    sLandmark:'Land Mark', sLandmarkPh:'e.g. Near School...',
+    sMaps:'Google Maps Link (optional)', sMapsPh:'https://maps.google.com/...',
+    sSizeLbl:'Land Size *', sSizePh:'e.g. 5',
+    sUnitLbl:'Unit', sTypeLbl:'Land Type *', sFacingLbl:'Facing Direction',
+    sPrice:'Selling Price (₹) *', sPricePh:'e.g. 5,00,000',
+    sNeg:'Price is Negotiable', sMob:'Mobile Number (WhatsApp) *', sMobPh:'10-digit mobile number',
+    sSubmit:'Post Land Listing',
+    sSuccess:'✓ Your land is listed successfully!',
+    sError:'⚠️ Please fill all required fields.',
+    bTitle:'🔍 Show Interest', bMob:'Mobile Number *', bMobPh:'10-digit mobile number',
+    bPo:'Post Office (P.O.)', bPoPh:'e.g. Suri, Bolpur...',
+    bDistrict:'District', bBudget:'Budget (₹)', bBudgetPh:'e.g. 5,00,000',
+    bType:'Land Type', bRemarks:'Remarks / Requirements', bRemarksPh:'Any specific requirements...',
+    bSubmit:'Show Interest & Notify Seller',
+    bSuccess:'✓ Your details submitted! Sellers will contact you.',
+    bError:'⚠️ Please enter your mobile number.',
+    lTitle:'🗺️ Available Land Listings',
+    searchPh:'Search by area or P.O....',
+    location:'Location', contact:'Contact', road:'Road', landmark:'Landmark',
+    size:'Size', type:'Type', facing:'Facing',
+    videoAvail:'Video Available', negotiable:'Negotiable', fixed:'Fixed Price',
+    callBtn:'📞 Call', waBtn:'💬 WhatsApp', intBtn:'⭐ Interested',
+    notified:'✓ Notified', mapsBtn:'🗺️ View on Google Maps',
+    shareBtn:'📤 Share on WhatsApp',
+    noListings:'No listings found.',
+    filterAll:'🌿 All Types', filterLow:'Under 5 Lakh', filterMid:'5–10 Lakh', filterHigh:'Above 10 Lakh',
+  }
+};
+
+// ── Screen ────────────────────────────────────────────────────────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='listings-screen') applyFilters();
+}
+
+// ── Language ──────────────────────────────────────────────────────────────────
+function toggleLang(){ lang = lang==='bn'?'en':'bn'; applyLang(); }
+
+function applyLang(){
+  var t=T[lang];
+  document.getElementById('app-name').textContent=t.appName;
+  document.getElementById('lang-btn').textContent=t.langBtn;
+  document.getElementById('h-tagline').textContent=t.tagline;
+  document.getElementById('h-sub').textContent=t.sub;
+  document.getElementById('h-sell').textContent=t.sell;
+  document.getElementById('h-sell-desc').textContent=t.sellDesc;
+  document.getElementById('h-buy').textContent=t.buy;
+  document.getElementById('h-buy-desc').textContent=t.buyDesc;
+  document.getElementById('h-view-listings').textContent=t.viewListings;
+  document.getElementById('s-back').textContent=t.back;
+  document.getElementById('s-title').textContent=t.sTitle;
+  document.getElementById('s-dist-lbl').textContent=t.district;
+  document.getElementById('s-sec1').textContent=t.sSec1;
+  document.getElementById('s-sec2').textContent=t.sSec2;
+  document.getElementById('s-sec3').textContent=t.sSec3;
+  document.getElementById('s-sec4').textContent=t.sSec4;
+  document.getElementById('s-video-lbl').textContent=t.sVideoLbl;
+  document.getElementById('s-video-tap').textContent=t.sVideoTap;
+  document.getElementById('s-photo-lbl').textContent=t.sPhotoLbl;
+  document.getElementById('s-photo-tap').textContent=t.sPhotoTap;
+  document.getElementById('s-district-lbl').textContent=t.sDistrictLbl;
+  document.getElementById('s-district-val').value=t.district;
+  document.getElementById('s-po-lbl').textContent=t.sPo;
+  document.getElementById('s-po').placeholder=t.sPoPh;
+  document.getElementById('s-road-lbl').textContent=t.sRoad;
+  document.getElementById('s-road').placeholder=t.sRoadPh;
+  document.getElementById('s-landmark-lbl').textContent=t.sLandmark;
+  document.getElementById('s-landmark').placeholder=t.sLandmarkPh;
+  document.getElementById('s-maps-lbl').textContent=t.sMaps;
+  document.getElementById('s-maps').placeholder=t.sMapsPh;
+  document.getElementById('s-size-lbl').textContent=t.sSizeLbl;
+  document.getElementById('s-size').placeholder=t.sSizePh;
+  document.getElementById('s-unit-lbl').textContent=t.sUnitLbl;
+  document.getElementById('s-type-lbl').textContent=t.sTypeLbl;
+  document.getElementById('s-facing-lbl').textContent=t.sFacingLbl;
+  document.getElementById('s-price-lbl').textContent=t.sPrice;
+  document.getElementById('s-price').placeholder=t.sPricePh;
+  document.getElementById('s-neg-lbl').textContent=t.sNeg;
+  document.getElementById('s-mob-lbl').textContent=t.sMob;
+  document.getElementById('s-mobile').placeholder=t.sMobPh;
+  document.getElementById('s-submit').textContent=t.sSubmit;
+  document.getElementById('s-success').textContent=t.sSuccess;
+  document.getElementById('s-error').textContent=t.sError;
+  document.getElementById('b-back').textContent=t.back;
+  document.getElementById('b-title').textContent=t.bTitle;
+  document.getElementById('b-dist-lbl').textContent=t.district;
+  document.getElementById('b-mob-lbl').textContent=t.bMob;
+  document.getElementById('b-mobile').placeholder=t.bMobPh;
+  document.getElementById('b-po-lbl').textContent=t.bPo;
+  document.getElementById('b-po').placeholder=t.bPoPh;
+  document.getElementById('b-district-lbl').textContent=t.bDistrict;
+  document.getElementById('b-district-val').value=t.district;
+  document.getElementById('b-budget-lbl').textContent=t.bBudget;
+  document.getElementById('b-budget').placeholder=t.bBudgetPh;
+  document.getElementById('b-type-lbl').textContent=t.bType;
+  document.getElementById('b-remarks-lbl').textContent=t.bRemarks;
+  document.getElementById('b-remarks').placeholder=t.bRemarksPh;
+  document.getElementById('b-submit').textContent=t.bSubmit;
+  document.getElementById('b-success').textContent=t.bSuccess;
+  document.getElementById('b-error').textContent=t.bError;
+  document.getElementById('l-back').textContent=t.back;
+  document.getElementById('l-title').textContent=t.lTitle;
+  document.getElementById('search-inp').placeholder=t.searchPh;
+  applyFilters();
+}
+
+// ── Media ─────────────────────────────────────────────────────────────────────
+function videoSelected(input){
+  var name=input.files[0]?input.files[0].name:'';
+  document.getElementById('video-name-display').textContent=name?'✓ '+name:'';
+}
+
+function photosSelected(input){
+  var files=Array.from(input.files).slice(0,5);
+  photoDataUrls=[];
+  var preview=document.getElementById('photo-preview');
+  preview.innerHTML='';
+  files.forEach(function(file){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      photoDataUrls.push(e.target.result);
+      var img=document.createElement('img');
+      img.src=e.target.result; img.className='photo-thumb';
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ── Seller Submit ─────────────────────────────────────────────────────────────
+function submitSeller(){
+  var po=document.getElementById('s-po').value.trim();
+  var price=document.getElementById('s-price').value.trim();
+  var mobile=document.getElementById('s-mobile').value.trim();
+  var size=document.getElementById('s-size').value.trim();
+  var type=document.getElementById('s-type').value;
+  if(!po||!price||!mobile||!size||!type){showMsg('s-error');return;}
+  var priceNum=parseInt(price.replace(/[^0-9]/g,''))||0;
+  var newItem={
+    id:Date.now(),
+    po:po, road:document.getElementById('s-road').value.trim(),
+    landmark:document.getElementById('s-landmark').value.trim(),
+    price:price, priceNum:priceNum,
+    negotiable:document.getElementById('s-neg').checked,
+    mobile:mobile,
+    hasVideo:!!document.getElementById('video-name-display').textContent,
+    photos:photoDataUrls.slice(),
+    size:size, unit:document.getElementById('s-unit').value,
+    type:type, facing:document.getElementById('s-facing').value,
+    maps:document.getElementById('s-maps').value.trim(),
+  };
+  listings.unshift(newItem);
+  document.getElementById('listing-count').textContent=listings.length;
+  // clear
+  ['s-po','s-road','s-landmark','s-price','s-mobile','s-size','s-maps'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('s-neg').checked=false;
+  document.getElementById('s-type').value='';
+  document.getElementById('s-facing').value='';
+  document.getElementById('video-name-display').textContent='';
+  document.getElementById('photo-preview').innerHTML='';
+  photoDataUrls=[];
+  showMsg('s-success');
+  setTimeout(function(){showScreen('listings-screen');},2000);
+}
+
+// ── Buyer Submit ──────────────────────────────────────────────────────────────
+function submitBuyer(){
+  if(!document.getElementById('b-mobile').value.trim()){showMsg('b-error');return;}
+  ['b-mobile','b-po','b-remarks','b-budget'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('b-type').value='';
+  showMsg('b-success');
+  setTimeout(function(){showScreen('listings-screen');},2000);
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function showMsg(id){
+  var el=document.getElementById(id);
+  el.style.display='block';
+  setTimeout(function(){el.style.display='none';},3000);
+}
+
+function showInterest(id){
+  if(notifiedIds.indexOf(id)!==-1)return;
+  notifiedIds.push(id);
+  var btn=document.getElementById('ibtn-'+id);
+  btn.textContent=T[lang].notified; btn.classList.add('notified');
+}
+
+function shareOnWhatsApp(item){
+  var t=T[lang];
+  var text='🏡 *'+t.appName+'* - জমি বিক্রয়\n\n'
+    +'📍 '+item.po+', '+t.district+'\n'
+    +(item.road?'🛣️ '+item.road+'\n':'')
+    +(item.landmark?'🏫 '+item.landmark+'\n':'')
+    +'🌿 '+item.size+' '+item.unit+' | '+item.type+'\n'
+    +'💰 ₹'+item.price+(item.negotiable?' (দরাদরি যোগ্য)':'')+'\n'
+    +'📞 '+item.mobile+'\n\n'
+    +'👉 https://devilwork-1819.github.io/no-broker';
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+}
+
+// ── Filter & Render ───────────────────────────────────────────────────────────
+function applyFilters(){
+  var t=T[lang];
+  var q=(document.getElementById('search-inp').value||'').toLowerCase().trim();
+  var fType=(document.getElementById('filter-type').value||'');
+  var fPrice=(document.getElementById('filter-price').value||'');
+  var fNeg=(document.getElementById('filter-neg').value||'');
+
+  var filtered=listings.filter(function(item){
+    if(q && item.po.toLowerCase().indexOf(q)===-1
+         && item.road.toLowerCase().indexOf(q)===-1
+         && item.landmark.toLowerCase().indexOf(q)===-1) return false;
+    if(fType && item.type!==fType) return false;
+    if(fPrice==='low' && item.priceNum>=500000) return false;
+    if(fPrice==='mid' && (item.priceNum<500000||item.priceNum>1000000)) return false;
+    if(fPrice==='high' && item.priceNum<=1000000) return false;
+    if(fNeg==='yes' && !item.negotiable) return false;
+    if(fNeg==='no' && item.negotiable) return false;
+    return true;
+  });
+
+  document.getElementById('result-count').textContent=filtered.length+' '+t.totalListings;
+
+  var container=document.getElementById('listings-container');
+  if(filtered.length===0){
+    container.innerHTML='<div class="no-listings">🏜️ '+t.noListings+'</div>';
+    return;
+  }
+
+  var html='';
+  filtered.forEach(function(item){
+    var isNotified=notifiedIds.indexOf(item.id)!==-1;
+    html+='<div class="listing-card">';
+    // Top row
+    html+='<div class="listing-top"><div>';
+    html+='<div class="listing-price">₹ '+item.price+'</div>';
+    if(item.negotiable) html+='<div class="listing-neg">'+t.negotiable+'</div>';
+    if(item.type) html+='<div class="listing-type-badge">'+item.type+'</div>';
+    html+='</div><div style="font-size:28px">🏡</div></div>';
+
+    // Photos
+    if(item.photos && item.photos.length>0){
+      html+='<div class="listing-photos">';
+      item.photos.forEach(function(src){
+        html+='<img class="listing-photo" src="'+src+'" alt="land photo"/>';
+      });
+      html+='</div>';
+    }
+
+    // Video tag
+    if(item.hasVideo) html+='<div class="media-tag"><span>🎥</span><span>'+t.videoAvail+'</span></div>';
+
+    // Info rows
+    html+='<div class="info-row"><span class="info-lbl">'+t.location+':</span><span>'+item.po+', '+t.district+'</span></div>';
+    if(item.road) html+='<div class="info-row"><span class="info-lbl">'+t.road+':</span><span>'+item.road+'</span></div>';
+    if(item.landmark) html+='<div class="info-row"><span class="info-lbl">'+t.landmark+':</span><span>'+item.landmark+'</span></div>';
+    if(item.size && item.unit) html+='<div class="info-row"><span class="info-lbl">'+t.size+':</span><span>'+item.size+' '+item.unit+'</span></div>';
+    if(item.facing) html+='<div class="info-row"><span class="info-lbl">'+t.facing+':</span><span>'+item.facing+'</span></div>';
+    html+='<div class="info-row"><span class="info-lbl">'+t.contact+':</span><span>📞 '+item.mobile+'</span></div>';
+
+    // Action buttons
+    html+='<div class="action-btns">';
+    html+='<a class="btn-call" href="tel:'+item.mobile+'">'+t.callBtn+'</a>';
+    html+='<a class="btn-wa" href="https://wa.me/91'+item.mobile+'" target="_blank">'+t.waBtn+'</a>';
+    html+='<button id="ibtn-'+item.id+'" class="btn-interest'+(isNotified?' notified':'')+'" onclick="showInterest('+item.id+')">'+(isNotified?t.notified:t.intBtn)+'</button>';
+    html+='</div>';
+
+    // Maps & Share
+    if(item.maps) html+='<a class="btn-maps" href="'+item.maps+'" target="_blank">'+t.mapsBtn+'</a>';
+    html+='<button class="share-btn" onclick="shareOnWhatsApp('+JSON.stringify(item).replace(/'/g,"&#39;")+')" >'+t.shareBtn+'</button>';
+
+    html+='</div>';
+  });
+  container.innerHTML=html;
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+document.getElementById('s-district-val').value='বীরভূম';
+document.getElementById('b-district-val').value='বীরভূম';
+document.getElementById('listing-count').textContent=listings.length;
+</script>
+</body>
+</html>
