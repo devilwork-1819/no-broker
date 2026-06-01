@@ -2,75 +2,78 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="theme-color" content="#006d77"/>
 <title>NO BROKER | নো ব্রোকার</title>
 <style>
-:root { --teal-bg: #006d77; --accent: #ffb703; --card-bg: #83c5be; }
-body { background: var(--teal-bg); color: #fff; font-family: sans-serif; margin: 0; }
+/* Teal Blue Theme */
+:root { --primary: #006d77; --accent: #ffb703; --bg: #006d77; }
+body { background: var(--bg); color: #fff; font-family: sans-serif; margin: 0; }
 .app { max-width: 480px; margin: 0 auto; padding: 20px; }
-
-/* New Card Colors */
-.card { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: transform 0.2s; }
-.card:active { transform: scale(0.98); }
-
-/* Status Badges */
-.status-badge { padding: 5px 10px; border-radius: 10px; font-size: 12px; font-weight: bold; }
-.status-sale { background: #2a9d8f; }
-.status-sold { background: #e76f51; }
-
-.inp { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; }
-.submit-btn { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
-#payment-section { display: none; margin-top: 20px; padding: 20px; border: 2px solid var(--accent); }
+.card { background: #83c5be; border-radius: 16px; padding: 20px; margin-bottom: 15px; cursor: pointer; color: #000; }
+.inp { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; }
+.submit-btn { width: 100%; padding: 15px; background: var(--accent); border: none; border-radius: 10px; font-weight: bold; cursor: pointer; color: #000; }
+#payment-section { display: none; background: #edf6f9; padding: 20px; border-radius: 15px; color: #000; margin-top: 20px; }
+.status-badge { display: inline-block; padding: 4px 8px; border-radius: 5px; font-size: 10px; color: #fff; cursor: pointer; }
+.sale { background: #2a9d8f; }
+.sold { background: #e76f51; }
 </style>
 </head>
 <body>
 <div class="app">
     <h1>NO BROKER</h1>
-
+    
     <div id="home-screen">
-        <div class="card" onclick="scrollToSection('seller-screen')">🌾 Sell Land</div>
-        <div class="card" onclick="scrollToSection('buyer-screen')">🔍 Buy Land</div>
+        <div class="card" onclick="document.getElementById('seller-screen').scrollIntoView({behavior:'smooth'})">🌾 Sell Land</div>
+        <div class="card" onclick="document.getElementById('buyer-screen').scrollIntoView({behavior:'smooth'})">🔍 Buy Land</div>
         <div id="listings-container"></div>
     </div>
 
     <div id="seller-screen" style="margin-top:50px;">
-        <h2>List Your Land</h2>
+        <h2>Sell Your Land</h2>
         <input type="text" id="s-po" class="inp" placeholder="Post Office">
         <input type="number" id="s-price" class="inp" placeholder="Price">
-        <input type="text" id="s-pass" class="inp" placeholder="Create Seller Password (for status change)">
-        <button class="submit-btn" onclick="goToPayment()">Proceed to Pay</button>
+        <input type="password" id="s-pass" class="inp" placeholder="Seller Password (for status change)">
+        <button class="submit-btn" onclick="preparePayment()">Publish Land Listing</button>
     </div>
 
     <div id="payment-section">
         <h3>Pay ₹499 to Publish</h3>
+        <p>Send to UPI: 9483319235@upi</p>
         <button class="submit-btn" onclick="completeListing()">Confirm Payment</button>
+    </div>
+
+    <div id="buyer-screen" style="margin-top:50px;">
+        <h2>Buy Land</h2>
+        <input type="text" id="b-mobile" class="inp" placeholder="Mobile Number">
+        <button class="submit-btn" onclick="buyLand()">Submit Interest</button>
     </div>
 </div>
 
 <script>
-let pendingListing = null;
 let listings = [];
+let pendingListing = null;
 
-function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-}
-
-function goToPayment() {
-    pendingListing = { 
-        po: document.getElementById('s-po').value, 
+function preparePayment() {
+    pendingListing = {
+        po: document.getElementById('s-po').value,
         price: document.getElementById('s-price').value,
         pass: document.getElementById('s-pass').value,
         status: 'FOR SALE'
     };
     document.getElementById('payment-section').style.display = 'block';
-    scrollToSection('payment-section');
+    document.getElementById('payment-section').scrollIntoView({behavior:'smooth'});
 }
 
 function completeListing() {
     listings.push(pendingListing);
     alert("Thank You, your land details will be displayed in few minutes");
-    renderListings();
     document.getElementById('payment-section').style.display = 'none';
+    renderListings();
+}
+
+function buyLand() {
+    alert("Thank You, here is the contact number: 9483319235");
 }
 
 function toggleStatus(index) {
@@ -87,9 +90,9 @@ function renderListings() {
     let container = document.getElementById('listings-container');
     container.innerHTML = listings.map((l, i) => `
         <div class="card">
-            <span class="status-badge ${l.status === 'FOR SALE' ? 'status-sale' : 'status-sold'}" onclick="toggleStatus(${i})">${l.status}</span>
+            <span class="status-badge ${l.status === 'FOR SALE' ? 'sale' : 'sold'}" onclick="toggleStatus(${i})">${l.status}</span>
             <h3>${l.po}</h3>
-            <p>₹${l.price}</p>
+            <p>Price: ₹${l.price}</p>
         </div>
     `).join('');
 }
