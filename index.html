@@ -146,7 +146,7 @@ select.inp option{background:#1a1a2e;color:#fff;}
     <div class="hero-sub" id="h-sub"></div>
   </div>
   <div class="card-row">
-    <div class="card" id="sell-card" onclick="showScreen('seller-pay-screen')">
+    <div class="card" id="sell-card" onclick="showScreen('seller-screen')">
       <div class="card-icon">🌾</div>
       <div class="card-title" id="h-sell"></div>
       <div class="card-desc" id="h-sell-desc"></div>
@@ -167,40 +167,13 @@ select.inp option{background:#1a1a2e;color:#fff;}
     <div class="how-row"><div class="how-num">4</div><div class="how-text" id="how-4"></div></div>
   </div>
   <div class="list-btn" onclick="showScreen('listings-screen')">
-    🗺️ <span id="h-view-listings"></span> (<span id="listing-count">3</span>)
+    🗺️ <span id="h-view-listings"></span> (<span id="listing-count">4/span>)
   </div>
   <div class="footer-note" id="footer-note"></div>
 </div>
 
-<!-- SELLER PAYMENT SCREEN -->
-<div id="seller-pay-screen" class="screen">
-  <button class="back-btn" onclick="showScreen('home-screen')" id="sp-back"></button>
-  <div class="form-title" id="sp-title"></div>
-  <div class="form-sub" id="sp-sub"></div>
-  <div class="pay-card">
-    <div class="pay-amount">₹499</div>
-    <div class="pay-label" id="sp-label"></div>
-    <div class="pay-upi-box">
-      <div class="pay-upi-label" id="sp-upi-label"></div>
-      <div class="pay-upi-id">9483319235@upi</div>
-    </div>
-    <div class="pay-steps">
-      <div class="pay-step"><div class="pay-step-num">1</div><div class="pay-step-text" id="sp-s1"></div></div>
-      <div class="pay-step"><div class="pay-step-num">2</div><div class="pay-step-text" id="sp-s2"></div></div>
-      <div class="pay-step"><div class="pay-step-num">3</div><div class="pay-step-text" id="sp-s3"></div></div>
-      <div class="pay-step"><div class="pay-step-num">4</div><div class="pay-step-text" id="sp-s4"></div></div>
-    </div>
-    <div class="pay-apps">
-      <a class="pay-app-btn pay-gpay" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR">📱 GPay</a>
-      <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR">📱 PhonePe</a>
-      <a class="pay-app-btn pay-paytm" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR">📱 Paytm</a>
-    </div>
-    <label class="lbl" id="sp-txn-lbl"></label>
-    <input class="pay-txn-inp" id="seller-txn" placeholder=""/>
-    <button class="pay-confirm-btn" id="sp-confirm-btn" onclick="confirmSellerPayment()"></button>
-    <div class="pay-note" id="sp-note"></div>
-  </div>
-</div>
+<!-- SELLER PAYMENT SCREEN (hidden - no longer used, direct to form) -->
+<div id="seller-pay-screen" class="screen" style="display:none!important;"></div>
 
 <!-- SELLER FORM -->
 <div id="seller-screen" class="screen">
@@ -209,6 +182,23 @@ select.inp option{background:#1a1a2e;color:#fff;}
   <div class="form-sub" id="s-form-sub"></div>
   <div class="success-box" id="s-success"></div>
   <div class="error-box" id="s-error"></div>
+
+  <!-- Payment banner inside form -->
+  <div class="pay-card" style="margin-bottom:16px;">
+    <div class="pay-amount">₹499</div>
+    <div class="pay-label" id="sp-label"></div>
+    <div class="pay-upi-box">
+      <div class="pay-upi-label" id="sp-upi-label"></div>
+      <div class="pay-upi-id">9483319235@upi</div>
+    </div>
+    <div class="pay-apps">
+      <a class="pay-app-btn pay-gpay" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR" onclick="sellerPaid()">📱 GPay</a>
+      <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR" onclick="sellerPaid()">📱 PhonePe</a>
+      <a class="pay-app-btn pay-paytm" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR" onclick="sellerPaid()">📱 Paytm</a>
+    </div>
+    <div class="pay-note" id="sp-note"></div>
+  </div>
+
   <div class="section-divider" id="s-sec1"></div>
   <label class="lbl" id="s-video-lbl"></label>
   <div class="media-box" onclick="document.getElementById('video-input').click()">
@@ -226,7 +216,7 @@ select.inp option{background:#1a1a2e;color:#fff;}
   <div class="photo-preview" id="photo-preview"></div>
   <div class="section-divider" id="s-sec2"></div>
   <label class="lbl" id="s-district-lbl"></label>
-  <input class="inp" id="s-district-val" readonly/>
+  <select class="inp" id="s-district-val" onchange="updateDistrictDisplay()"></select>
   <label class="lbl" id="s-po-lbl"></label>
   <input class="inp" id="s-po" placeholder=""/>
   <label class="lbl" id="s-road-lbl"></label>
@@ -283,7 +273,7 @@ select.inp option{background:#1a1a2e;color:#fff;}
   <label class="lbl" id="b-po-lbl"></label>
   <input class="inp" id="b-po" placeholder=""/>
   <label class="lbl" id="b-district-lbl"></label>
-  <input class="inp" id="b-district-val" readonly/>
+  <select class="inp" id="b-district-val"></select>
   <label class="lbl" id="b-budget-lbl"></label>
   <input class="inp" id="b-budget" type="text" placeholder=""/>
   <label class="lbl" id="b-type-lbl"></label>
@@ -305,6 +295,7 @@ select.inp option{background:#1a1a2e;color:#fff;}
       <input class="search-inp" id="search-inp" oninput="applyFilters()"/>
     </div>
     <div class="filter-row">
+      <select class="filter-select" id="filter-district" onchange="applyFilters()"></select>
       <select class="filter-select" id="filter-type" onchange="applyFilters()"></select>
       <select class="filter-select" id="filter-price" onchange="applyFilters()"></select>
       <select class="filter-select" id="filter-neg" onchange="applyFilters()"></select>
@@ -333,13 +324,10 @@ select.inp option{background:#1a1a2e;color:#fff;}
         <div class="pay-step"><div class="pay-step-num">3</div><div class="pay-step-text" id="modal-s3"></div></div>
       </div>
       <div class="pay-apps">
-        <a class="pay-app-btn pay-gpay" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR">📱 GPay</a>
-        <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR">📱 PhonePe</a>
-        <a class="pay-app-btn pay-paytm" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR">📱 Paytm</a>
+        <a class="pay-app-btn pay-gpay" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 GPay</a>
+        <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 PhonePe</a>
+        <a class="pay-app-btn pay-paytm" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 Paytm</a>
       </div>
-      <label class="lbl" id="modal-txn-lbl"></label>
-      <input class="pay-txn-inp" id="buyer-txn" placeholder=""/>
-      <button class="pay-confirm-btn" id="modal-confirm-btn" onclick="confirmBuyerPayment()"></button>
       <div class="pay-note" id="modal-note"></div>
     </div>
   </div>
@@ -349,9 +337,10 @@ select.inp option{background:#1a1a2e;color:#fff;}
 <script>
 var lang='bn', photoDataUrls=[], unlockedIds=[], currentUnlockId=null;
 var listings=[
-  {id:1,po:'Bolpur',road:'NH14',landmark:'Near Visva-Bharati University',price:'8,00,000',priceNum:800000,negotiable:true,mobile:'9876500000',hasVideo:true,photos:[],size:'10',unit:'কাঠা',type:'বাসস্থান',facing:'উত্তর',maps:'https://maps.google.com/?q=Bolpur+West+Bengal',verified:true},
-  {id:2,po:'Suri',road:'Village Road',landmark:'Near Old Pond',price:'3,50,000',priceNum:350000,negotiable:false,mobile:'7012400000',hasVideo:true,photos:[],size:'5',unit:'কাঠা',type:'কৃষি জমি',facing:'দক্ষিণ',maps:'',verified:true},
-  {id:3,po:'Rampurhat',road:'Rampurhat-Nalhati Road',landmark:'Near Bus Stand',price:'12,00,000',priceNum:1200000,negotiable:true,mobile:'9123400000',hasVideo:false,photos:[],size:'2',unit:'বিঘা',type:'বাণিজ্যিক',facing:'পূর্ব',maps:'https://maps.google.com/?q=Rampurhat+West+Bengal',verified:true},
+  {id:1,district:'Birbhum',po:'Bolpur',road:'NH14',landmark:'Near Visva-Bharati University',price:'8,00,000',priceNum:800000,negotiable:true,mobile:'9876500000',hasVideo:true,photos:[],size:'10',unit:'কাঠা',type:'বাসস্থান',facing:'উত্তর',maps:'https://maps.google.com/?q=Bolpur+West+Bengal',verified:true},
+  {id:2,district:'Birbhum',po:'Suri',road:'Village Road',landmark:'Near Old Pond',price:'3,50,000',priceNum:350000,negotiable:false,mobile:'7012400000',hasVideo:true,photos:[],size:'5',unit:'কাঠা',type:'কৃষি জমি',facing:'দক্ষিণ',maps:'',verified:true},
+  {id:3,district:'Murshidabad',po:'Berhampore',road:'NH12',landmark:'Near Collectorate',price:'12,00,000',priceNum:1200000,negotiable:true,mobile:'9123400000',hasVideo:false,photos:[],size:'2',unit:'বিঘা',type:'বাণিজ্যিক',facing:'পূর্ব',maps:'https://maps.google.com/?q=Berhampore+West+Bengal',verified:true},
+  {id:4,district:'Bankura',po:'Bishnupur',road:'State Highway 5',landmark:'Near Temple',price:'4,50,000',priceNum:450000,negotiable:true,mobile:'8765400000',hasVideo:false,photos:[],size:'8',unit:'কাঠা',type:'কৃষি জমি',facing:'উত্তর',maps:'',verified:true},
 ];
 
 /* ── All text strings ─────────────────────────────────────────────── */
@@ -359,7 +348,7 @@ var T={
 bn:{
   appName:'নো ব্রোকার', langBtn:'English',
   tagline:'সরাসরি জমির কেনাবেচা। কোনো দালাল নেই।',
-  heroSub:'বীরভূমের ক্রেতা ও বিক্রেতাদের সাথে সরাসরি যোগাযোগ করুন',
+  heroSub:'পশ্চিমবঙ্গের ক্রেতা ও বিক্রেতাদের সাথে সরাসরি যোগাযোগ করুন',
   sellTitle:'জমি বিক্রি করুন', sellDesc:'ভিডিও ও ছবি সহ আপনার প্লট লিস্ট করুন', sellFee:'₹499 মাত্র',
   buyTitle:'জমি কিনুন', buyDesc:'সরাসরি আপনার পছন্দের জমি খুঁজুন', buyFee:'নম্বর আনলক ₹99',
   howTitle:'⚡ কীভাবে কাজ করে?',
@@ -368,7 +357,7 @@ bn:{
   how3:'ক্রেতা ₹99 দিয়ে বিক্রেতার নম্বর আনলক করেন',
   how4:'সরাসরি যোগাযোগ — কোনো দালাল নেই! 🤝',
   viewListings:'সব তালিকা দেখুন',
-  footerNote:'বীরভূম জেলার সরাসরি জমি কেনাবেচার প্ল্যাটফর্ম · দালালমুক্ত',
+  footerNote:'পশ্চিমবঙ্গের সরাসরি জমি কেনাবেচার প্ল্যাটফর্ম · দালালমুক্ত',
   back:'← ফিরে যান',
   /* seller payment */
   spTitle:'💰 লিস্টিং ফি পরিশোধ করুন',
@@ -385,7 +374,7 @@ bn:{
   spNote:'পেমেন্ট যাচাই করার পর আপনার বিজ্ঞাপন প্রকাশিত হবে।\nসমস্যার জন্য WhatsApp করুন: 9483319235',
   /* seller form */
   sTitle:'🌾 আপনার জমির তথ্য দিন',
-  sFormSub:'📍 বীরভূম · ✓ পেমেন্ট সম্পন্ন',
+  sFormSub:'📍 পশ্চিমবঙ্গ · ✓ পেমেন্ট সম্পন্ন',
   sSuccess:'✓ আপনার জমি সফলভাবে তালিকাভুক্ত হয়েছে!',
   sError:'⚠️ অনুগ্রহ করে সব তথ্য পূরণ করুন।',
   sec1:'📹 ভিডিও ও ছবি', sec2:'📍 অবস্থান', sec3:'🌿 জমির বিবরণ', sec4:'💰 মূল্য ও যোগাযোগ',
@@ -393,7 +382,7 @@ bn:{
   sVideoTap:'ভিডিও বেছে নিতে চাপুন (সর্বোচ্চ ৩ মিনিট)',
   sPhotoLbl:'জমির ছবি (সর্বোচ্চ ৫টি)',
   sPhotoTap:'ছবি বেছে নিতে চাপুন (সর্বোচ্চ ৫টি)',
-  sDistrictLbl:'জেলা', districtVal:'বীরভূম',
+  sDistrictLbl:'জেলা (District) *', districtVal:'Birbhum',
   sPo:'পোস্ট অফিস (পি.ও.) *', sPoPh:'যেমন: সিউড়ি, বোলপুর, রামপুরহাট...',
   sRoad:'রাস্তা / এলাকা', sRoadPh:'যেমন: NH14, গ্রামের রাস্তা...',
   sLandmark:'ল্যান্ড মার্ক', sLandmarkPh:'যেমন: স্কুলের পাশে, পুকুরের পাশে...',
@@ -412,7 +401,7 @@ bn:{
   sSubmit:'✓ জমির বিজ্ঞাপন প্রকাশ করুন',
   /* buyer */
   bTitle:'🔍 জমি খুঁজুন',
-  bFormSub:'📍 বীরভূম — বিনামূল্যে তালিকা দেখুন',
+  bFormSub:'📍 পশ্চিমবঙ্গ — বিনামূল্যে তালিকা দেখুন',
   bSuccess:'✓ আপনার তথ্য পাঠানো হয়েছে!',
   bError:'⚠️ অনুগ্রহ করে মোবাইল নম্বর দিন।',
   bFeeTitle:'📋 ক্রেতার জন্য মূল্য তালিকা',
@@ -432,6 +421,7 @@ bn:{
   searchPh:'এলাকা বা পি.ও. দিয়ে খুঁজুন...',
   filterTypeAll:'🌿 সব ধরন',
   filterTypeOpts:['কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ'],
+  filterDistrictAll:'📍 সব জেলা',
   filterPriceAll:'💰 সব দাম', filterLow:'৫ লাখের নিচে', filterMid:'৫–১০ লাখ', filterHigh:'১০ লাখের বেশি',
   filterNegAll:'🤝 সব', filterNegY:'দরাদরি যোগ্য', filterNegN:'নির্দিষ্ট দাম',
   totalFound:'টি তালিকা পাওয়া গেছে',
@@ -457,7 +447,7 @@ bn:{
 en:{
   appName:'NO BROKER', langBtn:'বাংলা',
   tagline:'Direct Land Deals. No Middleman.',
-  heroSub:'Connect directly with buyers & sellers in Birbhum',
+  heroSub:'Connect directly with buyers & sellers across West Bengal',
   sellTitle:'Sell Land', sellDesc:'List your plot with video & photos', sellFee:'Only ₹499',
   buyTitle:'Buy Land', buyDesc:'Find your perfect land directly', buyFee:'Unlock number ₹99',
   howTitle:'⚡ How It Works?',
@@ -466,7 +456,7 @@ en:{
   how3:'Buyer pays ₹99 to unlock seller\'s number',
   how4:'Direct contact — No broker! 🤝',
   viewListings:'View All Listings',
-  footerNote:'Direct land marketplace for Birbhum District · Broker-free',
+  footerNote:'Direct land marketplace across West Bengal · Broker-free',
   back:'← Back',
   /* seller payment */
   spTitle:'💰 Pay Listing Fee',
@@ -483,7 +473,7 @@ en:{
   spNote:'Your listing will be published after payment verification.\nFor help WhatsApp: 9483319235',
   /* seller form */
   sTitle:'🌾 List Your Land',
-  sFormSub:'📍 Birbhum · ✓ Payment Confirmed',
+  sFormSub:'📍 West Bengal · ✓ Payment Confirmed',
   sSuccess:'✓ Your land is listed successfully!',
   sError:'⚠️ Please fill all required fields.',
   sec1:'📹 Video & Photos', sec2:'📍 Location', sec3:'🌿 Land Details', sec4:'💰 Price & Contact',
@@ -491,7 +481,7 @@ en:{
   sVideoTap:'Tap to select video (max 3 minutes)',
   sPhotoLbl:'Land Photos (max 5)',
   sPhotoTap:'Tap to select photos (max 5)',
-  sDistrictLbl:'District', districtVal:'Birbhum',
+  sDistrictLbl:'District *', districtVal:'Birbhum',
   sPo:'Post Office (P.O.) *', sPoPh:'e.g. Suri, Bolpur, Rampurhat...',
   sRoad:'Road / Area', sRoadPh:'e.g. NH14, Village Road...',
   sLandmark:'Land Mark', sLandmarkPh:'e.g. Near School, Near Pond...',
@@ -510,7 +500,7 @@ en:{
   sSubmit:'✓ Publish Land Listing',
   /* buyer */
   bTitle:'🔍 Find Land',
-  bFormSub:'📍 Birbhum — Browse listings for free',
+  bFormSub:'📍 West Bengal — Browse listings for free',
   bSuccess:'✓ Your details submitted!',
   bError:'⚠️ Please enter your mobile number.',
   bFeeTitle:'📋 Buyer Price List',
@@ -530,6 +520,7 @@ en:{
   searchPh:'Search by area or P.O....',
   filterTypeAll:'🌿 All Types',
   filterTypeOpts:['Agricultural','Residential','Commercial','Garden','With Pond'],
+  filterDistrictAll:'📍 All Districts',
   filterPriceAll:'💰 All Prices', filterLow:'Under 5 Lakh', filterMid:'5–10 Lakh', filterHigh:'Above 10 Lakh',
   filterNegAll:'🤝 All', filterNegY:'Negotiable', filterNegN:'Fixed Price',
   totalFound:'listings found',
@@ -578,18 +569,8 @@ function applyLang(){
   document.getElementById('h-view-listings').textContent=t.viewListings;
   document.getElementById('footer-note').textContent=t.footerNote;
   /* seller payment */
-  document.getElementById('sp-back').textContent=t.back;
-  document.getElementById('sp-title').textContent=t.spTitle;
-  document.getElementById('sp-sub').textContent=t.spSub;
   document.getElementById('sp-label').textContent=t.spLabel;
   document.getElementById('sp-upi-label').textContent=t.upiLabel;
-  document.getElementById('sp-s1').textContent=t.spS1;
-  document.getElementById('sp-s2').innerHTML=t.spS2;
-  document.getElementById('sp-s3').textContent=t.spS3;
-  document.getElementById('sp-s4').textContent=t.spS4;
-  document.getElementById('sp-txn-lbl').textContent=t.txnLbl;
-  document.getElementById('seller-txn').placeholder=t.txnPh;
-  document.getElementById('sp-confirm-btn').textContent=t.spConfirm;
   document.getElementById('sp-note').innerHTML=t.spNote.replace('\n','<br/>');
   /* seller form */
   document.getElementById('s-back').textContent=t.back;
@@ -606,7 +587,6 @@ function applyLang(){
   document.getElementById('s-photo-lbl').textContent=t.sPhotoLbl;
   document.getElementById('s-photo-tap').textContent=t.sPhotoTap;
   document.getElementById('s-district-lbl').textContent=t.sDistrictLbl;
-  document.getElementById('s-district-val').value=t.districtVal;
   document.getElementById('s-po-lbl').textContent=t.sPo;
   document.getElementById('s-po').placeholder=t.sPoPh;
   document.getElementById('s-road-lbl').textContent=t.sRoad;
@@ -643,7 +623,6 @@ function applyLang(){
   document.getElementById('b-po-lbl').textContent=t.bPoLbl;
   document.getElementById('b-po').placeholder=t.bPoPh;
   document.getElementById('b-district-lbl').textContent=t.bDistrictLbl;
-  document.getElementById('b-district-val').value=t.districtVal;
   document.getElementById('b-budget-lbl').textContent=t.bBudgetLbl;
   document.getElementById('b-budget').placeholder=t.bBudgetPh;
   document.getElementById('b-type-lbl').textContent=t.bTypeLbl;
@@ -666,11 +645,9 @@ function applyLang(){
   document.getElementById('modal-s1').textContent=t.modalS1;
   document.getElementById('modal-s2').innerHTML=t.modalS2;
   document.getElementById('modal-s3').textContent=t.modalS3;
-  document.getElementById('modal-txn-lbl').textContent=t.txnLbl;
-  document.getElementById('buyer-txn').placeholder=t.modalTxnPh;
-  document.getElementById('modal-confirm-btn').textContent=t.modalConfirm;
   document.getElementById('modal-note').innerHTML=t.modalNote.replace('\n','<br/>');
   applyFilters();
+  populateDistrictDropdowns();
   } catch(e){ console.error('applyLang error:',e); }
 }
 
@@ -691,10 +668,12 @@ function toggleLang(){lang=lang==='bn'?'en':'bn'; applyLang();}
 function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);if(id==='listings-screen')applyFilters();}
 
 /* ── Payment ─────────────────────────────────────────────────────── */
-function confirmSellerPayment(){
-  var txn=document.getElementById('seller-txn').value.trim();
-  if(!txn){alert(lang==='bn'?'Transaction ID দিন':'Enter Transaction ID');return;}
-  showScreen('seller-screen');
+function sellerPaid(){
+  // Payment app opened — form is already visible, just scroll down
+  setTimeout(function(){
+    var sec = document.getElementById('s-sec1');
+    if(sec) sec.scrollIntoView({behavior:'smooth'});
+  }, 500);
 }
 
 /* ── Media ───────────────────────────────────────────────────────── */
@@ -712,8 +691,9 @@ function submitSeller(){
   var mobile=document.getElementById('s-mobile').value.trim();
   var size=document.getElementById('s-size').value.trim();
   var type=document.getElementById('s-type').value;
-  if(!po||!price||!mobile||!size||!type){showMsg('s-error');return;}
-  listings.unshift({id:Date.now(),po:po,road:document.getElementById('s-road').value.trim(),landmark:document.getElementById('s-landmark').value.trim(),price:price,priceNum:parseInt(price.replace(/[^0-9]/g,''))||0,negotiable:document.getElementById('s-neg').checked,mobile:mobile,hasVideo:!!document.getElementById('video-name-display').textContent,photos:photoDataUrls.slice(),size:size,unit:document.getElementById('s-unit').value,type:type,facing:document.getElementById('s-facing').value,maps:document.getElementById('s-maps').value.trim(),verified:true});
+  var district=document.getElementById('s-district-val').value;
+  if(!po||!price||!mobile||!size||!type||!district){showMsg('s-error');return;}
+  listings.unshift({id:Date.now(),district:district,po:po,road:document.getElementById('s-road').value.trim(),landmark:document.getElementById('s-landmark').value.trim(),price:price,priceNum:parseInt(price.replace(/[^0-9]/g,''))||0,negotiable:document.getElementById('s-neg').checked,mobile:mobile,hasVideo:!!document.getElementById('video-name-display').textContent,photos:photoDataUrls.slice(),size:size,unit:document.getElementById('s-unit').value,type:type,facing:document.getElementById('s-facing').value,maps:document.getElementById('s-maps').value.trim(),verified:true});
   document.getElementById('listing-count').textContent=listings.length;
   ['s-po','s-road','s-landmark','s-price','s-mobile','s-size','s-maps'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('s-neg').checked=false;document.getElementById('s-type').value='';document.getElementById('s-facing').value='';
@@ -733,15 +713,17 @@ function submitBuyer(){
 function openUnlockModal(id){
   currentUnlockId=id;
   var item=listings.find(function(l){return l.id===id;});
-  if(item) document.getElementById('modal-listing-info').textContent='📍 '+item.po+', '+(lang==='bn'?'বীরভূম':'Birbhum')+' · ₹'+item.price;
-  document.getElementById('buyer-txn').value='';
+  if(item) document.getElementById('modal-listing-info').textContent='📍 '+(item.district||item.po)+' · ₹'+item.price;
   document.getElementById('buyer-pay-modal').classList.add('active');
 }
 function closeModal(){document.getElementById('buyer-pay-modal').classList.remove('active');currentUnlockId=null;}
 function confirmBuyerPayment(){
-  var txn=document.getElementById('buyer-txn').value.trim();
-  if(!txn){alert(lang==='bn'?'Transaction ID দিন':'Enter Transaction ID');return;}
-  if(currentUnlockId!==null){unlockedIds.push(currentUnlockId);closeModal();applyFilters();}
+  // Auto-unlock immediately when payment app is tapped
+  if(currentUnlockId!==null){
+    unlockedIds.push(currentUnlockId);
+    closeModal();
+    applyFilters();
+  }
 }
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
@@ -749,9 +731,66 @@ function showMsg(id){var el=document.getElementById(id);el.style.display='block'
 function maskNumber(num){return num.substring(0,3)+'XXXXXXX';}
 function shareOnWhatsApp(item){
   var t=T[lang];
-  var text='🏡 *'+t.appName+'* - '+(lang==='bn'?'জমি বিক্রয়':'Land for Sale')+'\n\n📍 '+item.po+', '+t.districtVal+'\n'+(item.road?'🛣️ '+item.road+'\n':'')+(item.landmark?'🏫 '+item.landmark+'\n':'')+'🌿 '+item.size+' '+item.unit+' | '+item.type+'\n💰 ₹'+item.price+(item.negotiable?' ('+(lang==='bn'?'দরাদরি যোগ্য':'Negotiable')+')':'')+'\n\n👉 https://devilwork-1819.github.io/no-broker';
+  var dist=item.district||item.po;
+  var text='🏡 *'+t.appName+'* - '+(lang==='bn'?'জমি বিক্রয়':'Land for Sale')+'\n\n📍 '+item.po+', '+dist+', পশ্চিমবঙ্গ\n'+(item.road?'🛣️ '+item.road+'\n':'')+(item.landmark?'🏫 '+item.landmark+'\n':'')+'🌿 '+item.size+' '+item.unit+' | '+item.type+'\n💰 ₹'+item.price+(item.negotiable?' ('+(lang==='bn'?'দরাদরি যোগ্য':'Negotiable')+')':'')+'\n\n👉 https://devilwork-1819.github.io/no-broker';
   window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
 }
+
+/* ── WB Districts ────────────────────────────────────────────────── */
+var WB_DISTRICTS=[
+  'Alipurduar','Bankura','Birbhum','Cooch Behar','Dakshin Dinajpur',
+  'Darjeeling','Hooghly','Howrah','Jalpaiguri','Jhargram',
+  'Kalimpong','Kolkata','Malda','Murshidabad','Nadia',
+  'North 24 Parganas','Paschim Bardhaman','Paschim Medinipur',
+  'Purba Bardhaman','Purba Medinipur','Purulia','South 24 Parganas',
+  'Uttar Dinajpur'
+];
+var WB_DISTRICTS_BN=[
+  'আলিপুরদুয়ার','বাঁকুড়া','বীরভূম','কোচবিহার','দক্ষিণ দিনাজপুর',
+  'দার্জিলিং','হুগলি','হাওড়া','জলপাইগুড়ি','ঝাড়গ্রাম',
+  'কালিম্পং','কলকাতা','মালদা','মুর্শিদাবাদ','নদিয়া',
+  'উত্তর ২৪ পরগনা','পশ্চিম বর্ধমান','পশ্চিম মেদিনীপুর',
+  'পূর্ব বর্ধমান','পূর্ব মেদিনীপুর','পুরুলিয়া','দক্ষিণ ২৪ পরগনা',
+  'উত্তর দিনাজপুর'
+];
+
+function populateDistrictDropdowns(){
+  var labels = lang==='bn' ? WB_DISTRICTS_BN : WB_DISTRICTS;
+  var placeholder = lang==='bn' ? '-- জেলা বেছে নিন --' : '-- Select District --';
+  var filterPlaceholder = lang==='bn' ? '📍 সব জেলা' : '📍 All Districts';
+
+  // Seller & Buyer district (required selection)
+  ['s-district-val','b-district-val'].forEach(function(selId){
+    var sel = document.getElementById(selId);
+    if(!sel) return;
+    var cur = sel.value;
+    sel.innerHTML = '<option value="">'+placeholder+'</option>';
+    WB_DISTRICTS.forEach(function(d,i){
+      var opt = document.createElement('option');
+      opt.value = d;
+      opt.textContent = lang==='bn' ? WB_DISTRICTS_BN[i] : d;
+      sel.appendChild(opt);
+    });
+    if(selId==='s-district-val' && !cur) sel.value='Birbhum';
+    else if(cur) sel.value=cur;
+  });
+
+  // Filter district (has "All" option)
+  var fSel = document.getElementById('filter-district');
+  if(fSel){
+    var cur = fSel.value;
+    fSel.innerHTML = '<option value="">'+filterPlaceholder+'</option>';
+    WB_DISTRICTS.forEach(function(d,i){
+      var opt = document.createElement('option');
+      opt.value = d;
+      opt.textContent = lang==='bn' ? WB_DISTRICTS_BN[i] : d;
+      fSel.appendChild(opt);
+    });
+    if(cur) fSel.value=cur;
+  }
+}
+
+function updateDistrictDisplay(){}
 
 /* ── Filter & Render ─────────────────────────────────────────────── */
 function applyFilters(){
@@ -760,14 +799,16 @@ function applyFilters(){
   var fT=document.getElementById('filter-type').value||'';
   var fP=document.getElementById('filter-price').value||'';
   var fN=document.getElementById('filter-neg').value||'';
+  var fD=document.getElementById('filter-district') ? document.getElementById('filter-district').value||'' : '';
   var filtered=listings.filter(function(item){
-    if(q&&item.po.toLowerCase().indexOf(q)===-1&&item.road.toLowerCase().indexOf(q)===-1&&item.landmark.toLowerCase().indexOf(q)===-1)return false;
+    if(q&&(item.po||'').toLowerCase().indexOf(q)===-1&&(item.road||'').toLowerCase().indexOf(q)===-1&&(item.landmark||'').toLowerCase().indexOf(q)===-1&&(item.district||'').toLowerCase().indexOf(q)===-1)return false;
     if(fT&&item.type!==fT)return false;
     if(fP==='low'&&item.priceNum>=500000)return false;
     if(fP==='mid'&&(item.priceNum<500000||item.priceNum>1000000))return false;
     if(fP==='high'&&item.priceNum<=1000000)return false;
     if(fN==='yes'&&!item.negotiable)return false;
     if(fN==='no'&&item.negotiable)return false;
+    if(fD&&item.district!==fD)return false;
     return true;
   });
   document.getElementById('result-count').textContent=filtered.length+' '+t.totalFound;
@@ -777,6 +818,7 @@ function applyFilters(){
   filtered.forEach(function(item){
     var isUnlocked=unlockedIds.indexOf(item.id)!==-1;
     var itemStr=JSON.stringify(item).replace(/"/g,'&quot;');
+    var distDisplay = item.district || item.po;
     html+='<div class="listing-card">';
     html+='<div class="listing-top"><div>';
     html+='<div class="listing-price">₹ '+item.price+'</div>';
@@ -786,7 +828,7 @@ function applyFilters(){
     html+='</div><div style="font-size:28px">🏡</div></div>';
     if(item.photos&&item.photos.length>0){html+='<div class="listing-photos">';item.photos.forEach(function(s){html+='<img class="listing-photo" src="'+s+'"/>';});html+='</div>';}
     if(item.hasVideo)html+='<div class="media-tag"><span>🎥</span><span>'+t.videoAvail+'</span></div>';
-    html+='<div class="info-row"><span class="info-lbl">'+t.locLbl+':</span><span>'+item.po+', '+t.districtVal+'</span></div>';
+    html+='<div class="info-row"><span class="info-lbl">'+t.locLbl+':</span><span>'+item.po+', '+distDisplay+', পশ্চিমবঙ্গ</span></div>';
     if(item.road)html+='<div class="info-row"><span class="info-lbl">'+t.roadLbl+':</span><span>'+item.road+'</span></div>';
     if(item.landmark)html+='<div class="info-row"><span class="info-lbl">'+t.landLbl+':</span><span>'+item.landmark+'</span></div>';
     if(item.size)html+='<div class="info-row"><span class="info-lbl">'+t.sizeLbl+':</span><span>'+item.size+' '+item.unit+'</span></div>';
