@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#008080"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-title" content="NO BROKER"/>
-<title>NO BROKER | নো ব্রোকার</title>
+<meta name="apple-mobile-web-app-title" content="BROKER MUKTO"/>
+<title>BROKER MUKTO | ব্রোকার মুক্তো</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -201,8 +201,8 @@ select.inp option{background:#006070;color:#fff;}
 <!-- HEADER -->
 <div class="hdr">
   <div>
-    <div class="logo" id="app-name">নো ব্রোকার</div>
-    <div class="logo-sub">NO BROKER · নো ব্রোকার</div>
+    <div class="logo" id="app-name">ব্রোকার মুক্তো</div>
+    <div class="logo-sub">BROKER MUKTO · ব্রোকার মুক্তো</div>
   </div>
   <button class="lang-btn" onclick="toggleLang()" id="lang-btn">English</button>
 </div>
@@ -317,7 +317,7 @@ select.inp option{background:#006070;color:#fff;}
     <div class="pay-label" id="sp-label"></div>
     <div class="pay-upi-box">
       <div class="pay-upi-label" id="sp-upi-label"></div>
-      <div class="pay-upi-id">9483319235@upi</div>
+      <div class="pay-upi-id">Q893475252@ybl</div>
     </div>
     <div class="pay-steps">
       <div class="pay-step"><div class="pay-step-num">1</div><div class="pay-step-text" id="sp-s1"></div></div>
@@ -325,9 +325,9 @@ select.inp option{background:#006070;color:#fff;}
       <div class="pay-step"><div class="pay-step-num">3</div><div class="pay-step-text" id="sp-s3"></div></div>
     </div>
     <div class="pay-apps">
-      <a class="pay-app-btn pay-gpay" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR" onclick="sellerPaid()">📱 GPay</a>
-      <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR" onclick="sellerPaid()">📱 PhonePe</a>
-      <a class="pay-app-btn pay-paytm" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=499&cu=INR" onclick="sellerPaid()">📱 Paytm</a>
+      <a class="pay-app-btn pay-gpay" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=499&cu=INR" onclick="sellerPaid()">📱 GPay</a>
+      <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=499&cu=INR" onclick="sellerPaid()">📱 PhonePe</a>
+      <a class="pay-app-btn pay-paytm" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=499&cu=INR" onclick="sellerPaid()">📱 Paytm</a>
     </div>
     <div class="pay-note" id="sp-note"></div>
   </div>
@@ -405,18 +405,31 @@ select.inp option{background:#006070;color:#fff;}
       <div class="pay-label" id="modal-pay-label"></div>
       <div class="pay-upi-box">
         <div class="pay-upi-label" id="modal-upi-label"></div>
-        <div class="pay-upi-id">9483319235@upi</div>
+        <div class="pay-upi-id">Q893475252@ybl</div>
       </div>
       <div class="pay-apps">
-        <a class="pay-app-btn pay-gpay" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 GPay</a>
-        <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 PhonePe</a>
-        <a class="pay-app-btn pay-paytm" href="upi://pay?pa=9483319235@upi&pn=NoBroker&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 Paytm</a>
+        <a class="pay-app-btn pay-gpay" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 GPay</a>
+        <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 PhonePe</a>
+        <a class="pay-app-btn pay-paytm" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 Paytm</a>
       </div>
       <div class="pay-note" id="modal-note"></div>
     </div>
   </div>
 </div>
 
+
+<!-- SELLER VERIFY MODAL -->
+<div class="modal-overlay" id="verify-modal">
+  <div class="modal-box" style="padding-bottom:32px;">
+    <button class="modal-close" onclick="closeVerifyModal()">✕</button>
+    <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:6px;" id="verify-title">🔐 বিক্রেতা যাচাই</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:18px;" id="verify-sub">শুধুমাত্র বিক্রেতা এই স্ট্যাটাস পরিবর্তন করতে পারবেন।</div>
+    <label class="lbl" id="verify-lbl">আপনার নিবন্ধিত মোবাইল নম্বর দিন</label>
+    <input class="inp" id="verify-mob-inp" type="tel" placeholder="১০ সংখ্যার মোবাইল নম্বর" style="margin-bottom:8px;"/>
+    <div id="verify-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;" id="verify-err-txt">❌ মোবাইল নম্বর মিলছে না। শুধুমাত্র আসল বিক্রেতা স্ট্যাটাস পরিবর্তন করতে পারবেন।</div>
+    <button class="submit-btn" onclick="confirmSellerVerify()" style="margin-top:6px;" id="verify-btn">✓ যাচাই করুন ও স্ট্যাটাস পরিবর্তন করুন</button>
+  </div>
+</div>
 </div></div>
 <script>
 var lang='bn', photoDataUrls=[], unlockedIds=[], currentUnlockId=null;
@@ -431,33 +444,33 @@ var listings=[
 
 var T={
 bn:{
-  appName:'নো ব্রোকার',langBtn:'English',
-  tagline:'সরাসরি জমির কেনাবেচা। কোনো দালাল নেই।',
+  appName:'ব্রোকার মুক্তো',langBtn:'English',
+  tagline:'সরাসরি সম্পত্তির কেনাবেচা। কোনো দালাল নেই।',
   heroSub:'পশ্চিমবঙ্গের ক্রেতা ও বিক্রেতাদের সাথে সরাসরি যোগাযোগ করুন',
-  sellTitle:'জমি বিক্রি করুন',sellDesc:'ভিডিও ও ছবি সহ আপনার প্লট লিস্ট করুন',sellFee:'₹499 মাত্র',
-  buyTitle:'জমি কিনুন',buyDesc:'সরাসরি আপনার পছন্দের জমি খুঁজুন',buyFee:'নম্বর আনলক ₹99',
+  sellTitle:'সম্পত্তি বিক্রি করুন',sellDesc:'ভিডিও ও ছবি সহ আপনার সম্পত্তি লিস্ট করুন',sellFee:'₹499 মাত্র',
+  buyTitle:'সম্পত্তি কিনুন',buyDesc:'সরাসরি আপনার পছন্দের সম্পত্তি খুঁজুন',buyFee:'নম্বর আনলক ₹99',
   howTitle:'⚡ কীভাবে কাজ করে?',
-  how1:'বিক্রেতা ₹499 পেমেন্ট করে জমির বিজ্ঞাপন দেন',
+  how1:'বিক্রেতা ₹499 পেমেন্ট করে সম্পত্তির বিজ্ঞাপন দেন',
   how2:'ক্রেতা বিনামূল্যে সব তালিকা দেখতে পান',
   how3:'ক্রেতা ₹99 দিয়ে বিক্রেতার নম্বর আনলক করেন',
   how4:'সরাসরি যোগাযোগ — কোনো দালাল নেই! 🤝',
   viewListings:'সব তালিকা দেখুন',
-  footerNote:'পশ্চিমবঙ্গের সরাসরি জমি কেনাবেচার প্ল্যাটফর্ম · দালালমুক্ত',
+  footerNote:'পশ্চিমবঙ্গের সরাসরি সম্পত্তি কেনাবেচার প্ল্যাটফর্ম · দালালমুক্ত',
   back:'← ফিরে যান',
-  sTitle:'🌾 আপনার জমির তথ্য দিন',
+  sTitle:'🌾 আপনার সম্পত্তির তথ্য দিন',
   sFormSub:'📍 পশ্চিমবঙ্গ — সব তথ্য পূরণ করুন',
   sError:'⚠️ অনুগ্রহ করে সব তথ্য পূরণ করুন।',
-  sec1:'📹 ভিডিও ও ছবি',sec2:'📍 অবস্থান',sec3:'🌿 জমির বিবরণ',sec4:'💰 মূল্য ও যোগাযোগ',
-  sVideoLbl:'জমির ভিডিও (সর্বোচ্চ ৩ মিনিট)',sVideoTap:'ভিডিও বেছে নিতে চাপুন',
-  sPhotoLbl:'জমির ছবি (সর্বোচ্চ ৫টি)',sPhotoTap:'ছবি বেছে নিতে চাপুন',
+  sec1:'📹 ভিডিও ও ছবি',sec2:'📍 অবস্থান',sec3:'🌿 সম্পত্তির বিবরণ',sec4:'💰 মূল্য ও যোগাযোগ',
+  sVideoLbl:'সম্পত্তির ভিডিও (সর্বোচ্চ ৩ মিনিট)',sVideoTap:'ভিডিও বেছে নিতে চাপুন',
+  sPhotoLbl:'সম্পত্তির ছবি (সর্বোচ্চ ৫টি)',sPhotoTap:'ছবি বেছে নিতে চাপুন',
   sDistrictLbl:'জেলা (District) *',districtVal:'Birbhum',
   sPo:'পোস্ট অফিস (পি.ও.) *',sPoPh:'যেমন: সিউড়ি, বোলপুর...',
   sRoad:'রাস্তা / এলাকা',sRoadPh:'যেমন: NH14, গ্রামের রাস্তা...',
   sLandmark:'ল্যান্ড মার্ক',sLandmarkPh:'যেমন: স্কুলের পাশে...',
   sMaps:'Google Maps লিঙ্ক (ঐচ্ছিক)',
-  sSizeLbl:'জমির পরিমাণ *',sUnitLbl:'একক',
+  sSizeLbl:'সম্পত্তির পরিমাণ *',sUnitLbl:'একক',
   unitOpts:['কাঠা','বিঘা','ডেসিমাল','একর'],
-  sTypeLbl:'জমির ধরন *',
+  sTypeLbl:'সম্পত্তির ধরন *',
   typeOpts:['-- বেছে নিন --','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ'],
   typeVals:['','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ'],
   sFacingLbl:'মুখ (Facing)',
@@ -469,16 +482,16 @@ bn:{
   sSubmit:'পরবর্তী → পেমেন্ট করুন',
   spBack:'← ফর্মে ফিরুন',
   spTitle:'💰 লিস্টিং ফি পরিশোধ করুন',
-  spSub:'পেমেন্ট সম্পন্ন হলে আপনার জমি তালিকায় যোগ হবে',
-  spLabel:'একটি জমির বিজ্ঞাপন · সম্পূর্ণ তালিকা',
+  spSub:'পেমেন্ট সম্পন্ন হলে আপনার সম্পত্তি তালিকায় যোগ হবে',
+  spLabel:'একটি সম্পত্তির বিজ্ঞাপন · সম্পূর্ণ তালিকা',
   upiLabel:'UPI ID তে পেমেন্ট করুন',
   spS1:'নিচের যেকোনো অ্যাপ খুলুন',
-  spS2:'9483319235@upi তে ₹499 পাঠান',
+  spS2:'Q893475252@ybl তে ₹499 পাঠান',
   spS3:'পেমেন্ট হলে আপনার তথ্য তালিকায় যোগ হবে',
   spNote:'সমস্যার জন্য WhatsApp করুন: 9483319235',
-  spTyTitle:'🎉 ধন্যবাদ! আপনার জমির তথ্য কিছুক্ষণের মধ্যে তালিকায় দেখাবে।',
+  spTyTitle:'🎉 ধন্যবাদ! আপনার সম্পত্তির তথ্য কিছুক্ষণের মধ্যে তালিকায় দেখাবে।',
   spTyText:'আপনার পেমেন্ট যাচাই করা হচ্ছে। সাধারণত ৫-১০ মিনিটের মধ্যে প্রকাশিত হবে।',
-  bTitle:'🔍 জমি খুঁজুন',bFormSub:'📍 পশ্চিমবঙ্গ — বিনামূল্যে তালিকা দেখুন',
+  bTitle:'🔍 সম্পত্তি খুঁজুন',bFormSub:'📍 পশ্চিমবঙ্গ — বিনামূল্যে তালিকা দেখুন',
   bSuccess:'✓ আপনার তথ্য পাঠানো হয়েছে!',bError:'⚠️ অনুগ্রহ করে মোবাইল নম্বর দিন।',
   bFeeTitle:'📋 ক্রেতার জন্য মূল্য তালিকা',
   bFeeFree:'বিনামূল্যে',bFeeFreeSub:'তালিকা দেখুন',bFeeUnlockSub:'নম্বর আনলক',
@@ -487,11 +500,11 @@ bn:{
   bPoLbl:'পোস্ট অফিস (পি.ও.)',bPoPh:'যেমন: সিউড়ি, বোলপুর...',
   bDistrictLbl:'জেলা',
   bBudgetLbl:'বাজেট (₹)',bBudgetPh:'যেমন: ৫,০০,০০০',
-  bTypeLbl:'জমির ধরন',
+  bTypeLbl:'সম্পত্তির ধরন',
   bTypeOpts:['-- যেকোনো --','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান'],
   bRemarksLbl:'মন্তব্য / প্রয়োজনীয়তা',bRemarksPh:'নির্দিষ্ট কোনো প্রয়োজন থাকলে লিখুন...',
   bSubmit:'🔍 তালিকা দেখতে যান',
-  lTitle:'🗺️ উপলব্ধ জমির তালিকা',
+  lTitle:'🗺️ উপলব্ধ সম্পত্তির তালিকা',
   searchPh:'এলাকা বা পি.ও. দিয়ে খুঁজুন...',
   filterTypeAll:'🌿 সব ধরন',
   filterTypeOpts:['কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ'],
@@ -516,33 +529,33 @@ bn:{
   bTyTitle:'ধন্যবাদ! এই বিক্রেতার যোগাযোগ নম্বর:',
 },
 en:{
-  appName:'NO BROKER',langBtn:'বাংলা',
+  appName:'BROKER MUKTO',langBtn:'বাংলা',
   tagline:'Direct Land Deals. No Middleman.',
   heroSub:'Connect directly with buyers & sellers across West Bengal',
-  sellTitle:'Sell Land',sellDesc:'List your plot with video & photos',sellFee:'Only ₹499',
-  buyTitle:'Buy Land',buyDesc:'Find your perfect land directly',buyFee:'Unlock number ₹99',
+  sellTitle:'Sell Property',sellDesc:'List your plot with video & photos',sellFee:'Only ₹499',
+  buyTitle:'Buy Property',buyDesc:'Find your perfect land directly',buyFee:'Unlock number ₹99',
   howTitle:'⚡ How It Works?',
-  how1:'Seller pays ₹499 and posts land listing',
+  how1:'Seller pays ₹499 and posts property listing',
   how2:'Buyer views all listings for free',
   how3:'Buyer pays ₹99 to unlock seller\'s number',
   how4:'Direct contact — No broker! 🤝',
   viewListings:'View All Listings',
-  footerNote:'Direct land marketplace across West Bengal · Broker-free',
+  footerNote:'Direct property marketplace across West Bengal · Broker-free',
   back:'← Back',
-  sTitle:'🌾 List Your Land',
+  sTitle:'🌾 List Your Property',
   sFormSub:'📍 West Bengal — Fill all details',
   sError:'⚠️ Please fill all required fields.',
-  sec1:'📹 Video & Photos',sec2:'📍 Location',sec3:'🌿 Land Details',sec4:'💰 Price & Contact',
-  sVideoLbl:'Land Video (max 3 minutes)',sVideoTap:'Tap to select video',
-  sPhotoLbl:'Land Photos (max 5)',sPhotoTap:'Tap to select photos',
+  sec1:'📹 Video & Photos',sec2:'📍 Location',sec3:'🌿 Property Details',sec4:'💰 Price & Contact',
+  sVideoLbl:'Property Video (max 3 minutes)',sVideoTap:'Tap to select video',
+  sPhotoLbl:'Property Photos (max 5)',sPhotoTap:'Tap to select photos',
   sDistrictLbl:'District *',districtVal:'Birbhum',
   sPo:'Post Office (P.O.) *',sPoPh:'e.g. Suri, Bolpur...',
   sRoad:'Road / Area',sRoadPh:'e.g. NH14, Village Road...',
   sLandmark:'Land Mark',sLandmarkPh:'e.g. Near School...',
   sMaps:'Google Maps Link (optional)',
-  sSizeLbl:'Land Size *',sUnitLbl:'Unit',
+  sSizeLbl:'Property Size *',sUnitLbl:'Unit',
   unitOpts:['Katha','Bigha','Decimal','Acre'],
-  sTypeLbl:'Land Type *',
+  sTypeLbl:'Property Type *',
   typeOpts:['-- Select --','Agricultural','Residential','Commercial','Garden','With Pond'],
   typeVals:['','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ'],
   sFacingLbl:'Facing Direction',
@@ -554,16 +567,16 @@ en:{
   sSubmit:'Next → Proceed to Payment',
   spBack:'← Back to Form',
   spTitle:'💰 Pay Listing Fee',
-  spSub:'Your land will be added to listings after payment',
-  spLabel:'One land listing · Full visibility',
+  spSub:'Your property will be added to listings after payment',
+  spLabel:'One property listing · Full visibility',
   upiLabel:'Pay to UPI ID',
   spS1:'Open any payment app below',
-  spS2:'Send ₹499 to 9483319235@upi',
+  spS2:'Send ₹499 to Q893475252@ybl',
   spS3:'Your listing will appear after payment',
   spNote:'For help WhatsApp: 9483319235',
-  spTyTitle:'🎉 Thank You! Your land details will be displayed in a few minutes.',
+  spTyTitle:'🎉 Thank You! Your property details will be displayed in a few minutes.',
   spTyText:'Your payment is being verified. Usually published within 5-10 minutes.',
-  bTitle:'🔍 Find Land',bFormSub:'📍 West Bengal — Browse listings for free',
+  bTitle:'🔍 Find Property',bFormSub:'📍 West Bengal — Browse listings for free',
   bSuccess:'✓ Your details submitted!',bError:'⚠️ Please enter your mobile number.',
   bFeeTitle:'📋 Buyer Price List',
   bFeeFree:'Free',bFeeFreeSub:'View Listings',bFeeUnlockSub:'Unlock Number',
@@ -572,11 +585,11 @@ en:{
   bPoLbl:'Post Office (P.O.)',bPoPh:'e.g. Suri, Bolpur...',
   bDistrictLbl:'District',
   bBudgetLbl:'Budget (₹)',bBudgetPh:'e.g. 5,00,000',
-  bTypeLbl:'Land Type',
+  bTypeLbl:'Property Type',
   bTypeOpts:['-- Any --','Agricultural','Residential','Commercial','Garden'],
   bRemarksLbl:'Remarks / Requirements',bRemarksPh:'Any specific requirements...',
   bSubmit:'🔍 Go to Listings',
-  lTitle:'🗺️ Available Land Listings',
+  lTitle:'🗺️ Available Property Listings',
   searchPh:'Search by area or P.O....',
   filterTypeAll:'🌿 All Types',
   filterTypeOpts:['Agricultural','Residential','Commercial','Garden','With Pond'],
@@ -610,16 +623,33 @@ function showScreen(id){
   if(id==='listings-screen') applyFilters();
 }
 
-/* Sell card: go to seller form and scroll to top of form */
+/* Fix 1: Sell → scroll to video/photo upload section */
 function goToSell(){
   showScreen('seller-screen');
-  setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'});},100);
+  setTimeout(function(){
+    var el=document.getElementById('s-sec1');
+    if(!el) return;
+    var hdr=document.querySelector('.hdr');
+    var hdrH=hdr?hdr.offsetHeight:60;
+    var rect=el.getBoundingClientRect();
+    var scrollTop=window.pageYOffset+rect.top-hdrH-12;
+    window.scrollTo({top:Math.max(0,scrollTop),behavior:'smooth'});
+  },200);
 }
 
-/* Buy card: go to buyer form and scroll to top */
+/* Fix 1: Buy → scroll to mobile number input and focus */
 function goToBuy(){
   showScreen('buyer-screen');
-  setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'});},100);
+  setTimeout(function(){
+    var el=document.getElementById('b-mobile');
+    if(!el) return;
+    var hdr=document.querySelector('.hdr');
+    var hdrH=hdr?hdr.offsetHeight:60;
+    var rect=el.getBoundingClientRect();
+    var scrollTop=window.pageYOffset+rect.top-hdrH-40;
+    window.scrollTo({top:Math.max(0,scrollTop),behavior:'smooth'});
+    setTimeout(function(){try{el.focus();}catch(e){}},350);
+  },200);
 }
 
 /* ── Language ────────────────────────────────────────────────────── */
@@ -727,6 +757,18 @@ function applyLang(){
   document.getElementById('modal-upi-label').textContent=t.upiLabel;
   document.getElementById('modal-note').textContent=t.modalNote;
   document.getElementById('b-ty-title').textContent=t.bTyTitle;
+  /* verify modal */
+  var vtitle=document.getElementById('verify-title');
+  var vsub=document.getElementById('verify-sub');
+  var vlbl=document.getElementById('verify-lbl');
+  var vbtn=document.getElementById('verify-btn');
+  var verr=document.getElementById('verify-error');
+  if(vtitle) vtitle.textContent=lang==='bn'?'🔐 বিক্রেতা যাচাই':'🔐 Seller Verification';
+  if(vsub) vsub.textContent=lang==='bn'?'শুধুমাত্র বিক্রেতা এই স্ট্যাটাস পরিবর্তন করতে পারবেন।':'Only the actual seller can change this status.';
+  if(vlbl) vlbl.textContent=lang==='bn'?'আপনার নিবন্ধিত মোবাইল নম্বর দিন':'Enter your registered mobile number';
+  if(document.getElementById('verify-mob-inp')) document.getElementById('verify-mob-inp').placeholder=lang==='bn'?'১০ সংখ্যার মোবাইল নম্বর':'10-digit mobile number';
+  if(vbtn) vbtn.textContent=lang==='bn'?'✓ যাচাই করুন ও স্ট্যাটাস পরিবর্তন করুন':'✓ Verify & Change Status';
+  if(verr) verr.textContent=lang==='bn'?'❌ মোবাইল নম্বর মিলছে না। শুধুমাত্র আসল বিক্রেতা স্ট্যাটাস পরিবর্তন করতে পারবেন।':'❌ Mobile number does not match. Only the actual seller can change status.';
   applyFilters();
   populateDistrictDropdowns();
   }catch(e){console.error('applyLang error:',e);}
@@ -837,12 +879,32 @@ function submitBuyer(){
   setTimeout(function(){s.style.display='none';showScreen('listings-screen');},1800);
 }
 
-/* ── Status toggle (FOR SALE / SOLD) ────────────────────────────── */
-function toggleStatus(id){
-  var item=listings.find(function(l){return l.id===id;});
-  if(!item)return;
-  item.sold=!item.sold;
-  applyFilters();
+/* ── Status toggle — seller must verify mobile first ─────────────── */
+var verifyItemId=null;
+
+function askSellerVerify(id){
+  verifyItemId=id;
+  document.getElementById('verify-mob-inp').value='';
+  document.getElementById('verify-error').style.display='none';
+  document.getElementById('verify-modal').classList.add('active');
+}
+
+function confirmSellerVerify(){
+  var entered=document.getElementById('verify-mob-inp').value.trim();
+  var item=listings.find(function(l){return l.id===verifyItemId;});
+  if(!item){closeVerifyModal();return;}
+  if(entered===item.mobile){
+    item.sold=!item.sold;
+    closeVerifyModal();
+    applyFilters();
+  }else{
+    document.getElementById('verify-error').style.display='block';
+  }
+}
+
+function closeVerifyModal(){
+  document.getElementById('verify-modal').classList.remove('active');
+  verifyItemId=null;
 }
 
 /* ── Unlock modal ────────────────────────────────────────────────── */
@@ -871,7 +933,7 @@ function confirmBuyerPayment(){
 function maskNumber(num){return num.substring(0,3)+'XXXXXXX';}
 function shareOnWhatsApp(item){
   var t=T[lang];
-  var text='🏡 *'+t.appName+'* - '+(lang==='bn'?'জমি বিক্রয়':'Land for Sale')+'\n\n📍 '+item.po+', '+(item.district||item.po)+', পশ্চিমবঙ্গ\n'+(item.road?'🛣️ '+item.road+'\n':'')+(item.landmark?'🏫 '+item.landmark+'\n':'')+'🌿 '+item.size+' '+item.unit+' | '+item.type+'\n💰 ₹'+item.price+(item.negotiable?' ('+(lang==='bn'?'দরাদরি যোগ্য':'Negotiable')+')':'')+'\n\n👉 https://devilwork-1819.github.io/no-broker';
+  var text='🏡 *'+t.appName+'* - '+(lang==='bn'?'সম্পত্তি বিক্রয়':'Property for Sale')+'\n\n📍 '+item.po+', '+(item.district||item.po)+', পশ্চিমবঙ্গ\n'+(item.road?'🛣️ '+item.road+'\n':'')+(item.landmark?'🏫 '+item.landmark+'\n':'')+'🌿 '+item.size+' '+item.unit+' | '+item.type+'\n💰 ₹'+item.price+(item.negotiable?' ('+(lang==='bn'?'দরাদরি যোগ্য':'Negotiable')+')':'')+'\n\n👉 https://devilwork-1819.github.io/broker-mukto';
   window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
 }
 
@@ -910,10 +972,10 @@ function applyFilters(){
     html+='<div class="status-row">';
     if(isSold){
       html+='<div class="status-badge-sold">🔴 '+t.sold+'</div>';
-      html+='<button class="status-toggle-btn toggle-to-sale" onclick="toggleStatus('+item.id+')">'+t.markForSale+'</button>';
+      html+='<button class="status-toggle-btn toggle-to-sale" title="'+t.sellerOnly+'" onclick="askSellerVerify('+item.id+')">'+t.markForSale+'</button>';
     }else{
       html+='<div class="status-badge-sale">🟢 '+t.forSale+'</div>';
-      html+='<button class="status-toggle-btn toggle-to-sold" onclick="toggleStatus('+item.id+')">'+t.markSold+'</button>';
+      html+='<button class="status-toggle-btn toggle-to-sold" title="'+t.sellerOnly+'" onclick="askSellerVerify('+item.id+')">'+t.markSold+'</button>';
     }
     html+='</div>';
 
@@ -944,7 +1006,7 @@ function applyFilters(){
         html+='<button class="unlock-btn" onclick="openUnlockModal('+item.id+')">'+t.unlockBtn+'</button></div>';
       }
     }else{
-      html+='<div style="background:rgba(139,0,0,0.2);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:10px;text-align:center;margin-top:10px;font-size:13px;color:#ff9999;">🔴 '+(lang==='bn'?'এই জমি বিক্রি হয়ে গেছে':'This land has been sold')+'</div>';
+      html+='<div style="background:rgba(139,0,0,0.2);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:10px;text-align:center;margin-top:10px;font-size:13px;color:#ff9999;">🔴 '+(lang==='bn'?'এই সম্পত্তি বিক্রি হয়ে গেছে':'This property has been sold')+'</div>';
     }
 
     if(item.maps)html+='<a class="btn-maps" href="'+item.maps+'" target="_blank">'+t.mapsBtn+'</a>';
