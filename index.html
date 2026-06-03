@@ -81,7 +81,33 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#d4a017!import
 .how-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
 .how-num{width:22px;height:22px;background:#d4a017;color:#1a1a2e;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .how-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
-.list-btn{margin:0 14px 16px;background:rgba(212,160,23,0.12);border:1px solid rgba(212,160,23,0.4);border-radius:14px;padding:14px;text-align:center;cursor:pointer;color:#d4a017;font-size:14px;font-weight:600;}
+.list-btn{
+  margin:0 14px 16px;
+  background:linear-gradient(135deg,#b8860b 0%,#d4a017 40%,#f5c842 70%,#d4a017 100%);
+  border:none;
+  border-radius:16px;
+  padding:16px 14px;
+  text-align:center;
+  cursor:pointer;
+  color:#1a1a00;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:0.5px;
+  box-shadow:0 6px 20px rgba(212,160,23,0.45),0 2px 6px rgba(0,0,0,0.3);
+  transition:transform 0.15s,box-shadow 0.15s;
+  position:relative;
+  overflow:hidden;
+}
+.list-btn::before{
+  content:'';
+  position:absolute;
+  top:0;left:-75%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  transform:skewX(-20deg);
+  animation:shimmer 2.5s infinite;
+}
+@keyframes shimmer{0%{left:-75%}100%{left:125%}}
+.list-btn:active{transform:scale(0.97);box-shadow:0 3px 10px rgba(212,160,23,0.3);}
 .footer-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.3);padding:0 16px 16px;}
 
 /* FORMS */
@@ -628,7 +654,18 @@ function goToListings(){
   document.getElementById('listings-screen').classList.add('active');
   applyFilters();
   window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(function(){window.scrollTo({top:0,behavior:'smooth'});},180);
+  /* Scroll to search bar after render so user lands right on it */
+  setTimeout(function(){
+    var el=document.getElementById('search-inp');
+    if(!el) return;
+    var hdr=document.querySelector('.hdr');
+    var hdrH=hdr?hdr.offsetHeight:60;
+    var rect=el.getBoundingClientRect();
+    var scrollTop=window.pageYOffset+rect.top-hdrH-10;
+    window.scrollTo({top:Math.max(0,scrollTop),behavior:'smooth'});
+    /* Focus search box so keyboard opens on mobile */
+    setTimeout(function(){try{el.focus();}catch(e){}},200);
+  },200);
 }
 
 /* Fix 1: Sell → scroll to video/photo upload section */
