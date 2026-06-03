@@ -149,6 +149,7 @@ select.inp option{background:#006070;color:#fff;}
 .pay-phonepe{background:#5f259f;color:#fff;}
 .pay-paytm{background:#00baf2;color:#1a1a2e;}
 .pay-note{font-size:11px;color:rgba(255,255,255,0.45);text-align:center;margin-top:8px;line-height:1.6;}
+.pay-confirm-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:2px solid #d4a017;border-radius:13px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px;}
 
 /* THANK YOU BANNER */
 .thankyou-box{background:linear-gradient(135deg,rgba(26,122,74,0.4),rgba(0,128,128,0.3));
@@ -349,11 +350,20 @@ select.inp option{background:#006070;color:#fff;}
       <div class="pay-step"><div class="pay-step-num">2</div><div class="pay-step-text" id="sp-s2"></div></div>
       <div class="pay-step"><div class="pay-step-num">3</div><div class="pay-step-text" id="sp-s3"></div></div>
     </div>
+    <!-- Manual app open buttons (no upi:// link) -->
+    <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:8px;" id="sp-open-hint"></div>
     <div class="pay-apps">
-      <a class="pay-app-btn pay-gpay" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=499&cu=INR" onclick="sellerPaid()">📱 GPay</a>
-      <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=499&cu=INR" onclick="sellerPaid()">📱 PhonePe</a>
-      <a class="pay-app-btn pay-paytm" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=499&cu=INR" onclick="sellerPaid()">📱 Paytm</a>
+      <button class="pay-app-btn pay-gpay" onclick="openPayApp('gpay',499)">📱 GPay</button>
+      <button class="pay-app-btn pay-phonepe" onclick="openPayApp('phonepe',499)">📱 PhonePe</button>
+      <button class="pay-app-btn pay-paytm" onclick="openPayApp('paytm',499)">📱 Paytm</button>
     </div>
+    <!-- Seller UTR entry -->
+    <div style="margin-top:4px;">
+      <label class="lbl" id="sp-utr-lbl"></label>
+      <input class="inp" id="sp-utr-input" type="text" inputmode="numeric" maxlength="16" placeholder=""/>
+      <div id="sp-utr-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;"></div>
+    </div>
+    <button class="pay-confirm-btn" id="sp-confirm-btn" onclick="confirmSellerUTR()"></button>
     <div class="pay-note" id="sp-note"></div>
   </div>
 </div>
@@ -416,29 +426,64 @@ select.inp option{background:#006070;color:#fff;}
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="form-title" id="modal-title"></div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;" id="modal-listing-info"></div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:14px;" id="modal-listing-info"></div>
 
-    <!-- Buyer Thank You (shown after tapping payment) -->
-    <div class="thankyou-box" id="buyer-thankyou">
+    <!-- Step 1: Payment instructions (default view) -->
+    <div id="modal-step1">
+      <div class="pay-card" style="margin-bottom:12px;">
+        <div class="pay-amount">₹99</div>
+        <div class="pay-label" id="modal-pay-label"></div>
+
+        <!-- UPI ID copy box -->
+        <div class="pay-upi-box" style="cursor:pointer;" onclick="copyUPI()">
+          <div class="pay-upi-label" id="modal-upi-label"></div>
+          <div class="pay-upi-id" id="modal-upi-id-text">Q893475252@ybl</div>
+          <div style="font-size:11px;color:rgba(212,160,23,0.7);margin-top:6px;" id="modal-copy-hint"></div>
+        </div>
+        <div id="modal-copy-confirm" style="display:none;font-size:12px;color:#25d366;text-align:center;margin-bottom:8px;font-weight:700;">✓ <span id="modal-copy-confirm-txt"></span></div>
+
+        <!-- Manual steps -->
+        <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:12px;margin-bottom:14px;">
+          <div style="font-size:12px;font-weight:700;color:#d4a017;margin-bottom:8px;" id="modal-steps-title"></div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.8;" id="modal-steps-text"></div>
+        </div>
+
+        <!-- App buttons (open app, user pays manually) -->
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:8px;" id="modal-open-app-hint"></div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;">
+          <button class="pay-app-btn pay-gpay" onclick="openPayApp('gpay')" id="btn-gpay">📱 GPay</button>
+          <button class="pay-app-btn pay-phonepe" onclick="openPayApp('phonepe')" id="btn-phonepe">📱 PhonePe</button>
+          <button class="pay-app-btn pay-paytm" onclick="openPayApp('paytm')" id="btn-paytm">📱 Paytm</button>
+        </div>
+
+        <!-- Proceed to enter UTR -->
+        <button class="submit-btn" onclick="showUTRStep()" id="modal-paid-btn" style="background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:2px solid #d4a017;color:#fff;"></button>
+      </div>
+    </div>
+
+    <!-- Step 2: Enter UTR after payment -->
+    <div id="modal-step2" style="display:none;">
+      <div class="pay-card" style="margin-bottom:12px;">
+        <div style="font-size:36px;text-align:center;margin-bottom:8px;">🧾</div>
+        <div style="font-size:16px;font-weight:800;color:#d4a017;text-align:center;margin-bottom:6px;" id="utr-title"></div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;line-height:1.6;" id="utr-subtitle"></div>
+        <label class="lbl" id="utr-label"></label>
+        <input class="inp" id="utr-input" type="text" inputmode="numeric" maxlength="16" placeholder=""/>
+        <div id="utr-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;"></div>
+        <button class="submit-btn" onclick="confirmUTR()" id="utr-submit-btn" style="background:linear-gradient(135deg,#d4a017,#b8860b);border:none;color:#1a1a2e;"></button>
+        <button onclick="showStep1()" style="width:100%;background:transparent;border:none;color:rgba(255,255,255,0.45);font-size:12px;margin-top:10px;cursor:pointer;font-family:inherit;" id="utr-back-btn"></button>
+      </div>
+    </div>
+
+    <!-- Step 3: Thank You (shown only after valid UTR) -->
+    <div class="thankyou-box" id="buyer-thankyou" style="display:none;">
       <div class="thankyou-icon">📞</div>
       <div class="thankyou-title" id="b-ty-title"></div>
-      <div class="thankyou-text" id="b-ty-number"></div>
+      <div class="thankyou-text" id="b-ty-number" style="font-size:22px;font-weight:800;color:#fff;margin-top:8px;letter-spacing:2px;"></div>
+      <button onclick="closeModal()" style="margin-top:14px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:1.5px solid #d4a017;border-radius:10px;padding:10px 20px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;" id="ty-close-btn"></button>
     </div>
 
-    <div class="pay-card" style="margin-bottom:0;" id="modal-pay-card">
-      <div class="pay-amount">₹99</div>
-      <div class="pay-label" id="modal-pay-label"></div>
-      <div class="pay-upi-box">
-        <div class="pay-upi-label" id="modal-upi-label"></div>
-        <div class="pay-upi-id">Q893475252@ybl</div>
-      </div>
-      <div class="pay-apps">
-        <a class="pay-app-btn pay-gpay" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 GPay</a>
-        <a class="pay-app-btn pay-phonepe" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 PhonePe</a>
-        <a class="pay-app-btn pay-paytm" href="upi://pay?pa=Q893475252@ybl&pn=BrokerMukto&am=99&cu=INR" onclick="confirmBuyerPayment()">📱 Paytm</a>
-      </div>
-      <div class="pay-note" id="modal-note"></div>
-    </div>
+    <div class="pay-note" id="modal-note"></div>
   </div>
 </div>
 
@@ -552,6 +597,23 @@ bn:{
   modalPayLabel:'বিক্রেতার মোবাইল নম্বর আনলক',
   modalNote:'পেমেন্ট করার সাথে সাথে নম্বর দেখাবে।\nসমস্যার জন্য WhatsApp: 9483319235',
   bTyTitle:'ধন্যবাদ! এই বিক্রেতার যোগাযোগ নম্বর:',
+  utrInvalid:'⚠️ সঠিক UTR/Transaction ID দিন (১২-১৬ সংখ্যা)। পেমেন্ট অ্যাপের SMS বা ইতিহাস থেকে দেখুন।',
+  upiCopied:'UPI ID কপি হয়েছে! পেমেন্ট অ্যাপে পেস্ট করুন।',
+  modalStepsTitle:'পেমেন্ট করার নিয়ম:',
+  modalStepsText:'১. নিচের অ্যাপ বাটন চাপুন বা UPI ID কপি করুন|২. Q893475252@ybl তে ₹99 পাঠান|৩. পেমেন্ট সফল হলে বাটন চাপুন|৪. UTR/Transaction ID লিখুন',
+  modalOpenAppHint:'যেকোনো অ্যাপ খুলতে চাপুন:',
+  modalPaidBtn:'✓ আমি পেমেন্ট করেছি — UTR দিন',
+  utrTitle:'UTR / Transaction ID দিন',
+  utrSubtitle:'পেমেন্ট সফল হলে আপনার অ্যাপে একটি Transaction ID বা UTR নম্বর আসে। সেটি নিচে লিখুন।',
+  utrLabel:'UTR / Transaction ID *',
+  utrPlaceholder:'১২-১৬ সংখ্যার নম্বর',
+  utrSubmit:'✓ নম্বর আনলক করুন',
+  utrBack:'← পেমেন্ট পেজে ফিরুন',
+  tyCloseBtn:'✓ বন্ধ করুন',
+  spUtrLbl:'UTR / Transaction ID *',
+  spUtrPh:'পেমেন্ট অ্যাপ থেকে ১২-১৬ সংখ্যার নম্বর',
+  spConfirm:'✓ UTR যাচাই করুন ও বিজ্ঞাপন প্রকাশ করুন',
+  spOpenHint:'পেমেন্ট করতে যেকোনো অ্যাপ খুলুন:',
 },
 en:{
   appName:'BROKER MUKTO',langBtn:'বাংলা',
@@ -637,6 +699,23 @@ en:{
   modalPayLabel:'Unlock Seller\'s Mobile Number',
   modalNote:'Number appears immediately after tapping payment.\nFor help WhatsApp: 9483319235',
   bTyTitle:'Thank You! Here is the contact number:',
+  utrInvalid:'⚠️ Enter a valid UTR/Transaction ID (12-16 digits). Check your payment app SMS or history.',
+  upiCopied:'UPI ID copied! Paste it in your payment app.',
+  modalStepsTitle:'How to pay:',
+  modalStepsText:'1. Open any app below or copy the UPI ID|2. Send Rs.99 to Q893475252@ybl|3. After payment tap the button below|4. Enter your UTR/Transaction ID',
+  modalOpenAppHint:'Open any app to pay:',
+  modalPaidBtn:'✓ I have paid — Enter UTR',
+  utrTitle:'Enter UTR / Transaction ID',
+  utrSubtitle:'After successful payment, your app sends a Transaction ID or UTR number. Enter it below to unlock the number.',
+  utrLabel:'UTR / Transaction ID *',
+  utrPlaceholder:'12-16 digit number',
+  utrSubmit:'✓ Unlock Number',
+  utrBack:'← Back to payment page',
+  tyCloseBtn:'✓ Close',
+  spUtrLbl:'UTR / Transaction ID *',
+  spUtrPh:'12-16 digit number from payment app',
+  spConfirm:'✓ Verify UTR & Publish Listing',
+  spOpenHint:'Open any app to make payment:',
 },
 };
 
@@ -802,6 +881,41 @@ function applyLang(){
   document.getElementById('modal-upi-label').textContent=t.upiLabel;
   document.getElementById('modal-note').textContent=t.modalNote;
   document.getElementById('b-ty-title').textContent=t.bTyTitle;
+  /* buyer payment modal */
+  var t2=T[lang];
+  var mstitle=document.getElementById('modal-steps-title');
+  var mstext=document.getElementById('modal-steps-text');
+  var moah=document.getElementById('modal-open-app-hint');
+  var mpb=document.getElementById('modal-paid-btn');
+  var utrt=document.getElementById('utr-title');
+  var utrs=document.getElementById('utr-subtitle');
+  var utrl=document.getElementById('utr-label');
+  var utrinp=document.getElementById('utr-input');
+  var utrsub=document.getElementById('utr-submit-btn');
+  var utrback=document.getElementById('utr-back-btn');
+  var tycls=document.getElementById('ty-close-btn');
+  var mcph=document.getElementById('modal-copy-hint');
+  if(mstitle) mstitle.textContent=t2.modalStepsTitle;
+  if(mstext) mstext.innerHTML=t2.modalStepsText.split('|').join('<br/>');
+  if(moah) moah.textContent=t2.modalOpenAppHint;
+  if(mpb) mpb.textContent=t2.modalPaidBtn;
+  if(utrt) utrt.textContent=t2.utrTitle;
+  if(utrs) utrs.textContent=t2.utrSubtitle;
+  if(utrl) utrl.textContent=t2.utrLabel;
+  if(utrinp) utrinp.placeholder=t2.utrPlaceholder;
+  if(utrsub) utrsub.textContent=t2.utrSubmit;
+  if(utrback) utrback.textContent=t2.utrBack;
+  if(tycls) tycls.textContent=t2.tyCloseBtn;
+  if(mcph) mcph.textContent=lang==='bn'?'👆 চাপুন UPI ID কপি করতে':'👆 Tap to copy UPI ID';
+  /* seller payment */
+  var spuhl=document.getElementById('sp-utr-lbl');
+  var spuhi=document.getElementById('sp-utr-input');
+  var spcb=document.getElementById('sp-confirm-btn');
+  var spoh=document.getElementById('sp-open-hint');
+  if(spuhl) spuhl.textContent=t2.spUtrLbl;
+  if(spuhi) spuhi.placeholder=t2.spUtrPh;
+  if(spcb) spcb.textContent=t2.spConfirm;
+  if(spoh) spoh.textContent=t2.spOpenHint;
   /* verify modal */
   var vtitle=document.getElementById('verify-title');
   var vsub=document.getElementById('verify-sub');
@@ -890,10 +1004,18 @@ function validateAndPay(){
   showScreen('seller-pay-screen');
 }
 
-/* ── Step 2: seller taps payment app → show thankyou + add listing ─ */
-function sellerPaid(){
+/* ── Step 2: seller enters UTR → verify → add listing ───────────── */
+function confirmSellerUTR(){
+  var utr=document.getElementById('sp-utr-input').value.trim();
+  var errEl=document.getElementById('sp-utr-error');
+  if(!/^\d{12,16}$/.test(utr)){
+    errEl.textContent=T[lang].utrInvalid;
+    errEl.style.display='block';
+    setTimeout(function(){errEl.style.display='none';},3000);
+    return;
+  }
   if(!pendingListing) return;
-  /* Add to listings */
+  /* Valid UTR — add listing */
   listings.unshift(pendingListing);
   document.getElementById('listing-count').textContent=listings.length;
   pendingListing=null;
@@ -905,12 +1027,15 @@ function sellerPaid(){
   document.getElementById('video-name-display').textContent='';
   document.getElementById('photo-preview').innerHTML='';
   photoDataUrls=[];
+  document.getElementById('sp-utr-input').value='';
   /* Show thank you, hide pay card */
   document.getElementById('seller-thankyou').style.display='block';
   document.getElementById('sp-pay-card').style.display='none';
-  /* Scroll to top */
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+/* Legacy - kept for safety */
+function sellerPaid(){}
 
 /* ── Buyer submit ────────────────────────────────────────────────── */
 function submitBuyer(){
@@ -952,26 +1077,92 @@ function closeVerifyModal(){
   verifyItemId=null;
 }
 
-/* ── Unlock modal ────────────────────────────────────────────────── */
+/* ── Unlock modal — 3-step UTR verification ─────────────────────── */
 function openUnlockModal(id){
   currentUnlockId=id;
   var item=listings.find(function(l){return l.id===id;});
   if(item) document.getElementById('modal-listing-info').textContent='📍 '+(item.district||item.po)+' · ₹'+item.price;
-  document.getElementById('buyer-thankyou').style.display='none';
-  document.getElementById('modal-pay-card').style.display='block';
+  /* Reset to step 1 */
+  showStep1();
   document.getElementById('buyer-pay-modal').classList.add('active');
 }
-function closeModal(){document.getElementById('buyer-pay-modal').classList.remove('active');currentUnlockId=null;}
-function confirmBuyerPayment(){
-  if(currentUnlockId===null)return;
-  var item=listings.find(function(l){return l.id===currentUnlockId;});
-  unlockedIds.push(currentUnlockId);
-  /* Show thank you with number */
-  document.getElementById('modal-pay-card').style.display='none';
-  var ty=document.getElementById('buyer-thankyou');
-  ty.style.display='block';
-  if(item) document.getElementById('b-ty-number').textContent='📞 '+item.mobile;
-  applyFilters();
+
+function showStep1(){
+  document.getElementById('modal-step1').style.display='block';
+  document.getElementById('modal-step2').style.display='none';
+  document.getElementById('buyer-thankyou').style.display='none';
+  document.getElementById('utr-input').value='';
+  document.getElementById('utr-error').style.display='none';
+}
+
+function showUTRStep(){
+  document.getElementById('modal-step1').style.display='none';
+  document.getElementById('modal-step2').style.display='block';
+  document.getElementById('buyer-thankyou').style.display='none';
+  document.getElementById('utr-input').value='';
+  document.getElementById('utr-error').style.display='none';
+  setTimeout(function(){try{document.getElementById('utr-input').focus();}catch(e){}},200);
+}
+
+function confirmUTR(){
+  var utr=document.getElementById('utr-input').value.trim();
+  var errEl=document.getElementById('utr-error');
+  /* UTR must be 12–16 digits */
+  if(!/^\d{12,16}$/.test(utr)){
+    errEl.textContent=T[lang].utrInvalid;
+    errEl.style.display='block';
+    return;
+  }
+  /* Valid UTR — unlock number */
+  if(currentUnlockId!==null){
+    unlockedIds.push(currentUnlockId);
+    var item=listings.find(function(l){return l.id===currentUnlockId;});
+    document.getElementById('modal-step2').style.display='none';
+    var ty=document.getElementById('buyer-thankyou');
+    ty.style.display='block';
+    if(item) document.getElementById('b-ty-number').textContent='📞 '+item.mobile;
+    applyFilters();
+  }
+}
+
+function closeModal(){
+  document.getElementById('buyer-pay-modal').classList.remove('active');
+  currentUnlockId=null;
+}
+
+/* Open payment apps via intent (works in browser, no upi:// restriction) */
+function openPayApp(app, amt){
+  var upiId='Q893475252@ybl';
+  var name='BrokerMukto';
+  var amount=amt||99;
+  var pkgs={gpay:'com.google.android.apps.nbu.paisa.user',phonepe:'com.phonepe.app',paytm:'net.one97.paytm'};
+  var pkg=pkgs[app]||pkgs['gpay'];
+  var intent='intent://pay?pa='+upiId+'&pn='+encodeURIComponent(name)+'&am='+amount+'&cu=INR#Intent;scheme=upi;package='+pkg+';end';
+  window.location.href=intent;
+}
+
+function copyUPI(){
+  var upiId='Q893475252@ybl';
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(upiId).then(function(){
+      var el=document.getElementById('modal-copy-confirm');
+      el.style.display='block';
+      document.getElementById('modal-copy-confirm-txt').textContent=T[lang].upiCopied;
+      setTimeout(function(){el.style.display='none';},2500);
+    });
+  }else{
+    /* Fallback for older browsers */
+    var ta=document.createElement('textarea');
+    ta.value=upiId;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var el=document.getElementById('modal-copy-confirm');
+    el.style.display='block';
+    document.getElementById('modal-copy-confirm-txt').textContent=T[lang].upiCopied;
+    setTimeout(function(){el.style.display='none';},2500);
+  }
 }
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
