@@ -9,6 +9,8 @@
 <meta name="apple-mobile-web-app-title" content="BROKER MUKTO"/>
 <title>BROKER MUKTO | ব্রোকার মুক্তো</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<!-- Razorpay SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{min-height:100%;font-family:'Hind Siliguri',Georgia,serif;background:#006d75;color:#fdf6e3;overflow-x:hidden;}
@@ -17,149 +19,131 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.35);}
 input:focus,textarea:focus,select:focus{outline:none;border-color:#d4a017!important;}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-thumb{background:rgba(212,160,23,0.5);border-radius:2px;}
-
-/* APP */
 .app{min-height:100vh;background:linear-gradient(160deg,#004d52 0%,#006d75 40%,#008080 70%,#00959e 100%);}
 .bgfx{position:fixed;top:0;left:0;right:0;bottom:0;
   background:radial-gradient(circle at 10% 10%,rgba(212,160,23,0.12) 0%,transparent 45%),
-             radial-gradient(circle at 90% 90%,rgba(0,200,200,0.1) 0%,transparent 45%),
-             radial-gradient(circle at 50% 50%,rgba(0,0,0,0.15) 0%,transparent 70%);
+             radial-gradient(circle at 90% 90%,rgba(0,200,200,0.1) 0%,transparent 45%);
   pointer-events:none;z-index:0;}
 .wrap{max-width:480px;margin:0 auto;padding-bottom:70px;position:relative;z-index:1;}
 
 /* HEADER */
-.hdr{padding:14px 16px 10px;border-bottom:1px solid rgba(212,160,23,0.25);
+.hdr{padding:10px 16px 8px;border-bottom:1px solid rgba(212,160,23,0.25);
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(0,50,55,0.6);backdrop-filter:blur(14px);
+  background:rgba(0,50,55,0.7);backdrop-filter:blur(14px);
   position:sticky;top:0;z-index:100;}
-.logo{font-size:20px;font-weight:800;letter-spacing:1px;
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.logo-img{width:44px;height:44px;border-radius:10px;object-fit:cover;border:1.5px solid rgba(212,160,23,0.5);}
+.logo-img-placeholder{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#1a6b3a,#0d4a27);border:1.5px solid rgba(212,160,23,0.5);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.logo-text-wrap{display:flex;flex-direction:column;}
+.logo{font-size:18px;font-weight:800;letter-spacing:0.5px;
   background:linear-gradient(90deg,#d4a017,#f5c842);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.logo-sub{font-size:8px;color:rgba(212,160,23,0.65);letter-spacing:2px;text-transform:uppercase;margin-top:-2px;}
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1;}
+.logo-sub{font-size:8px;color:rgba(212,160,23,0.6);letter-spacing:1.5px;text-transform:uppercase;}
 .lang-btn{background:rgba(212,160,23,0.15);border:1px solid #d4a017;color:#d4a017;
-  border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit;}
+  border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit;flex-shrink:0;}
 
 /* SCREENS */
 .screen{display:none;padding:16px;}
 .screen.active{display:block;}
 #home-screen{display:block;padding:0;}
 
-/* HOME HERO */
-.hero{padding:28px 16px 16px;text-align:center;}
-.hero-icon{font-size:52px;margin-bottom:10px;}
-.hero-title{font-size:22px;font-weight:800;line-height:1.25;
+/* HOME */
+.hero{padding:24px 16px 14px;text-align:center;}
+.hero-icon{font-size:48px;margin-bottom:8px;}
+.hero-title{font-size:21px;font-weight:800;line-height:1.25;
   background:linear-gradient(135deg,#fff 0%,#d4a017 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
-.hero-sub{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:300px;margin:0 auto 24px;}
-
-/* HOME CARDS — attractive gradient backgrounds */
-.card-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 14px 16px;}
-.card-sell{
-  background:linear-gradient(145deg,#1a6b3a 0%,#0d4a27 60%,#0a3d20 100%);
-  border:2px solid rgba(212,160,23,0.6);
-  border-radius:20px;padding:20px 14px;cursor:pointer;text-align:center;
-  box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.1);
-  transition:transform 0.15s,box-shadow 0.15s;}
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;}
+.hero-sub{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:300px;margin:0 auto 20px;}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 14px;}
+.card-sell{background:linear-gradient(145deg,#1a6b3a 0%,#0d4a27 60%,#0a3d20 100%);
+  border:2px solid rgba(212,160,23,0.6);border-radius:20px;padding:20px 12px;cursor:pointer;text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);transition:transform 0.15s;}
 .card-sell:active{transform:scale(0.97);}
-.card-buy{
-  background:linear-gradient(145deg,#1a4a8a 0%,#0d3166 60%,#0a2655 100%);
-  border:2px solid rgba(100,180,255,0.5);
-  border-radius:20px;padding:20px 14px;cursor:pointer;text-align:center;
-  box-shadow:0 8px 24px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.1);
-  transition:transform 0.15s,box-shadow 0.15s;}
+.card-buy{background:linear-gradient(145deg,#1a4a8a 0%,#0d3166 60%,#0a2655 100%);
+  border:2px solid rgba(100,180,255,0.5);border-radius:20px;padding:20px 12px;cursor:pointer;text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);transition:transform 0.15s;}
 .card-buy:active{transform:scale(0.97);}
-.card-icon{font-size:36px;margin-bottom:10px;}
-.card-title{font-size:15px;font-weight:800;color:#fff;margin-bottom:5px;text-shadow:0 1px 3px rgba(0,0,0,0.4);}
-.card-desc{font-size:11px;color:rgba(255,255,255,0.65);line-height:1.5;margin-bottom:8px;}
-.card-fee-sell{font-size:13px;font-weight:800;color:#f5c842;
-  background:rgba(212,160,23,0.2);border-radius:8px;padding:4px 10px;display:inline-block;}
-.card-fee-buy{font-size:13px;font-weight:800;color:#7dd3fc;
-  background:rgba(100,180,255,0.15);border-radius:8px;padding:4px 10px;display:inline-block;}
-
-.how-box{margin:0 14px 16px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;}
+.card-icon{font-size:34px;margin-bottom:8px;}
+.card-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:4px;}
+.card-desc{font-size:11px;color:rgba(255,255,255,0.65);line-height:1.4;margin-bottom:8px;}
+.card-fee-sell{font-size:12px;font-weight:800;color:#f5c842;background:rgba(212,160,23,0.2);border-radius:8px;padding:3px 10px;display:inline-block;}
+.card-fee-buy{font-size:12px;font-weight:800;color:#7dd3fc;background:rgba(100,180,255,0.15);border-radius:8px;padding:3px 10px;display:inline-block;}
+.how-box{margin:0 14px 14px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;}
 .how-title{font-size:13px;font-weight:800;color:#d4a017;margin-bottom:10px;}
-.how-row{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
+.how-row{display:flex;gap:10px;margin-bottom:7px;align-items:flex-start;}
 .how-num{width:22px;height:22px;background:#d4a017;color:#1a1a2e;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .how-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
-.list-btn{
-  margin:0 14px 16px;
+.list-btn{margin:0 14px 14px;
   background:linear-gradient(135deg,#b8860b 0%,#d4a017 40%,#f5c842 70%,#d4a017 100%);
-  border:none;
-  border-radius:16px;
-  padding:16px 14px;
-  text-align:center;
-  cursor:pointer;
-  color:#1a1a00;
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:0.5px;
-  box-shadow:0 6px 20px rgba(212,160,23,0.45),0 2px 6px rgba(0,0,0,0.3);
-  transition:transform 0.15s,box-shadow 0.15s;
-  position:relative;
-  overflow:hidden;
-}
-.list-btn::before{
-  content:'';
-  position:absolute;
-  top:0;left:-75%;width:50%;height:100%;
+  border:none;border-radius:16px;padding:15px 14px;text-align:center;cursor:pointer;
+  color:#1a1a00;font-size:15px;font-weight:800;letter-spacing:0.5px;
+  box-shadow:0 6px 20px rgba(212,160,23,0.45);position:relative;overflow:hidden;}
+.list-btn::before{content:'';position:absolute;top:0;left:-75%;width:50%;height:100%;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
-  transform:skewX(-20deg);
-  animation:shimmer 2.5s infinite;
-}
+  transform:skewX(-20deg);animation:shimmer 2.5s infinite;}
 @keyframes shimmer{0%{left:-75%}100%{left:125%}}
-.list-btn:active{transform:scale(0.97);box-shadow:0 3px 10px rgba(212,160,23,0.3);}
-.footer-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.3);padding:0 16px 16px;}
+.list-btn:active{opacity:0.9;}
+.footer-note{text-align:center;font-size:11px;color:rgba(255,255,255,0.3);padding:0 16px 14px;}
 
 /* FORMS */
-.back-btn{background:transparent;border:none;color:rgba(255,255,255,0.6);font-size:13px;cursor:pointer;padding:0 0 14px;display:block;font-family:inherit;}
-.form-title{font-size:20px;font-weight:800;margin-bottom:3px;color:#fff;}
-.form-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:18px;}
+.back-btn{background:transparent;border:none;color:rgba(255,255,255,0.6);font-size:13px;cursor:pointer;padding:0 0 12px;display:block;font-family:inherit;}
+.form-title{font-size:19px;font-weight:800;margin-bottom:3px;color:#fff;}
+.form-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;}
 .lbl{font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:5px;display:block;font-weight:600;}
 .inp{width:100%;background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.15);border-radius:11px;
-  padding:12px 13px;color:#fff;font-size:14px;font-family:inherit;outline:none;display:block;margin-bottom:13px;}
+  padding:12px 13px;color:#fff;font-size:14px;font-family:inherit;outline:none;display:block;margin-bottom:12px;}
 .inp[readonly]{color:rgba(255,255,255,0.45);}
-textarea.inp{min-height:80px;resize:none;}
+textarea.inp{min-height:75px;resize:none;}
 select.inp{appearance:none;-webkit-appearance:none;cursor:pointer;}
 select.inp option{background:#006070;color:#fff;}
 .inp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.media-box{border:2px dashed rgba(212,160,23,0.4);border-radius:13px;padding:18px 14px;text-align:center;margin-bottom:13px;cursor:pointer;background:rgba(212,160,23,0.05);}
-.media-box-icon{font-size:30px;margin-bottom:6px;}
+.media-box{border:2px dashed rgba(212,160,23,0.4);border-radius:12px;padding:16px 14px;text-align:center;margin-bottom:12px;cursor:pointer;background:rgba(212,160,23,0.05);}
+.media-box-icon{font-size:28px;margin-bottom:5px;}
 .media-box-lbl{font-size:12px;color:rgba(255,255,255,0.45);}
-.media-name{font-size:11px;color:#d4a017;margin-top:6px;}
-.photo-preview{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:13px;}
-.photo-thumb{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1.5px solid rgba(212,160,23,0.4);}
-.check-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.media-name{font-size:11px;color:#d4a017;margin-top:5px;}
+.photo-preview{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.photo-thumb{width:65px;height:65px;object-fit:cover;border-radius:8px;border:1.5px solid rgba(212,160,23,0.4);}
+.check-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
 .check-row input[type=checkbox]{width:18px;height:18px;accent-color:#d4a017;cursor:pointer;flex-shrink:0;}
 .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,#d4a017,#b8860b);border:none;border-radius:13px;color:#1a1a2e;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:4px;}
 .submit-btn:active{opacity:0.85;}
-.section-divider{font-size:11px;font-weight:700;color:rgba(212,160,23,0.8);text-transform:uppercase;letter-spacing:1px;margin:8px 0 12px;padding-bottom:6px;border-bottom:1px solid rgba(212,160,23,0.2);}
-.success-box{background:rgba(26,122,74,0.3);border:1px solid #d4a017;border-radius:13px;padding:14px;text-align:center;font-size:14px;font-weight:700;color:#d4a017;margin-bottom:15px;display:none;}
-.error-box{background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:11px;padding:11px 13px;font-size:12px;color:#ff9999;margin-bottom:13px;display:none;}
+.section-divider{font-size:11px;font-weight:700;color:rgba(212,160,23,0.8);text-transform:uppercase;letter-spacing:1px;margin:6px 0 11px;padding-bottom:5px;border-bottom:1px solid rgba(212,160,23,0.2);}
+.success-box{background:rgba(26,122,74,0.3);border:1px solid #d4a017;border-radius:12px;padding:13px;text-align:center;font-size:14px;font-weight:700;color:#d4a017;margin-bottom:14px;display:none;}
+.error-box{background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:11px;padding:11px 13px;font-size:12px;color:#ff9999;margin-bottom:12px;display:none;}
 
-/* PAYMENT */
-.pay-card{background:rgba(0,0,0,0.3);border:2px solid rgba(212,160,23,0.6);border-radius:18px;padding:20px;margin-bottom:16px;}
-.pay-amount{font-size:42px;font-weight:800;color:#d4a017;text-align:center;margin-bottom:4px;}
-.pay-label{font-size:13px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;}
-.pay-upi-box{background:rgba(212,160,23,0.12);border:1.5px dashed #d4a017;border-radius:12px;padding:14px;text-align:center;margin-bottom:14px;}
-.pay-upi-label{font-size:11px;color:rgba(255,255,255,0.5);margin-bottom:4px;}
-.pay-upi-id{font-size:17px;font-weight:800;color:#f5c842;letter-spacing:1px;}
-.pay-apps{display:flex;gap:8px;margin-bottom:12px;justify-content:center;flex-wrap:wrap;}
-.pay-app-btn{padding:11px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:inherit;text-decoration:none;display:inline-block;}
-.pay-gpay{background:#4285f4;color:#fff;}
-.pay-phonepe{background:#5f259f;color:#fff;}
-.pay-paytm{background:#00baf2;color:#1a1a2e;}
-.pay-note{font-size:11px;color:rgba(255,255,255,0.45);text-align:center;margin-top:8px;line-height:1.6;}
-.pay-confirm-btn{width:100%;padding:14px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:2px solid #d4a017;border-radius:13px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px;}
+/* PAYMENT - Razorpay style */
+.pay-section{background:rgba(0,0,0,0.3);border:2px solid rgba(212,160,23,0.5);border-radius:18px;padding:20px;margin-bottom:14px;}
+.pay-amount-big{font-size:44px;font-weight:800;color:#d4a017;text-align:center;margin-bottom:2px;}
+.pay-sublabel{font-size:12px;color:rgba(255,255,255,0.55);text-align:center;margin-bottom:18px;}
+.razorpay-btn{width:100%;padding:16px;background:linear-gradient(135deg,#528FF0,#2563eb);border:none;border-radius:13px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;box-shadow:0 4px 16px rgba(37,99,235,0.4);}
+.razorpay-btn:active{opacity:0.9;}
+.rzp-logo{font-size:20px;}
+.pay-methods{display:flex;justify-content:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+.pay-method-badge{font-size:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:5px 10px;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:4px;}
+.pay-secure{font-size:11px;color:rgba(255,255,255,0.4);text-align:center;}
 
-/* THANK YOU BANNER */
+/* THANK YOU */
 .thankyou-box{background:linear-gradient(135deg,rgba(26,122,74,0.4),rgba(0,128,128,0.3));
-  border:2px solid #d4a017;border-radius:16px;padding:20px;text-align:center;margin-bottom:16px;display:none;}
-.thankyou-icon{font-size:40px;margin-bottom:10px;}
-.thankyou-title{font-size:18px;font-weight:800;color:#d4a017;margin-bottom:6px;}
-.thankyou-text{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;}
+  border:2px solid #d4a017;border-radius:16px;padding:20px;text-align:center;margin-bottom:14px;display:none;}
+.thankyou-icon{font-size:38px;margin-bottom:8px;}
+.thankyou-title{font-size:17px;font-weight:800;color:#d4a017;margin-bottom:6px;}
+.thankyou-text{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;}
 
-/* BUYER FEE BANNER */
-.fee-banner{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:14px;margin-bottom:16px;text-align:center;}
+/* OTP BOX */
+.otp-box{background:rgba(0,0,0,0.3);border:2px solid rgba(212,160,23,0.5);border-radius:16px;padding:20px;margin-bottom:14px;display:none;}
+.otp-icon{font-size:36px;text-align:center;margin-bottom:8px;}
+.otp-title{font-size:16px;font-weight:800;color:#d4a017;text-align:center;margin-bottom:6px;}
+.otp-subtitle{font-size:12px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;line-height:1.6;}
+.otp-inputs{display:flex;gap:10px;justify-content:center;margin-bottom:14px;}
+.otp-digit{width:48px;height:56px;background:rgba(0,0,0,0.3);border:2px solid rgba(255,255,255,0.2);border-radius:12px;color:#fff;font-size:22px;font-weight:800;text-align:center;font-family:inherit;outline:none;}
+.otp-digit:focus{border-color:#d4a017;}
+.otp-error{font-size:12px;color:#ff9999;text-align:center;margin-bottom:10px;display:none;}
+.otp-submit{width:100%;padding:14px;background:linear-gradient(135deg,#d4a017,#b8860b);border:none;border-radius:12px;color:#1a1a2e;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.otp-note{font-size:11px;color:rgba(255,255,255,0.4);text-align:center;margin-top:10px;line-height:1.6;}
+.otp-whatsapp-hint{background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:10px 12px;font-size:12px;color:#25d366;margin-bottom:14px;line-height:1.6;}
+
+/* BUYER FEE */
+.fee-banner{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:13px;margin-bottom:14px;text-align:center;}
 
 /* SEARCH */
 .search-wrap{padding:12px 14px 0;}
@@ -167,33 +151,26 @@ select.inp option{background:#006070;color:#fff;}
 .search-inp::placeholder{color:rgba(255,255,255,0.35);}
 .search-wrap-inner{position:relative;}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;}
-.filter-row{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;}
+.filter-row{display:flex;gap:8px;margin-bottom:10px;overflow-x:auto;padding-bottom:4px;}
 .filter-select{background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:8px 12px;color:#fff;font-size:12px;font-family:inherit;outline:none;cursor:pointer;white-space:nowrap;flex-shrink:0;}
 .filter-select option{background:#005f65;color:#fff;}
 .result-count{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:10px;padding:0 14px;}
 
 /* LISTING CARDS */
-.listing-card{background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px;margin-bottom:12px;}
+.listing-card{background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.1);border-radius:15px;padding:14px;margin-bottom:12px;}
 .listing-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
 .listing-price{font-size:19px;font-weight:800;color:#d4a017;}
 .listing-neg{font-size:10px;color:rgba(212,160,23,0.7);margin-top:1px;}
 .listing-type-badge{font-size:10px;background:rgba(0,150,150,0.3);border:1px solid rgba(0,200,200,0.4);border-radius:6px;padding:3px 8px;color:rgba(255,255,255,0.85);margin-top:4px;display:inline-block;}
 .verified-badge{font-size:10px;background:rgba(212,160,23,0.2);border:1px solid #d4a017;border-radius:6px;padding:3px 8px;color:#d4a017;margin-top:4px;margin-left:4px;display:inline-block;}
-
-/* FOR SALE / SOLD BADGE */
-.status-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.status-badge-sale{background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:1.5px solid #25d366;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:800;color:#fff;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;transition:opacity 0.2s;}
-.status-badge-sale:active{opacity:0.8;}
-.status-badge-sold{background:linear-gradient(135deg,#8b0000,#c0392b);border:1.5px solid #ff6b6b;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:800;color:#fff;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;transition:opacity 0.2s;}
-.status-badge-sold:active{opacity:0.8;}
-
+.status-row{display:flex;align-items:center;margin-bottom:10px;}
+.status-badge-sale{background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:1.5px solid #25d366;border-radius:10px;padding:7px 14px;font-size:12px;font-weight:800;color:#fff;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;}
+.status-badge-sold{background:linear-gradient(135deg,#8b0000,#c0392b);border:1.5px solid #ff6b6b;border-radius:10px;padding:7px 14px;font-size:12px;font-weight:800;color:#fff;display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:inherit;}
 .media-tag{background:rgba(0,150,150,0.2);border:1px solid rgba(0,200,200,0.3);border-radius:9px;padding:8px 11px;display:flex;align-items:center;gap:6px;margin-bottom:10px;font-size:12px;color:rgba(255,255,255,0.7);}
 .listing-photos{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;}
-.listing-photo{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid rgba(212,160,23,0.3);flex-shrink:0;}
+.listing-photo{width:62px;height:62px;object-fit:cover;border-radius:8px;border:1px solid rgba(212,160,23,0.3);flex-shrink:0;}
 .info-row{font-size:12px;color:rgba(255,255,255,0.65);margin-bottom:5px;display:flex;gap:8px;}
 .info-lbl{color:rgba(255,255,255,0.38);min-width:64px;flex-shrink:0;}
-
-/* LOCKED/UNLOCKED */
 .locked-number{background:rgba(212,160,23,0.08);border:1.5px solid rgba(212,160,23,0.3);border-radius:12px;padding:12px 14px;margin-top:10px;text-align:center;}
 .locked-text{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:8px;}
 .unlock-btn{width:100%;padding:12px;background:linear-gradient(135deg,#d4a017,#b8860b);border:none;border-radius:10px;color:#1a1a2e;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;}
@@ -206,17 +183,13 @@ select.inp option{background:#006070;color:#fff;}
 .share-btn{display:block;width:100%;padding:8px;margin-top:6px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;color:#25d366;font-size:12px;cursor:pointer;font-family:inherit;text-align:center;}
 .no-listings{text-align:center;padding:40px 0;color:rgba(255,255,255,0.35);font-size:14px;}
 
-/* PAYMENT SCREEN */
-#seller-pay-screen .pay-steps{margin-bottom:14px;}
-#seller-pay-screen .pay-step{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
-#seller-pay-screen .pay-step-num{width:22px;height:22px;background:rgba(212,160,23,0.2);border:1px solid #d4a017;color:#d4a017;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-#seller-pay-screen .pay-step-text{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;margin-top:3px;}
-
-/* MODAL */
+/* MODALS */
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:200;align-items:flex-end;justify-content:center;}
 .modal-overlay.active{display:flex;}
-.modal-box{background:linear-gradient(160deg,#004d52,#006d75);border:1.5px solid rgba(212,160,23,0.4);border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;}
+.modal-box{background:linear-gradient(160deg,#004d52,#006d75);border:1.5px solid rgba(212,160,23,0.4);border-radius:24px 24px 0 0;padding:22px 18px 36px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;}
 .modal-close{float:right;background:rgba(255,255,255,0.1);border:none;color:#fff;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;line-height:28px;text-align:center;}
+.modal-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:4px;clear:both;}
+.modal-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;}
 </style>
 </head>
 <body>
@@ -224,11 +197,15 @@ select.inp option{background:#006070;color:#fff;}
 <div class="bgfx"></div>
 <div class="wrap">
 
-<!-- HEADER -->
+<!-- HEADER with logo -->
 <div class="hdr">
-  <div>
-    <div class="logo" id="app-name">ব্রোকার মুক্তো</div>
-    <div class="logo-sub">BROKER MUKTO · ব্রোকার মুক্তো</div>
+  <div class="hdr-left">
+    <!-- Logo: replace src below with your image URL after uploading to GitHub -->
+    <div class="logo-img-placeholder" id="logo-container">🏠</div>
+    <div class="logo-text-wrap">
+      <img src="logo.png" alt="Logo" style="height:38px;width:38px;object-fit:contain;border-radius:8px;margin-right:8px;vertical-align:middle;" onerror="this.style.display='none'"/><span class="logo" id="app-name">ব্রোকার মুক্তো</span>
+      <div class="logo-sub">BROKER MUKTO</div>
+    </div>
   </div>
   <button class="lang-btn" onclick="toggleLang()" id="lang-btn">English</button>
 </div>
@@ -267,13 +244,12 @@ select.inp option{background:#006070;color:#fff;}
   <div class="footer-note" id="footer-note"></div>
 </div>
 
-<!-- SELLER FORM (Step 1: fill details) -->
+<!-- SELLER FORM -->
 <div id="seller-screen" class="screen">
   <button class="back-btn" onclick="showScreen('home-screen')" id="s-back"></button>
   <div class="form-title" id="s-title"></div>
   <div class="form-sub" id="s-form-sub"></div>
   <div class="error-box" id="s-error"></div>
-
   <div class="section-divider" id="s-sec1"></div>
   <label class="lbl" id="s-video-lbl"></label>
   <div class="media-box" onclick="document.getElementById('video-input').click()">
@@ -289,7 +265,6 @@ select.inp option{background:#006070;color:#fff;}
   </div>
   <input type="file" id="photo-input" accept="image/*" multiple style="display:none" onchange="photosSelected(this)"/>
   <div class="photo-preview" id="photo-preview"></div>
-
   <div class="section-divider" id="s-sec2"></div>
   <label class="lbl" id="s-district-lbl"></label>
   <select class="inp" id="s-district-val"></select>
@@ -301,7 +276,6 @@ select.inp option{background:#006070;color:#fff;}
   <input class="inp" id="s-landmark" placeholder=""/>
   <label class="lbl" id="s-maps-lbl"></label>
   <input class="inp" id="s-maps" placeholder="https://maps.google.com/..."/>
-
   <div class="section-divider" id="s-sec3"></div>
   <div class="inp-row">
     <div><label class="lbl" id="s-size-lbl"></label><input class="inp" id="s-size" type="number" placeholder="5"/></div>
@@ -311,7 +285,6 @@ select.inp option{background:#006070;color:#fff;}
   <select class="inp" id="s-type"></select>
   <label class="lbl" id="s-facing-lbl"></label>
   <select class="inp" id="s-facing"></select>
-
   <div class="section-divider" id="s-sec4"></div>
   <label class="lbl" id="s-price-lbl"></label>
   <input class="inp" id="s-price" type="text" placeholder=""/>
@@ -321,50 +294,64 @@ select.inp option{background:#006070;color:#fff;}
   </div>
   <label class="lbl" id="s-mob-lbl"></label>
   <input class="inp" id="s-mobile" type="tel" placeholder=""/>
-  <!-- Clicking this validates form, then opens payment screen -->
-  <button class="submit-btn" id="s-submit" onclick="validateAndPay()"></button>
+  <button class="submit-btn" id="s-submit" onclick="validateSellerForm()"></button>
 </div>
 
-<!-- SELLER PAYMENT (Step 2: pay after form filled) -->
+<!-- SELLER PAYMENT SCREEN -->
 <div id="seller-pay-screen" class="screen">
   <button class="back-btn" onclick="showScreen('seller-screen')" id="sp-back"></button>
   <div class="form-title" id="sp-title"></div>
   <div class="form-sub" id="sp-sub"></div>
+  <!-- Setup notice shown only if key not set -->
+  <div id="rzp-setup-notice" style="display:none;background:rgba(180,100,0,0.25);border:1px solid rgba(255,160,0,0.5);border-radius:12px;padding:14px;margin-bottom:14px;font-size:12px;color:#ffd080;line-height:1.7;">
+    ⚠️ <strong>Admin Setup Required:</strong><br/>
+    Go to <strong>razorpay.com</strong> → Create account → Dashboard → API Keys → Copy Key ID<br/>
+    Then open index.html and replace <code style="background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:4px;">rzp_test_REPLACE_WITH_YOUR_KEY</code> with your actual Key ID.
+  </div>
 
-  <!-- Thank you message (shown after payment tap) -->
+  <!-- Thank you shown after payment+OTP -->
   <div class="thankyou-box" id="seller-thankyou">
     <div class="thankyou-icon">🎉</div>
     <div class="thankyou-title" id="sp-ty-title"></div>
     <div class="thankyou-text" id="sp-ty-text"></div>
   </div>
 
-  <div class="pay-card" id="sp-pay-card">
-    <div class="pay-amount">₹499</div>
-    <div class="pay-label" id="sp-label"></div>
-    <div class="pay-upi-box">
-      <div class="pay-upi-label" id="sp-upi-label"></div>
-      <div class="pay-upi-id">Q893475252@ybl</div>
+  <!-- Payment section -->
+  <div id="sp-pay-section">
+    <div class="pay-section">
+      <div class="pay-amount-big">₹499</div>
+      <div class="pay-sublabel" id="sp-pay-label"></div>
+      <div class="pay-methods">
+        <div class="pay-method-badge">💳 Card</div>
+        <div class="pay-method-badge">📱 UPI</div>
+        <div class="pay-method-badge">🏦 Net Banking</div>
+        <div class="pay-method-badge">👛 Wallet</div>
+      </div>
+      <button class="razorpay-btn" onclick="startSellerPayment()">
+        <span class="rzp-logo">💳</span>
+        <span id="sp-pay-btn-text"></span>
+      </button>
+      <div class="pay-secure" id="sp-secure-text"></div>
     </div>
-    <div class="pay-steps">
-      <div class="pay-step"><div class="pay-step-num">1</div><div class="pay-step-text" id="sp-s1"></div></div>
-      <div class="pay-step"><div class="pay-step-num">2</div><div class="pay-step-text" id="sp-s2"></div></div>
-      <div class="pay-step"><div class="pay-step-num">3</div><div class="pay-step-text" id="sp-s3"></div></div>
+
+    <!-- OTP entry after payment -->
+    <div class="otp-box" id="sp-otp-box">
+      <div class="otp-icon">📲</div>
+      <div class="otp-title" id="sp-otp-title"></div>
+      <div class="otp-subtitle" id="sp-otp-subtitle"></div>
+      <div class="otp-whatsapp-hint" id="sp-otp-hint"></div>
+      <div class="otp-inputs">
+        <input class="otp-digit" id="sp-otp-1" maxlength="1" type="tel" oninput="otpNext(this,'sp-otp-2')"/>
+        <input class="otp-digit" id="sp-otp-2" maxlength="1" type="tel" oninput="otpNext(this,'sp-otp-3')"/>
+        <input class="otp-digit" id="sp-otp-3" maxlength="1" type="tel" oninput="otpNext(this,'sp-otp-4')"/>
+        <input class="otp-digit" id="sp-otp-4" maxlength="1" type="tel" oninput="otpNext(this,'sp-otp-5')"/>
+        <input class="otp-digit" id="sp-otp-5" maxlength="1" type="tel" oninput="otpNext(this,'sp-otp-6')"/>
+        <input class="otp-digit" id="sp-otp-6" maxlength="1" type="tel"/>
+      </div>
+      <div class="otp-error" id="sp-otp-error"></div>
+      <button class="otp-submit" onclick="verifySellerOTP()" id="sp-otp-submit"></button>
+      <div class="otp-note" id="sp-otp-note"></div>
     </div>
-    <!-- Manual app open buttons (no upi:// link) -->
-    <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:8px;" id="sp-open-hint"></div>
-    <div class="pay-apps">
-      <button class="pay-app-btn pay-gpay" onclick="openPayApp('gpay',499)">📱 GPay</button>
-      <button class="pay-app-btn pay-phonepe" onclick="openPayApp('phonepe',499)">📱 PhonePe</button>
-      <button class="pay-app-btn pay-paytm" onclick="openPayApp('paytm',499)">📱 Paytm</button>
-    </div>
-    <!-- Seller UTR entry -->
-    <div style="margin-top:4px;">
-      <label class="lbl" id="sp-utr-lbl"></label>
-      <input class="inp" id="sp-utr-input" type="text" inputmode="numeric" maxlength="16" placeholder=""/>
-      <div id="sp-utr-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;"></div>
-    </div>
-    <button class="pay-confirm-btn" id="sp-confirm-btn" onclick="confirmSellerUTR()"></button>
-    <div class="pay-note" id="sp-note"></div>
   </div>
 </div>
 
@@ -377,12 +364,12 @@ select.inp option{background:#006070;color:#fff;}
   <div class="error-box" id="b-error"></div>
   <div class="fee-banner">
     <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:8px;font-weight:700;" id="b-fee-title"></div>
-    <div style="display:flex;justify-content:space-around;margin-bottom:8px;">
-      <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:#25d366;" id="b-fee-free"></div><div style="font-size:10px;color:rgba(255,255,255,0.5);" id="b-fee-free-sub"></div></div>
-      <div style="font-size:20px;color:rgba(255,255,255,0.2);">|</div>
-      <div style="text-align:center;"><div style="font-size:20px;font-weight:800;color:#d4a017;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,0.5);" id="b-fee-unlock-sub"></div></div>
+    <div style="display:flex;justify-content:space-around;margin-bottom:6px;">
+      <div style="text-align:center;"><div style="font-size:19px;font-weight:800;color:#25d366;" id="b-fee-free"></div><div style="font-size:10px;color:rgba(255,255,255,0.5);" id="b-fee-free-sub"></div></div>
+      <div style="font-size:18px;color:rgba(255,255,255,0.2);">|</div>
+      <div style="text-align:center;"><div style="font-size:19px;font-weight:800;color:#d4a017;">₹99</div><div style="font-size:10px;color:rgba(255,255,255,0.5);" id="b-fee-unlock-sub"></div></div>
     </div>
-    <div style="font-size:11px;color:rgba(255,255,255,0.45);" id="b-fee-note"></div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.4);" id="b-fee-note"></div>
   </div>
   <label class="lbl" id="b-mob-lbl"></label>
   <input class="inp" id="b-mobile" type="tel" placeholder=""/>
@@ -421,97 +408,438 @@ select.inp option{background:#006070;color:#fff;}
   <div style="padding:0 14px;" id="listings-container"></div>
 </div>
 
-<!-- BUYER PAYMENT MODAL -->
+<!-- BUYER UNLOCK MODAL -->
 <div class="modal-overlay" id="buyer-pay-modal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="form-title" id="modal-title"></div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:14px;" id="modal-listing-info"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-sub" id="modal-listing-info"></div>
 
-    <!-- Step 1: Payment instructions (default view) -->
-    <div id="modal-step1">
-      <div class="pay-card" style="margin-bottom:12px;">
-        <div class="pay-amount">₹99</div>
-        <div class="pay-label" id="modal-pay-label"></div>
-
-        <!-- UPI ID copy box -->
-        <div class="pay-upi-box" style="cursor:pointer;" onclick="copyUPI()">
-          <div class="pay-upi-label" id="modal-upi-label"></div>
-          <div class="pay-upi-id" id="modal-upi-id-text">Q893475252@ybl</div>
-          <div style="font-size:11px;color:rgba(212,160,23,0.7);margin-top:6px;" id="modal-copy-hint"></div>
+    <!-- Payment step -->
+    <div id="modal-pay-step">
+      <div class="pay-section">
+        <div class="pay-amount-big">₹99</div>
+        <div class="pay-sublabel" id="modal-pay-label"></div>
+        <div class="pay-methods">
+          <div class="pay-method-badge">💳 Card</div>
+          <div class="pay-method-badge">📱 UPI</div>
+          <div class="pay-method-badge">🏦 Net Banking</div>
+          <div class="pay-method-badge">👛 Wallet</div>
         </div>
-        <div id="modal-copy-confirm" style="display:none;font-size:12px;color:#25d366;text-align:center;margin-bottom:8px;font-weight:700;">✓ <span id="modal-copy-confirm-txt"></span></div>
-
-        <!-- Manual steps -->
-        <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:12px;margin-bottom:14px;">
-          <div style="font-size:12px;font-weight:700;color:#d4a017;margin-bottom:8px;" id="modal-steps-title"></div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.8;" id="modal-steps-text"></div>
-        </div>
-
-        <!-- App buttons (open app, user pays manually) -->
-        <div style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:8px;" id="modal-open-app-hint"></div>
-        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap;">
-          <button class="pay-app-btn pay-gpay" onclick="openPayApp('gpay')" id="btn-gpay">📱 GPay</button>
-          <button class="pay-app-btn pay-phonepe" onclick="openPayApp('phonepe')" id="btn-phonepe">📱 PhonePe</button>
-          <button class="pay-app-btn pay-paytm" onclick="openPayApp('paytm')" id="btn-paytm">📱 Paytm</button>
-        </div>
-
-        <!-- Proceed to enter UTR -->
-        <button class="submit-btn" onclick="showUTRStep()" id="modal-paid-btn" style="background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:2px solid #d4a017;color:#fff;"></button>
+        <button class="razorpay-btn" onclick="startBuyerPayment()">
+          <span class="rzp-logo">💳</span>
+          <span id="modal-pay-btn-text"></span>
+        </button>
+        <div class="pay-secure" id="modal-secure-text"></div>
       </div>
     </div>
 
-    <!-- Step 2: Enter UTR after payment -->
-    <div id="modal-step2" style="display:none;">
-      <div class="pay-card" style="margin-bottom:12px;">
-        <div style="font-size:36px;text-align:center;margin-bottom:8px;">🧾</div>
-        <div style="font-size:16px;font-weight:800;color:#d4a017;text-align:center;margin-bottom:6px;" id="utr-title"></div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;line-height:1.6;" id="utr-subtitle"></div>
-        <label class="lbl" id="utr-label"></label>
-        <input class="inp" id="utr-input" type="text" inputmode="numeric" maxlength="16" placeholder=""/>
-        <div id="utr-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;"></div>
-        <button class="submit-btn" onclick="confirmUTR()" id="utr-submit-btn" style="background:linear-gradient(135deg,#d4a017,#b8860b);border:none;color:#1a1a2e;"></button>
-        <button onclick="showStep1()" style="width:100%;background:transparent;border:none;color:rgba(255,255,255,0.45);font-size:12px;margin-top:10px;cursor:pointer;font-family:inherit;" id="utr-back-btn"></button>
+    <!-- OTP step after payment -->
+    <div class="otp-box" id="modal-otp-box">
+      <div class="otp-icon">📲</div>
+      <div class="otp-title" id="modal-otp-title"></div>
+      <div class="otp-subtitle" id="modal-otp-subtitle"></div>
+      <div class="otp-whatsapp-hint" id="modal-otp-hint"></div>
+      <div class="otp-inputs">
+        <input class="otp-digit" id="b-otp-1" maxlength="1" type="tel" oninput="otpNext(this,'b-otp-2')"/>
+        <input class="otp-digit" id="b-otp-2" maxlength="1" type="tel" oninput="otpNext(this,'b-otp-3')"/>
+        <input class="otp-digit" id="b-otp-3" maxlength="1" type="tel" oninput="otpNext(this,'b-otp-4')"/>
+        <input class="otp-digit" id="b-otp-4" maxlength="1" type="tel" oninput="otpNext(this,'b-otp-5')"/>
+        <input class="otp-digit" id="b-otp-5" maxlength="1" type="tel" oninput="otpNext(this,'b-otp-6')"/>
+        <input class="otp-digit" id="b-otp-6" maxlength="1" type="tel"/>
       </div>
+      <div class="otp-error" id="modal-otp-error"></div>
+      <button class="otp-submit" onclick="verifyBuyerOTP()" id="modal-otp-submit"></button>
+      <div class="otp-note" id="modal-otp-note"></div>
     </div>
 
-    <!-- Step 3: Thank You (shown only after valid UTR) -->
-    <div class="thankyou-box" id="buyer-thankyou" style="display:none;">
+    <!-- Success: show number -->
+    <div class="thankyou-box" id="buyer-thankyou">
       <div class="thankyou-icon">📞</div>
       <div class="thankyou-title" id="b-ty-title"></div>
-      <div class="thankyou-text" id="b-ty-number" style="font-size:22px;font-weight:800;color:#fff;margin-top:8px;letter-spacing:2px;"></div>
-      <button onclick="closeModal()" style="margin-top:14px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:1.5px solid #d4a017;border-radius:10px;padding:10px 20px;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;" id="ty-close-btn"></button>
+      <div style="font-size:24px;font-weight:800;color:#fff;margin:10px 0;letter-spacing:2px;" id="b-ty-number"></div>
+      <div class="action-btns" id="b-ty-actions" style="margin-top:8px;"></div>
+      <button onclick="closeModal()" style="margin-top:12px;background:transparent;border:1px solid rgba(255,255,255,0.3);border-radius:10px;padding:8px 20px;color:rgba(255,255,255,0.7);font-size:12px;cursor:pointer;font-family:inherit;width:100%;" id="ty-close-btn"></button>
     </div>
-
-    <div class="pay-note" id="modal-note"></div>
   </div>
 </div>
-
 
 <!-- SELLER VERIFY MODAL -->
 <div class="modal-overlay" id="verify-modal">
-  <div class="modal-box" style="padding-bottom:32px;">
+  <div class="modal-box">
     <button class="modal-close" onclick="closeVerifyModal()">✕</button>
-    <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:6px;" id="verify-title">🔐 বিক্রেতা যাচাই</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:18px;" id="verify-sub">শুধুমাত্র বিক্রেতা এই স্ট্যাটাস পরিবর্তন করতে পারবেন।</div>
-    <label class="lbl" id="verify-lbl">আপনার নিবন্ধিত মোবাইল নম্বর দিন</label>
-    <input class="inp" id="verify-mob-inp" type="tel" placeholder="১০ সংখ্যার মোবাইল নম্বর" style="margin-bottom:8px;"/>
-    <div id="verify-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;" id="verify-err-txt">❌ মোবাইল নম্বর মিলছে না। শুধুমাত্র আসল বিক্রেতা স্ট্যাটাস পরিবর্তন করতে পারবেন।</div>
-    <button class="submit-btn" onclick="confirmSellerVerify()" style="margin-top:6px;" id="verify-btn">✓ যাচাই করুন ও স্ট্যাটাস পরিবর্তন করুন</button>
+    <div class="modal-title" id="verify-title"></div>
+    <div class="modal-sub" id="verify-sub"></div>
+    <label class="lbl" id="verify-lbl"></label>
+    <input class="inp" id="verify-mob-inp" type="tel" placeholder="" style="margin-bottom:8px;"/>
+    <div id="verify-error" style="display:none;background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.5);border-radius:10px;padding:10px;font-size:12px;color:#ff9999;margin-bottom:10px;"></div>
+    <button class="submit-btn" onclick="confirmSellerVerify()" id="verify-btn"></button>
   </div>
 </div>
+
 </div></div>
 <script>
+/* ═══════════════════════════════════════════════════════════════════
+   BROKER MUKTO — Main JS
+   IMPORTANT: Replace RAZORPAY_KEY_ID below with your actual Razorpay
+   Key ID after creating your account at razorpay.com
+   Format: rzp_live_XXXXXXXXXXXXXXXXXX
+═══════════════════════════════════════════════════════════════════ */
+var RAZORPAY_KEY = 'rzp_test_REPLACE_WITH_YOUR_KEY'; // ← REPLACE THIS
+var OWNER_WHATSAPP = '919483319235'; // Your WhatsApp with country code
+
 var lang='bn', photoDataUrls=[], unlockedIds=[], currentUnlockId=null;
-var pendingListing=null; // stores form data until payment done
+var pendingListing=null;
+var sellerOTP=null, buyerOTP=null;
 
 var listings=[
   {id:1,district:'Birbhum',po:'Bolpur',road:'NH14',landmark:'Near Visva-Bharati University',price:'8,00,000',priceNum:800000,negotiable:true,mobile:'9876500000',hasVideo:true,photos:[],size:'10',unit:'কাঠা',type:'বাসস্থান',facing:'উত্তর',maps:'https://maps.google.com/?q=Bolpur+West+Bengal',verified:true,sold:false},
   {id:2,district:'Birbhum',po:'Suri',road:'Village Road',landmark:'Near Old Pond',price:'3,50,000',priceNum:350000,negotiable:false,mobile:'7012400000',hasVideo:true,photos:[],size:'5',unit:'কাঠা',type:'কৃষি জমি',facing:'দক্ষিণ',maps:'',verified:true,sold:false},
-  {id:3,district:'Murshidabad',po:'Berhampore',road:'NH12',landmark:'Near Collectorate',price:'12,00,000',priceNum:1200000,negotiable:true,mobile:'9123400000',hasVideo:false,photos:[],size:'2',unit:'বিঘা',type:'বাণিজ্যিক',facing:'পূর্ব',maps:'https://maps.google.com/?q=Berhampore+West+Bengal',verified:true,sold:true},
+  {id:3,district:'Murshidabad',po:'Berhampore',road:'NH12',landmark:'Near Collectorate',price:'12,00,000',priceNum:1200000,negotiable:true,mobile:'9123400000',hasVideo:false,photos:[],size:'2',unit:'বিঘা',type:'বাণিজ্যিক',facing:'পূর্ব',maps:'https://maps.google.com/?q=Berhampore+West+Bengal',verified:true,sold:false},
   {id:4,district:'Bankura',po:'Bishnupur',road:'State Highway 5',landmark:'Near Temple',price:'4,50,000',priceNum:450000,negotiable:true,mobile:'8765400000',hasVideo:false,photos:[],size:'8',unit:'কাঠা',type:'কৃষি জমি',facing:'উত্তর',maps:'',verified:true,sold:false},
 ];
 
+/* ─── OTP Generation ─────────────────────────────────────────────── */
+function generateOTP(){
+  return String(Math.floor(100000+Math.random()*900000));
+}
+
+function otpNext(el, nextId){
+  if(el.value.length===1 && nextId){
+    var next=document.getElementById(nextId);
+    if(next) next.focus();
+  }
+}
+
+function getOTPValue(prefix){
+  var otp='';
+  for(var i=1;i<=6;i++){
+    var el=document.getElementById(prefix+'-otp-'+i)||document.getElementById(prefix+i);
+    otp += el ? el.value.trim() : '';
+  }
+  return otp;
+}
+
+function clearOTPInputs(prefix){
+  for(var i=1;i<=6;i++){
+    var el=document.getElementById(prefix+'-otp-'+i)||document.getElementById(prefix+i);
+    if(el) el.value='';
+  }
+}
+
+/* ─── Razorpay Payment ───────────────────────────────────────────── */
+function openRazorpay(amount, description, onSuccess){
+  var options={
+    key: RAZORPAY_KEY,
+    amount: amount*100, // in paise
+    currency: 'INR',
+    name: 'Broker Mukto',
+    description: description,
+    image: 'https://devilwork-1819.github.io/no-broker/logo.png',
+    theme:{color:'#d4a017'},
+    modal:{
+      ondismiss: function(){
+        /* Payment cancelled — do nothing, form stays */
+        console.log('Payment dismissed');
+      }
+    },
+    handler: function(response){
+      /* Payment successful — Razorpay calls this */
+      onSuccess(response.razorpay_payment_id);
+    }
+  };
+  try{
+    var rzp=new Razorpay(options);
+    rzp.open();
+  }catch(e){
+    alert(lang==='bn'
+      ? 'পেমেন্ট গেটওয়ে লোড হয়নি। আপনার Razorpay Key সেট করুন অথবা ইন্টারনেট সংযোগ চেক করুন।'
+      : 'Payment gateway not loaded. Please set your Razorpay Key or check internet connection.');
+  }
+}
+
+/* ─── Seller Payment Flow ────────────────────────────────────────── */
+function startSellerPayment(){
+  if(RAZORPAY_KEY.indexOf('REPLACE') !== -1){
+    document.getElementById('rzp-setup-notice').style.display='block';
+    return;
+  }
+  var desc=lang==='bn'?'সম্পত্তি বিজ্ঞাপন - Broker Mukto':'Property Listing - Broker Mukto';
+  openRazorpay(499, desc, function(paymentId){
+    /* Payment done — generate OTP and show OTP box */
+    sellerOTP=generateOTP();
+    /* Send OTP to owners WhatsApp so owner forwards to seller */
+    var mob=pendingListing?pendingListing.mobile:'';
+    var msg='[Broker Mukto] SELLER OTP: '+sellerOTP+' | Seller Mobile: '+mob+' | Payment ID: '+paymentId+' | Amount: Rs.499 | Verify and forward OTP to seller.';
+    window.open('https://wa.me/'+OWNER_WHATSAPP+'?text='+encodeURIComponent(msg),'_blank');
+    /* Show OTP box */
+    document.getElementById('sp-otp-box').style.display='block';
+    clearOTPInputs('sp');
+    document.getElementById('sp-otp-error').style.display='none';
+    setTimeout(function(){
+      var el=document.getElementById('sp-otp-1');
+      if(el) el.focus();
+    },300);
+  });
+}
+
+function verifySellerOTP(){
+  var entered=getOTPValue('sp');
+  var errEl=document.getElementById('sp-otp-error');
+  if(entered.length!==6){
+    errEl.textContent=T[lang].otpTooShort;
+    errEl.style.display='block';
+    return;
+  }
+  if(entered!==sellerOTP){
+    errEl.textContent=T[lang].otpWrong;
+    errEl.style.display='block';
+    clearOTPInputs('sp');
+    document.getElementById('sp-otp-1').focus();
+    return;
+  }
+  /* OTP correct — add listing */
+  if(pendingListing){
+    listings.unshift(pendingListing);
+    document.getElementById('listing-count').textContent=listings.length;
+    pendingListing=null;
+  }
+  sellerOTP=null;
+  /* Clear form */
+  ['s-po','s-road','s-landmark','s-price','s-mobile','s-size','s-maps'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('s-neg').checked=false;
+  document.getElementById('s-type').value='';
+  document.getElementById('s-facing').value='';
+  document.getElementById('video-name-display').textContent='';
+  document.getElementById('photo-preview').innerHTML='';
+  photoDataUrls=[];
+  /* Show thank you */
+  document.getElementById('sp-pay-section').style.display='none';
+  document.getElementById('seller-thankyou').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ─── Buyer Payment Flow ─────────────────────────────────────────── */
+function startBuyerPayment(){
+  var item=listings.find(function(l){return l.id===currentUnlockId;});
+  var desc=lang==='bn'?'বিক্রেতার নম্বর আনলক - Broker Mukto':'Unlock Seller Number - Broker Mukto';
+  openRazorpay(99, desc, function(paymentId){
+    /* Payment done — generate OTP */
+    buyerOTP=generateOTP();
+    var mob=item?item.mobile:'';
+    var msg='[Broker Mukto] BUYER OTP: '+buyerOTP+' | For unlocking: '+mob+' | Payment ID: '+paymentId+' | Amount: Rs.99 | Forward OTP to buyer.';
+    window.open('https://wa.me/'+OWNER_WHATSAPP+'?text='+encodeURIComponent(msg),'_blank');
+    /* Show OTP box */
+    document.getElementById('modal-pay-step').style.display='none';
+    document.getElementById('modal-otp-box').style.display='block';
+    clearOTPInputs('b');
+    document.getElementById('modal-otp-error').style.display='none';
+    setTimeout(function(){
+      var el=document.getElementById('b-otp-1');
+      if(el) el.focus();
+    },300);
+  });
+}
+
+function verifyBuyerOTP(){
+  var entered='';
+  for(var i=1;i<=6;i++){
+    var el=document.getElementById('b-otp-'+i);
+    entered+=el?el.value.trim():'';
+  }
+  var errEl=document.getElementById('modal-otp-error');
+  if(entered.length!==6){
+    errEl.textContent=T[lang].otpTooShort;
+    errEl.style.display='block';
+    return;
+  }
+  if(entered!==buyerOTP){
+    errEl.textContent=T[lang].otpWrong;
+    errEl.style.display='block';
+    clearOTPInputs('b');
+    document.getElementById('b-otp-1').focus();
+    return;
+  }
+  /* OTP correct — show number */
+  if(currentUnlockId!==null){
+    unlockedIds.push(currentUnlockId);
+    var item=listings.find(function(l){return l.id===currentUnlockId;});
+    buyerOTP=null;
+    document.getElementById('modal-otp-box').style.display='none';
+    var ty=document.getElementById('buyer-thankyou');
+    ty.style.display='block';
+    if(item){
+      document.getElementById('b-ty-number').textContent=item.mobile;
+      document.getElementById('b-ty-actions').innerHTML=
+        '<a class="btn-call" href="tel:'+item.mobile+'">📞 '+T[lang].callBtn+'</a>'+
+        '<a class="btn-wa" href="https://wa.me/91'+item.mobile+'" target="_blank">💬 WhatsApp</a>';
+    }
+    applyFilters();
+  }
+}
+
+/* ─── Validate seller form & go to payment ───────────────────────── */
+function validateSellerForm(){
+  var po=document.getElementById('s-po').value.trim();
+  var price=document.getElementById('s-price').value.trim();
+  var mobile=document.getElementById('s-mobile').value.trim();
+  var size=document.getElementById('s-size').value.trim();
+  var type=document.getElementById('s-type').value;
+  var district=document.getElementById('s-district-val').value;
+  if(!po||!price||!mobile||!size||!type||!district){
+    var err=document.getElementById('s-error');
+    err.style.display='block';
+    err.scrollIntoView({behavior:'smooth'});
+    setTimeout(function(){err.style.display='none';},3000);
+    return;
+  }
+  pendingListing={
+    id:Date.now(),district:district,po:po,
+    road:document.getElementById('s-road').value.trim(),
+    landmark:document.getElementById('s-landmark').value.trim(),
+    price:price,priceNum:parseInt(price.replace(/[^0-9]/g,''))||0,
+    negotiable:document.getElementById('s-neg').checked,
+    mobile:mobile,
+    hasVideo:!!document.getElementById('video-name-display').textContent,
+    photos:photoDataUrls.slice(),
+    size:size,unit:document.getElementById('s-unit').value,
+    type:type,facing:document.getElementById('s-facing').value,
+    maps:document.getElementById('s-maps').value.trim(),
+    verified:true,sold:false
+  };
+  document.getElementById('seller-thankyou').style.display='none';
+  document.getElementById('sp-pay-section').style.display='block';
+  document.getElementById('sp-otp-box').style.display='none';
+  showScreen('seller-pay-screen');
+}
+
+/* ─── Buyer submit ───────────────────────────────────────────────── */
+function submitBuyer(){
+  if(!document.getElementById('b-mobile').value.trim()){
+    var err=document.getElementById('b-error');err.style.display='block';
+    setTimeout(function(){err.style.display='none';},3000);return;
+  }
+  ['b-mobile','b-po','b-remarks','b-budget'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('b-type').value='';
+  var s=document.getElementById('b-success');s.style.display='block';
+  setTimeout(function(){s.style.display='none';showScreen('listings-screen');},1800);
+}
+
+/* ─── Unlock modal ───────────────────────────────────────────────── */
+function openUnlockModal(id){
+  currentUnlockId=id;
+  var item=listings.find(function(l){return l.id===id;});
+  if(item) document.getElementById('modal-listing-info').textContent='📍 '+(item.district||item.po)+' · ₹'+item.price;
+  document.getElementById('modal-pay-step').style.display='block';
+  document.getElementById('modal-otp-box').style.display='none';
+  document.getElementById('buyer-thankyou').style.display='none';
+  document.getElementById('buyer-pay-modal').classList.add('active');
+}
+function closeModal(){
+  document.getElementById('buyer-pay-modal').classList.remove('active');
+  currentUnlockId=null; buyerOTP=null;
+}
+
+/* ─── Seller status verify ───────────────────────────────────────── */
+var verifyItemId=null;
+function askSellerVerify(id){
+  verifyItemId=id;
+  document.getElementById('verify-mob-inp').value='';
+  document.getElementById('verify-error').style.display='none';
+  document.getElementById('verify-modal').classList.add('active');
+}
+function confirmSellerVerify(){
+  var entered=document.getElementById('verify-mob-inp').value.trim();
+  var item=listings.find(function(l){return l.id===verifyItemId;});
+  if(!item){closeVerifyModal();return;}
+  if(entered===item.mobile){
+    item.sold=!item.sold;
+    closeVerifyModal();
+    applyFilters();
+  }else{
+    document.getElementById('verify-error').style.display='block';
+  }
+}
+function closeVerifyModal(){
+  document.getElementById('verify-modal').classList.remove('active');
+  verifyItemId=null;
+}
+
+/* ─── Screen navigation ──────────────────────────────────────────── */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(id==='listings-screen') applyFilters();
+}
+function goToSell(){
+  showScreen('seller-screen');
+  setTimeout(function(){
+    var el=document.getElementById('s-sec1');
+    if(!el) return;
+    var hdrH=document.querySelector('.hdr').offsetHeight||60;
+    window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.pageYOffset-hdrH-12),behavior:'smooth'});
+  },200);
+}
+function goToBuy(){
+  showScreen('buyer-screen');
+  setTimeout(function(){
+    var el=document.getElementById('b-mobile');
+    if(!el) return;
+    var hdrH=document.querySelector('.hdr').offsetHeight||60;
+    window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.pageYOffset-hdrH-40),behavior:'smooth'});
+    setTimeout(function(){try{el.focus();}catch(e){}},300);
+  },200);
+}
+function goToListings(){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('listings-screen').classList.add('active');
+  applyFilters();
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(function(){
+    var el=document.getElementById('search-inp');
+    if(!el) return;
+    var hdrH=document.querySelector('.hdr').offsetHeight||60;
+    window.scrollTo({top:Math.max(0,el.getBoundingClientRect().top+window.pageYOffset-hdrH-10),behavior:'smooth'});
+    setTimeout(function(){try{el.focus();}catch(e){}},200);
+  },200);
+}
+
+/* ─── Language ───────────────────────────────────────────────────── */
+function toggleLang(){lang=lang==='bn'?'en':'bn';applyLang();}
+
+/* ─── Media ──────────────────────────────────────────────────────── */
+function videoSelected(input){var n=input.files[0]?input.files[0].name:'';document.getElementById('video-name-display').textContent=n?'✓ '+n:'';}
+function photosSelected(input){
+  var files=Array.from(input.files).slice(0,5);photoDataUrls=[];
+  var prev=document.getElementById('photo-preview');prev.innerHTML='';
+  files.forEach(function(f){var r=new FileReader();r.onload=function(e){photoDataUrls.push(e.target.result);var img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';prev.appendChild(img);};r.readAsDataURL(f);});
+}
+
+/* ─── WB Districts ───────────────────────────────────────────────── */
+var WBD=['Alipurduar','Bankura','Birbhum','Cooch Behar','Dakshin Dinajpur','Darjeeling','Hooghly','Howrah','Jalpaiguri','Jhargram','Kalimpong','Kolkata','Malda','Murshidabad','Nadia','North 24 Parganas','Paschim Bardhaman','Paschim Medinipur','Purba Bardhaman','Purba Medinipur','Purulia','South 24 Parganas','Uttar Dinajpur'];
+var WDBN=['আলিপুরদুয়ার','বাঁকুড়া','বীরভূম','কোচবিহার','দক্ষিণ দিনাজপুর','দার্জিলিং','হুগলি','হাওড়া','জলপাইগুড়ি','ঝাড়গ্রাম','কালিম্পং','কলকাতা','মালদা','মুর্শিদাবাদ','নদিয়া','উত্তর ২৪ পরগনা','পশ্চিম বর্ধমান','পশ্চিম মেদিনীপুর','পূর্ব বর্ধমান','পূর্ব মেদিনীপুর','পুরুলিয়া','দক্ষিণ ২৪ পরগনা','উত্তর দিনাজপুর'];
+function populateDistricts(){
+  var isBn=lang==='bn';
+  var ph=isBn?'-- জেলা বেছে নিন --':'-- Select District --';
+  var all=isBn?'📍 সব জেলা':'📍 All Districts';
+  ['s-district-val','b-district-val'].forEach(function(sid){
+    var sel=document.getElementById(sid);if(!sel)return;
+    var cur=sel.value;sel.innerHTML='<option value="">'+ph+'</option>';
+    WBD.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WDBN[i]:d;sel.appendChild(o);});
+    if(sid==='s-district-val'&&!cur)sel.value='Birbhum';else if(cur)sel.value=cur;
+  });
+  var fs=document.getElementById('filter-district');
+  if(fs){var cur=fs.value;fs.innerHTML='<option value="">'+all+'</option>';WBD.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WDBN[i]:d;fs.appendChild(o);});if(cur)fs.value=cur;}
+}
+function setSelect(id,labels,vals){
+  var el=document.getElementById(id);if(!el)return;
+  var cur=el.value;el.innerHTML='';
+  for(var i=0;i<labels.length;i++){var o=document.createElement('option');o.textContent=labels[i];o.value=vals[i];el.appendChild(o);}
+  el.value=cur;
+}
+
+/* ─── Translations ───────────────────────────────────────────────── */
 var T={
 bn:{
   appName:'ব্রোকার মুক্তো',langBtn:'English',
@@ -527,14 +855,13 @@ bn:{
   viewListings:'সব তালিকা দেখুন',
   footerNote:'পশ্চিমবঙ্গের সরাসরি সম্পত্তি কেনাবেচার প্ল্যাটফর্ম · দালালমুক্ত',
   back:'← ফিরে যান',
-  sTitle:'🌾 আপনার সম্পত্তির তথ্য দিন',
+  sTitle:'🏠 আপনার সম্পত্তির তথ্য দিন',
   sFormSub:'📍 পশ্চিমবঙ্গ — সব তথ্য পূরণ করুন',
   sError:'⚠️ অনুগ্রহ করে সব তথ্য পূরণ করুন।',
   sec1:'📹 ভিডিও ও ছবি',sec2:'📍 অবস্থান',sec3:'🌿 সম্পত্তির বিবরণ',sec4:'💰 মূল্য ও যোগাযোগ',
   sVideoLbl:'সম্পত্তির ভিডিও (সর্বোচ্চ ৩ মিনিট)',sVideoTap:'ভিডিও বেছে নিতে চাপুন',
   sPhotoLbl:'সম্পত্তির ছবি (সর্বোচ্চ ৫টি)',sPhotoTap:'ছবি বেছে নিতে চাপুন',
-  sDistrictLbl:'জেলা (District) *',districtVal:'Birbhum',
-  sPo:'পোস্ট অফিস (পি.ও.) *',sPoPh:'যেমন: সিউড়ি, বোলপুর...',
+  sDistrictLbl:'জেলা *',sPo:'পোস্ট অফিস (পি.ও.) *',sPoPh:'যেমন: সিউড়ি, বোলপুর...',
   sRoad:'রাস্তা / এলাকা',sRoadPh:'যেমন: NH14, গ্রামের রাস্তা...',
   sLandmark:'ল্যান্ড মার্ক',sLandmarkPh:'যেমন: স্কুলের পাশে...',
   sMaps:'Google Maps লিঙ্ক (ঐচ্ছিক)',
@@ -551,16 +878,18 @@ bn:{
   sMobLbl:'মোবাইল নম্বর (WhatsApp) *',sMobPh:'১০ সংখ্যার মোবাইল নম্বর',
   sSubmit:'পরবর্তী → পেমেন্ট করুন',
   spBack:'← ফর্মে ফিরুন',
-  spTitle:'💰 লিস্টিং ফি পরিশোধ করুন',
-  spSub:'পেমেন্ট সম্পন্ন হলে আপনার সম্পত্তি তালিকায় যোগ হবে',
-  spLabel:'একটি সম্পত্তির বিজ্ঞাপন · সম্পূর্ণ তালিকা',
-  upiLabel:'UPI ID তে পেমেন্ট করুন',
-  spS1:'নিচের যেকোনো অ্যাপ খুলুন',
-  spS2:'Q893475252@ybl তে ₹499 পাঠান',
-  spS3:'পেমেন্ট হলে আপনার তথ্য তালিকায় যোগ হবে',
-  spNote:'সমস্যার জন্য WhatsApp করুন: 9483319235',
-  spTyTitle:'🎉 ধন্যবাদ! আপনার সম্পত্তির তথ্য কিছুক্ষণের মধ্যে তালিকায় দেখাবে।',
-  spTyText:'আপনার পেমেন্ট যাচাই করা হচ্ছে। সাধারণত ৫-১০ মিনিটের মধ্যে প্রকাশিত হবে।',
+  spTitle:'💳 পেমেন্ট করুন',
+  spSub:'পেমেন্টের পর OTP দিয়ে সম্পত্তি তালিকাভুক্ত করুন',
+  spPayLabel:'একটি সম্পত্তির বিজ্ঞাপন',
+  spPayBtn:'Razorpay দিয়ে পেমেন্ট করুন',
+  spSecure:'🔒 100% নিরাপদ · UPI · Card · Net Banking · Wallet',
+  spOtpTitle:'OTP যাচাই করুন',
+  spOtpSubtitle:'আপনার পেমেন্ট সফল হয়েছে! আপনার হোয়াটসঅ্যাপে OTP পাঠানো হবে। OTP পেলে নিচে দিন।',
+  spOtpHint:'📲 আমাদের হোয়াটসঅ্যাপ নম্বর থেকে OTP পাঠানো হবে। কয়েক মিনিট অপেক্ষা করুন।',
+  spOtpSubmit:'✓ OTP যাচাই করুন ও প্রকাশ করুন',
+  spOtpNote:'OTP পাননি? WhatsApp করুন: 9483319235',
+  spTyTitle:'🎉 ধন্যবাদ! আপনার সম্পত্তি তালিকাভুক্ত হয়েছে।',
+  spTyText:'আপনার সম্পত্তি এখন তালিকায় দেখাচ্ছে। ক্রেতারা আপনার সাথে যোগাযোগ করবেন।',
   bTitle:'🔍 সম্পত্তি খুঁজুন',bFormSub:'📍 পশ্চিমবঙ্গ — বিনামূল্যে তালিকা দেখুন',
   bSuccess:'✓ আপনার তথ্য পাঠানো হয়েছে!',bError:'⚠️ অনুগ্রহ করে মোবাইল নম্বর দিন।',
   bFeeTitle:'📋 ক্রেতার জন্য মূল্য তালিকা',
@@ -568,8 +897,7 @@ bn:{
   bFeeNote:'প্রতিটি নম্বর আলাদাভাবে আনলক করুন',
   bMobLbl:'মোবাইল নম্বর *',bMobPh:'১০ সংখ্যার মোবাইল নম্বর',
   bPoLbl:'পোস্ট অফিস (পি.ও.)',bPoPh:'যেমন: সিউড়ি, বোলপুর...',
-  bDistrictLbl:'জেলা',
-  bBudgetLbl:'বাজেট (₹)',bBudgetPh:'যেমন: ৫,০০,০০০',
+  bDistrictLbl:'জেলা',bBudgetLbl:'বাজেট (₹)',bBudgetPh:'যেমন: ৫,০০,০০০',
   bTypeLbl:'সম্পত্তির ধরন',
   bTypeOpts:['-- যেকোনো --','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান'],
   bRemarksLbl:'মন্তব্য / প্রয়োজনীয়তা',bRemarksPh:'নির্দিষ্ট কোনো প্রয়োজন থাকলে লিখুন...',
@@ -581,62 +909,59 @@ bn:{
   filterDistrictAll:'📍 সব জেলা',
   filterPriceAll:'💰 সব দাম',filterLow:'৫ লাখের নিচে',filterMid:'৫–১০ লাখ',filterHigh:'১০ লাখের বেশি',
   filterNegAll:'🤝 সব',filterNegY:'দরাদরি যোগ্য',filterNegN:'নির্দিষ্ট দাম',
-  totalFound:'টি তালিকা পাওয়া গেছে',noListings:'কোনো তালিকা পাওয়া যায়নি।',
+  totalFound:'টি তালিকা',noListings:'কোনো তালিকা পাওয়া যায়নি।',
   locLbl:'অবস্থান',roadLbl:'রাস্তা',landLbl:'ল্যান্ড মার্ক',sizeLbl:'পরিমাণ',faceLbl:'মুখ',
   videoAvail:'ভিডিও আছে',negLabel:'দরাদরি যোগ্য',verifiedLabel:'যাচাইকৃত',
   forSale:'🟢 বিক্রয়ের জন্য',sold:'🔴 বিক্রি হয়েছে',
-  markSold:'বিক্রি চিহ্নিত করুন',markForSale:'বিক্রয়ের জন্য রাখুন',
-  sellerOnly:'(শুধু বিক্রেতা পরিবর্তন করতে পারবেন)',
+  sellerOnly:'বিক্রেতা নিজে পরিবর্তন করুন',
   lockedText:'বিক্রেতার নম্বর দেখতে ₹99 পেমেন্ট করুন',
   unlockBtn:'🔓 ₹99 দিয়ে নম্বর আনলক করুন',
   unlockedLabel:'✓ নম্বর আনলক হয়েছে',
   callBtn:'📞 কল করুন',waBtn:'💬 WhatsApp',
   mapsBtn:'🗺️ Google Maps এ দেখুন',
   shareBtn:'📤 WhatsApp এ শেয়ার করুন',
-  modalTitle:'🔓 নম্বর আনলক করুন',
-  modalPayLabel:'বিক্রেতার মোবাইল নম্বর আনলক',
-  modalNote:'পেমেন্ট করার সাথে সাথে নম্বর দেখাবে।\nসমস্যার জন্য WhatsApp: 9483319235',
-  bTyTitle:'ধন্যবাদ! এই বিক্রেতার যোগাযোগ নম্বর:',
-  utrInvalid:'⚠️ সঠিক UTR/Transaction ID দিন (১২-১৬ সংখ্যা)। পেমেন্ট অ্যাপের SMS বা ইতিহাস থেকে দেখুন।',
-  upiCopied:'UPI ID কপি হয়েছে! পেমেন্ট অ্যাপে পেস্ট করুন।',
-  modalStepsTitle:'পেমেন্ট করার নিয়ম:',
-  modalStepsText:'১. নিচের অ্যাপ বাটন চাপুন বা UPI ID কপি করুন|২. Q893475252@ybl তে ₹99 পাঠান|৩. পেমেন্ট সফল হলে বাটন চাপুন|৪. UTR/Transaction ID লিখুন',
-  modalOpenAppHint:'যেকোনো অ্যাপ খুলতে চাপুন:',
-  modalPaidBtn:'✓ আমি পেমেন্ট করেছি — UTR দিন',
-  utrTitle:'UTR / Transaction ID দিন',
-  utrSubtitle:'পেমেন্ট সফল হলে আপনার অ্যাপে একটি Transaction ID বা UTR নম্বর আসে। সেটি নিচে লিখুন।',
-  utrLabel:'UTR / Transaction ID *',
-  utrPlaceholder:'১২-১৬ সংখ্যার নম্বর',
-  utrSubmit:'✓ নম্বর আনলক করুন',
-  utrBack:'← পেমেন্ট পেজে ফিরুন',
+  modalTitle:'🔓 বিক্রেতার নম্বর আনলক করুন',
+  modalPayLabel:'বিক্রেতার মোবাইল নম্বর দেখুন',
+  modalPayBtn:'Razorpay দিয়ে পেমেন্ট করুন',
+  modalSecure:'🔒 100% নিরাপদ · UPI · Card · Net Banking · Wallet',
+  modalOtpTitle:'OTP যাচাই করুন',
+  modalOtpSubtitle:'পেমেন্ট সফল! আমাদের WhatsApp থেকে OTP পাঠানো হবে।',
+  modalOtpHint:'📲 কয়েক মিনিটের মধ্যে OTP পাবেন। সমস্যায় WhatsApp করুন: 9483319235',
+  modalOtpSubmit:'✓ OTP যাচাই করুন ও নম্বর দেখুন',
+  modalOtpNote:'OTP পাননি? WhatsApp করুন: 9483319235',
+  bTyTitle:'বিক্রেতার যোগাযোগ নম্বর:',
   tyCloseBtn:'✓ বন্ধ করুন',
-  spUtrLbl:'UTR / Transaction ID *',
-  spUtrPh:'পেমেন্ট অ্যাপ থেকে ১২-১৬ সংখ্যার নম্বর',
-  spConfirm:'✓ UTR যাচাই করুন ও বিজ্ঞাপন প্রকাশ করুন',
-  spOpenHint:'পেমেন্ট করতে যেকোনো অ্যাপ খুলুন:',
+  verifyTitle:'🔐 বিক্রেতা যাচাই',
+  verifySub:'শুধুমাত্র আসল বিক্রেতা স্ট্যাটাস পরিবর্তন করতে পারবেন।',
+  verifyLbl:'আপনার নিবন্ধিত মোবাইল নম্বর দিন',
+  verifyMobPh:'১০ সংখ্যার মোবাইল নম্বর',
+  verifyBtn:'✓ যাচাই করুন',
+  verifyErr:'❌ মোবাইল নম্বর মিলছে না।',
+  otpTooShort:'⚠️ ৬ সংখ্যার OTP দিন।',
+  otpWrong:'❌ OTP সঠিক নয়। আবার চেষ্টা করুন।',
+  soldMsg:'এই সম্পত্তি বিক্রি হয়ে গেছে',
 },
 en:{
   appName:'BROKER MUKTO',langBtn:'বাংলা',
   tagline:'Direct Property Deals. No Middleman.',
   heroSub:'Connect directly with buyers & sellers across West Bengal',
-  sellTitle:'Sell Property',sellDesc:'List your plot with video & photos',sellFee:'Only ₹499',
-  buyTitle:'Buy Property',buyDesc:'Find your perfect land directly',buyFee:'Unlock number ₹99',
+  sellTitle:'Sell Property',sellDesc:'List your property with video & photos',sellFee:'Only ₹499',
+  buyTitle:'Buy Property',buyDesc:'Find your perfect property directly',buyFee:'Unlock number ₹99',
   howTitle:'⚡ How It Works?',
   how1:'Seller pays ₹499 and posts property listing',
   how2:'Buyer views all listings for free',
-  how3:'Buyer pays ₹99 to unlock seller\'s number',
+  how3:"Buyer pays ₹99 to unlock sellers number",
   how4:'Direct contact — No broker! 🤝',
   viewListings:'View All Listings',
   footerNote:'Direct property marketplace across West Bengal · Broker-free',
   back:'← Back',
-  sTitle:'🌾 List Your Property',
+  sTitle:'🏠 List Your Property',
   sFormSub:'📍 West Bengal — Fill all details',
   sError:'⚠️ Please fill all required fields.',
   sec1:'📹 Video & Photos',sec2:'📍 Location',sec3:'🌿 Property Details',sec4:'💰 Price & Contact',
   sVideoLbl:'Property Video (max 3 minutes)',sVideoTap:'Tap to select video',
   sPhotoLbl:'Property Photos (max 5)',sPhotoTap:'Tap to select photos',
-  sDistrictLbl:'District *',districtVal:'Birbhum',
-  sPo:'Post Office (P.O.) *',sPoPh:'e.g. Suri, Bolpur...',
+  sDistrictLbl:'District *',sPo:'Post Office (P.O.) *',sPoPh:'e.g. Suri, Bolpur...',
   sRoad:'Road / Area',sRoadPh:'e.g. NH14, Village Road...',
   sLandmark:'Land Mark',sLandmarkPh:'e.g. Near School...',
   sMaps:'Google Maps Link (optional)',
@@ -653,16 +978,18 @@ en:{
   sMobLbl:'Mobile Number (WhatsApp) *',sMobPh:'10-digit mobile number',
   sSubmit:'Next → Proceed to Payment',
   spBack:'← Back to Form',
-  spTitle:'💰 Pay Listing Fee',
-  spSub:'Your property will be added to listings after payment',
-  spLabel:'One property listing · Full visibility',
-  upiLabel:'Pay to UPI ID',
-  spS1:'Open any payment app below',
-  spS2:'Send ₹499 to Q893475252@ybl',
-  spS3:'Your listing will appear after payment',
-  spNote:'For help WhatsApp: 9483319235',
-  spTyTitle:'🎉 Thank You! Your property details will be displayed in a few minutes.',
-  spTyText:'Your payment is being verified. Usually published within 5-10 minutes.',
+  spTitle:'💳 Make Payment',
+  spSub:'After payment, enter OTP to publish your listing',
+  spPayLabel:'One property listing',
+  spPayBtn:'Pay with Razorpay',
+  spSecure:'🔒 100% Secure · UPI · Card · Net Banking · Wallet',
+  spOtpTitle:'Verify OTP',
+  spOtpSubtitle:'Payment successful! An OTP will be sent to your WhatsApp. Enter it below.',
+  spOtpHint:'📲 OTP will be sent from our WhatsApp number. Please wait a few minutes.',
+  spOtpSubmit:'✓ Verify OTP & Publish Listing',
+  spOtpNote:'Did not receive OTP? WhatsApp: 9483319235',
+  spTyTitle:'🎉 Thank You! Your property is now listed.',
+  spTyText:'Your property is now visible to buyers. They will contact you directly.',
   bTitle:'🔍 Find Property',bFormSub:'📍 West Bengal — Browse listings for free',
   bSuccess:'✓ Your details submitted!',bError:'⚠️ Please enter your mobile number.',
   bFeeTitle:'📋 Buyer Price List',
@@ -670,8 +997,7 @@ en:{
   bFeeNote:'Each number unlocked separately',
   bMobLbl:'Mobile Number *',bMobPh:'10-digit mobile number',
   bPoLbl:'Post Office (P.O.)',bPoPh:'e.g. Suri, Bolpur...',
-  bDistrictLbl:'District',
-  bBudgetLbl:'Budget (₹)',bBudgetPh:'e.g. 5,00,000',
+  bDistrictLbl:'District',bBudgetLbl:'Budget (₹)',bBudgetPh:'e.g. 5,00,000',
   bTypeLbl:'Property Type',
   bTypeOpts:['-- Any --','Agricultural','Residential','Commercial','Garden'],
   bRemarksLbl:'Remarks / Requirements',bRemarksPh:'Any specific requirements...',
@@ -687,98 +1013,37 @@ en:{
   locLbl:'Location',roadLbl:'Road',landLbl:'Landmark',sizeLbl:'Size',faceLbl:'Facing',
   videoAvail:'Video Available',negLabel:'Negotiable',verifiedLabel:'Verified',
   forSale:'🟢 FOR SALE',sold:'🔴 SOLD',
-  markSold:'Mark as Sold',markForSale:'Mark as For Sale',
-  sellerOnly:'(Only seller can change)',
-  lockedText:'Pay ₹99 to unlock seller\'s number',
+  sellerOnly:'Seller can change status',
+  lockedText:"Pay ₹99 to unlock sellers number",
   unlockBtn:'🔓 Unlock Number for ₹99',
   unlockedLabel:'✓ Number Unlocked',
   callBtn:'📞 Call',waBtn:'💬 WhatsApp',
   mapsBtn:'🗺️ View on Google Maps',
   shareBtn:'📤 Share on WhatsApp',
-  modalTitle:'🔓 Unlock Number',
-  modalPayLabel:'Unlock Seller\'s Mobile Number',
-  modalNote:'Number appears immediately after tapping payment.\nFor help WhatsApp: 9483319235',
-  bTyTitle:'Thank You! Here is the contact number:',
-  utrInvalid:'⚠️ Enter a valid UTR/Transaction ID (12-16 digits). Check your payment app SMS or history.',
-  upiCopied:'UPI ID copied! Paste it in your payment app.',
-  modalStepsTitle:'How to pay:',
-  modalStepsText:'1. Open any app below or copy the UPI ID|2. Send Rs.99 to Q893475252@ybl|3. After payment tap the button below|4. Enter your UTR/Transaction ID',
-  modalOpenAppHint:'Open any app to pay:',
-  modalPaidBtn:'✓ I have paid — Enter UTR',
-  utrTitle:'Enter UTR / Transaction ID',
-  utrSubtitle:'After successful payment, your app sends a Transaction ID or UTR number. Enter it below to unlock the number.',
-  utrLabel:'UTR / Transaction ID *',
-  utrPlaceholder:'12-16 digit number',
-  utrSubmit:'✓ Unlock Number',
-  utrBack:'← Back to payment page',
+  modalTitle:'🔓 Unlock Seller Number',
+  modalPayLabel:"Unlock sellers mobile number",
+  modalPayBtn:'Pay with Razorpay',
+  modalSecure:'🔒 100% Secure · UPI · Card · Net Banking · Wallet',
+  modalOtpTitle:'Verify OTP',
+  modalOtpSubtitle:'Payment successful! OTP will be sent to your WhatsApp.',
+  modalOtpHint:'📲 OTP will arrive in a few minutes. For help WhatsApp: 9483319235',
+  modalOtpSubmit:'✓ Verify OTP & Unlock Number',
+  modalOtpNote:'Did not receive OTP? WhatsApp: 9483319235',
+  bTyTitle:'Seller Contact Number:',
   tyCloseBtn:'✓ Close',
-  spUtrLbl:'UTR / Transaction ID *',
-  spUtrPh:'12-16 digit number from payment app',
-  spConfirm:'✓ Verify UTR & Publish Listing',
-  spOpenHint:'Open any app to make payment:',
+  verifyTitle:'🔐 Seller Verification',
+  verifySub:'Only the actual seller can change this status.',
+  verifyLbl:'Enter your registered mobile number',
+  verifyMobPh:'10-digit mobile number',
+  verifyBtn:'✓ Verify & Change Status',
+  verifyErr:'❌ Mobile number does not match.',
+  otpTooShort:'⚠️ Please enter all 6 OTP digits.',
+  otpWrong:'❌ Incorrect OTP. Please try again.',
+  soldMsg:'This property has been sold',
 },
 };
 
-/* ── Screen navigation with scroll-to-top ───────────────────────── */
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(id==='listings-screen') applyFilters();
-}
-
-/* Fix 4: View All Listings — scroll to very top of listings */
-function goToListings(){
-  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
-  document.getElementById('listings-screen').classList.add('active');
-  applyFilters();
-  window.scrollTo({top:0,behavior:'smooth'});
-  /* Scroll to search bar after render so user lands right on it */
-  setTimeout(function(){
-    var el=document.getElementById('search-inp');
-    if(!el) return;
-    var hdr=document.querySelector('.hdr');
-    var hdrH=hdr?hdr.offsetHeight:60;
-    var rect=el.getBoundingClientRect();
-    var scrollTop=window.pageYOffset+rect.top-hdrH-10;
-    window.scrollTo({top:Math.max(0,scrollTop),behavior:'smooth'});
-    /* Focus search box so keyboard opens on mobile */
-    setTimeout(function(){try{el.focus();}catch(e){}},200);
-  },200);
-}
-
-/* Fix 1: Sell → scroll to video/photo upload section */
-function goToSell(){
-  showScreen('seller-screen');
-  setTimeout(function(){
-    var el=document.getElementById('s-sec1');
-    if(!el) return;
-    var hdr=document.querySelector('.hdr');
-    var hdrH=hdr?hdr.offsetHeight:60;
-    var rect=el.getBoundingClientRect();
-    var scrollTop=window.pageYOffset+rect.top-hdrH-12;
-    window.scrollTo({top:Math.max(0,scrollTop),behavior:'smooth'});
-  },200);
-}
-
-/* Fix 1: Buy → scroll to mobile number input and focus */
-function goToBuy(){
-  showScreen('buyer-screen');
-  setTimeout(function(){
-    var el=document.getElementById('b-mobile');
-    if(!el) return;
-    var hdr=document.querySelector('.hdr');
-    var hdrH=hdr?hdr.offsetHeight:60;
-    var rect=el.getBoundingClientRect();
-    var scrollTop=window.pageYOffset+rect.top-hdrH-40;
-    window.scrollTo({top:Math.max(0,scrollTop),behavior:'smooth'});
-    setTimeout(function(){try{el.focus();}catch(e){}},350);
-  },200);
-}
-
-/* ── Language ────────────────────────────────────────────────────── */
-function toggleLang(){lang=lang==='bn'?'en':'bn';applyLang();}
-
+/* ─── applyLang ──────────────────────────────────────────────────── */
 function applyLang(){
   try{
   var t=T[lang];
@@ -799,7 +1064,6 @@ function applyLang(){
   document.getElementById('how-4').textContent=t.how4;
   document.getElementById('h-view-listings').textContent=t.viewListings;
   document.getElementById('footer-note').textContent=t.footerNote;
-  /* seller form */
   document.getElementById('s-back').textContent=t.back;
   document.getElementById('s-title').textContent=t.sTitle;
   document.getElementById('s-form-sub').textContent=t.sFormSub;
@@ -833,19 +1097,19 @@ function applyLang(){
   document.getElementById('s-mob-lbl').textContent=t.sMobLbl;
   document.getElementById('s-mobile').placeholder=t.sMobPh;
   document.getElementById('s-submit').textContent=t.sSubmit;
-  /* seller payment */
   document.getElementById('sp-back').textContent=t.spBack;
   document.getElementById('sp-title').textContent=t.spTitle;
   document.getElementById('sp-sub').textContent=t.spSub;
-  document.getElementById('sp-label').textContent=t.spLabel;
-  document.getElementById('sp-upi-label').textContent=t.upiLabel;
-  document.getElementById('sp-s1').textContent=t.spS1;
-  document.getElementById('sp-s2').textContent=t.spS2;
-  document.getElementById('sp-s3').textContent=t.spS3;
-  document.getElementById('sp-note').textContent=t.spNote;
+  document.getElementById('sp-pay-label').textContent=t.spPayLabel;
+  document.getElementById('sp-pay-btn-text').textContent=t.spPayBtn;
+  document.getElementById('sp-secure-text').textContent=t.spSecure;
+  document.getElementById('sp-otp-title').textContent=t.spOtpTitle;
+  document.getElementById('sp-otp-subtitle').textContent=t.spOtpSubtitle;
+  document.getElementById('sp-otp-hint').textContent=t.spOtpHint;
+  document.getElementById('sp-otp-submit').textContent=t.spOtpSubmit;
+  document.getElementById('sp-otp-note').textContent=t.spOtpNote;
   document.getElementById('sp-ty-title').textContent=t.spTyTitle;
   document.getElementById('sp-ty-text').textContent=t.spTyText;
-  /* buyer */
   document.getElementById('b-back').textContent=t.back;
   document.getElementById('b-title').textContent=t.bTitle;
   document.getElementById('b-form-sub').textContent=t.bFormSub;
@@ -868,312 +1132,42 @@ function applyLang(){
   document.getElementById('b-remarks-lbl').textContent=t.bRemarksLbl;
   document.getElementById('b-remarks').placeholder=t.bRemarksPh;
   document.getElementById('b-submit').textContent=t.bSubmit;
-  /* listings */
   document.getElementById('l-back').textContent=t.back;
   document.getElementById('l-title').textContent=t.lTitle;
   document.getElementById('search-inp').placeholder=t.searchPh;
   setSelect('filter-type',[t.filterTypeAll].concat(t.filterTypeOpts),['','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ','অন্যান্য']);
   setSelect('filter-price',[t.filterPriceAll,t.filterLow,t.filterMid,t.filterHigh],['','low','mid','high']);
   setSelect('filter-neg',[t.filterNegAll,t.filterNegY,t.filterNegN],['','yes','no']);
-  /* modal */
   document.getElementById('modal-title').textContent=t.modalTitle;
   document.getElementById('modal-pay-label').textContent=t.modalPayLabel;
-  document.getElementById('modal-upi-label').textContent=t.upiLabel;
-  document.getElementById('modal-note').textContent=t.modalNote;
+  document.getElementById('modal-pay-btn-text').textContent=t.modalPayBtn;
+  document.getElementById('modal-secure-text').textContent=t.modalSecure;
+  document.getElementById('modal-otp-title').textContent=t.modalOtpTitle;
+  document.getElementById('modal-otp-subtitle').textContent=t.modalOtpSubtitle;
+  document.getElementById('modal-otp-hint').textContent=t.modalOtpHint;
+  document.getElementById('modal-otp-submit').textContent=t.modalOtpSubmit;
+  document.getElementById('modal-otp-note').textContent=t.modalOtpNote;
   document.getElementById('b-ty-title').textContent=t.bTyTitle;
-  /* buyer payment modal */
-  var t2=T[lang];
-  var mstitle=document.getElementById('modal-steps-title');
-  var mstext=document.getElementById('modal-steps-text');
-  var moah=document.getElementById('modal-open-app-hint');
-  var mpb=document.getElementById('modal-paid-btn');
-  var utrt=document.getElementById('utr-title');
-  var utrs=document.getElementById('utr-subtitle');
-  var utrl=document.getElementById('utr-label');
-  var utrinp=document.getElementById('utr-input');
-  var utrsub=document.getElementById('utr-submit-btn');
-  var utrback=document.getElementById('utr-back-btn');
-  var tycls=document.getElementById('ty-close-btn');
-  var mcph=document.getElementById('modal-copy-hint');
-  if(mstitle) mstitle.textContent=t2.modalStepsTitle;
-  if(mstext) mstext.innerHTML=t2.modalStepsText.split('|').join('<br/>');
-  if(moah) moah.textContent=t2.modalOpenAppHint;
-  if(mpb) mpb.textContent=t2.modalPaidBtn;
-  if(utrt) utrt.textContent=t2.utrTitle;
-  if(utrs) utrs.textContent=t2.utrSubtitle;
-  if(utrl) utrl.textContent=t2.utrLabel;
-  if(utrinp) utrinp.placeholder=t2.utrPlaceholder;
-  if(utrsub) utrsub.textContent=t2.utrSubmit;
-  if(utrback) utrback.textContent=t2.utrBack;
-  if(tycls) tycls.textContent=t2.tyCloseBtn;
-  if(mcph) mcph.textContent=lang==='bn'?'👆 চাপুন UPI ID কপি করতে':'👆 Tap to copy UPI ID';
-  /* seller payment */
-  var spuhl=document.getElementById('sp-utr-lbl');
-  var spuhi=document.getElementById('sp-utr-input');
-  var spcb=document.getElementById('sp-confirm-btn');
-  var spoh=document.getElementById('sp-open-hint');
-  if(spuhl) spuhl.textContent=t2.spUtrLbl;
-  if(spuhi) spuhi.placeholder=t2.spUtrPh;
-  if(spcb) spcb.textContent=t2.spConfirm;
-  if(spoh) spoh.textContent=t2.spOpenHint;
-  /* verify modal */
-  var vtitle=document.getElementById('verify-title');
-  var vsub=document.getElementById('verify-sub');
-  var vlbl=document.getElementById('verify-lbl');
-  var vbtn=document.getElementById('verify-btn');
-  var verr=document.getElementById('verify-error');
-  if(vtitle) vtitle.textContent=lang==='bn'?'🔐 বিক্রেতা যাচাই':'🔐 Seller Verification';
-  if(vsub) vsub.textContent=lang==='bn'?'শুধুমাত্র বিক্রেতা এই স্ট্যাটাস পরিবর্তন করতে পারবেন।':'Only the actual seller can change this status.';
-  if(vlbl) vlbl.textContent=lang==='bn'?'আপনার নিবন্ধিত মোবাইল নম্বর দিন':'Enter your registered mobile number';
-  if(document.getElementById('verify-mob-inp')) document.getElementById('verify-mob-inp').placeholder=lang==='bn'?'১০ সংখ্যার মোবাইল নম্বর':'10-digit mobile number';
-  if(vbtn) vbtn.textContent=lang==='bn'?'✓ যাচাই করুন ও স্ট্যাটাস পরিবর্তন করুন':'✓ Verify & Change Status';
-  if(verr) verr.textContent=lang==='bn'?'❌ মোবাইল নম্বর মিলছে না। শুধুমাত্র আসল বিক্রেতা স্ট্যাটাস পরিবর্তন করতে পারবেন।':'❌ Mobile number does not match. Only the actual seller can change status.';
+  document.getElementById('ty-close-btn').textContent=t.tyCloseBtn;
+  document.getElementById('verify-title').textContent=t.verifyTitle;
+  document.getElementById('verify-sub').textContent=t.verifySub;
+  document.getElementById('verify-lbl').textContent=t.verifyLbl;
+  document.getElementById('verify-mob-inp').placeholder=t.verifyMobPh;
+  document.getElementById('verify-btn').textContent=t.verifyBtn;
+  document.getElementById('verify-error').textContent=t.verifyErr;
   applyFilters();
-  populateDistrictDropdowns();
-  }catch(e){console.error('applyLang error:',e);}
+  populateDistricts();
+  }catch(e){console.error('applyLang:',e);}
 }
 
-function setSelect(id,labels,vals){
-  var el=document.getElementById(id);if(!el)return;
-  var cur=el.value;el.innerHTML='';
-  for(var i=0;i<labels.length;i++){var o=document.createElement('option');o.textContent=labels[i];o.value=vals[i];el.appendChild(o);}
-  el.value=cur;
-}
-
-/* ── WB Districts ────────────────────────────────────────────────── */
-var WB_DISTRICTS=['Alipurduar','Bankura','Birbhum','Cooch Behar','Dakshin Dinajpur','Darjeeling','Hooghly','Howrah','Jalpaiguri','Jhargram','Kalimpong','Kolkata','Malda','Murshidabad','Nadia','North 24 Parganas','Paschim Bardhaman','Paschim Medinipur','Purba Bardhaman','Purba Medinipur','Purulia','South 24 Parganas','Uttar Dinajpur'];
-var WB_DISTRICTS_BN=['আলিপুরদুয়ার','বাঁকুড়া','বীরভূম','কোচবিহার','দক্ষিণ দিনাজপুর','দার্জিলিং','হুগলি','হাওড়া','জলপাইগুড়ি','ঝাড়গ্রাম','কালিম্পং','কলকাতা','মালদা','মুর্শিদাবাদ','নদিয়া','উত্তর ২৪ পরগনা','পশ্চিম বর্ধমান','পশ্চিম মেদিনীপুর','পূর্ব বর্ধমান','পূর্ব মেদিনীপুর','পুরুলিয়া','দক্ষিণ ২৪ পরগনা','উত্তর দিনাজপুর'];
-
-function populateDistrictDropdowns(){
-  var isBn=lang==='bn';
-  var placeholder=isBn?'-- জেলা বেছে নিন --':'-- Select District --';
-  var allLabel=isBn?'📍 সব জেলা':'📍 All Districts';
-  ['s-district-val','b-district-val'].forEach(function(selId){
-    var sel=document.getElementById(selId);if(!sel)return;
-    var cur=sel.value;
-    sel.innerHTML='<option value="">'+placeholder+'</option>';
-    WB_DISTRICTS.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WB_DISTRICTS_BN[i]:d;sel.appendChild(o);});
-    if(selId==='s-district-val'&&!cur)sel.value='Birbhum';
-    else if(cur)sel.value=cur;
-  });
-  var fSel=document.getElementById('filter-district');
-  if(fSel){var cur=fSel.value;fSel.innerHTML='<option value="">'+allLabel+'</option>';WB_DISTRICTS.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WB_DISTRICTS_BN[i]:d;fSel.appendChild(o);});if(cur)fSel.value=cur;}
-}
-
-/* ── Media ───────────────────────────────────────────────────────── */
-function videoSelected(input){var n=input.files[0]?input.files[0].name:'';document.getElementById('video-name-display').textContent=n?'✓ '+n:'';}
-function photosSelected(input){
-  var files=Array.from(input.files).slice(0,5);photoDataUrls=[];
-  var prev=document.getElementById('photo-preview');prev.innerHTML='';
-  files.forEach(function(f){var r=new FileReader();r.onload=function(e){photoDataUrls.push(e.target.result);var img=document.createElement('img');img.src=e.target.result;img.className='photo-thumb';prev.appendChild(img);};r.readAsDataURL(f);});
-}
-
-/* ── Step 1: validate form → go to payment screen ───────────────── */
-function validateAndPay(){
-  var po=document.getElementById('s-po').value.trim();
-  var price=document.getElementById('s-price').value.trim();
-  var mobile=document.getElementById('s-mobile').value.trim();
-  var size=document.getElementById('s-size').value.trim();
-  var type=document.getElementById('s-type').value;
-  var district=document.getElementById('s-district-val').value;
-  if(!po||!price||!mobile||!size||!type||!district){
-    var err=document.getElementById('s-error');
-    err.style.display='block';
-    err.scrollIntoView({behavior:'smooth'});
-    setTimeout(function(){err.style.display='none';},3000);
-    return;
-  }
-  /* Save form data as pending */
-  pendingListing={
-    id:Date.now(),district:district,po:po,
-    road:document.getElementById('s-road').value.trim(),
-    landmark:document.getElementById('s-landmark').value.trim(),
-    price:price,priceNum:parseInt(price.replace(/[^0-9]/g,''))||0,
-    negotiable:document.getElementById('s-neg').checked,
-    mobile:mobile,
-    hasVideo:!!document.getElementById('video-name-display').textContent,
-    photos:photoDataUrls.slice(),
-    size:size,unit:document.getElementById('s-unit').value,
-    type:type,facing:document.getElementById('s-facing').value,
-    maps:document.getElementById('s-maps').value.trim(),
-    verified:true,sold:false
-  };
-  /* Hide thankyou, show pay card */
-  document.getElementById('seller-thankyou').style.display='none';
-  document.getElementById('sp-pay-card').style.display='block';
-  showScreen('seller-pay-screen');
-}
-
-/* ── Step 2: seller enters UTR → verify → add listing ───────────── */
-function confirmSellerUTR(){
-  var utr=document.getElementById('sp-utr-input').value.trim();
-  var errEl=document.getElementById('sp-utr-error');
-  if(!/^\d{12,16}$/.test(utr)){
-    errEl.textContent=T[lang].utrInvalid;
-    errEl.style.display='block';
-    setTimeout(function(){errEl.style.display='none';},3000);
-    return;
-  }
-  if(!pendingListing) return;
-  /* Valid UTR — add listing */
-  listings.unshift(pendingListing);
-  document.getElementById('listing-count').textContent=listings.length;
-  pendingListing=null;
-  /* Clear form */
-  ['s-po','s-road','s-landmark','s-price','s-mobile','s-size','s-maps'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('s-neg').checked=false;
-  document.getElementById('s-type').value='';
-  document.getElementById('s-facing').value='';
-  document.getElementById('video-name-display').textContent='';
-  document.getElementById('photo-preview').innerHTML='';
-  photoDataUrls=[];
-  document.getElementById('sp-utr-input').value='';
-  /* Show thank you, hide pay card */
-  document.getElementById('seller-thankyou').style.display='block';
-  document.getElementById('sp-pay-card').style.display='none';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* Legacy - kept for safety */
-function sellerPaid(){}
-
-/* ── Buyer submit ────────────────────────────────────────────────── */
-function submitBuyer(){
-  if(!document.getElementById('b-mobile').value.trim()){
-    var err=document.getElementById('b-error');err.style.display='block';
-    setTimeout(function(){err.style.display='none';},3000);return;
-  }
-  ['b-mobile','b-po','b-remarks','b-budget'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('b-type').value='';
-  var s=document.getElementById('b-success');s.style.display='block';
-  setTimeout(function(){s.style.display='none';showScreen('listings-screen');},1800);
-}
-
-/* ── Status toggle — seller must verify mobile first ─────────────── */
-var verifyItemId=null;
-
-function askSellerVerify(id){
-  verifyItemId=id;
-  document.getElementById('verify-mob-inp').value='';
-  document.getElementById('verify-error').style.display='none';
-  document.getElementById('verify-modal').classList.add('active');
-}
-
-function confirmSellerVerify(){
-  var entered=document.getElementById('verify-mob-inp').value.trim();
-  var item=listings.find(function(l){return l.id===verifyItemId;});
-  if(!item){closeVerifyModal();return;}
-  if(entered===item.mobile){
-    item.sold=!item.sold;
-    closeVerifyModal();
-    applyFilters();
-  }else{
-    document.getElementById('verify-error').style.display='block';
-  }
-}
-
-function closeVerifyModal(){
-  document.getElementById('verify-modal').classList.remove('active');
-  verifyItemId=null;
-}
-
-/* ── Unlock modal — 3-step UTR verification ─────────────────────── */
-function openUnlockModal(id){
-  currentUnlockId=id;
-  var item=listings.find(function(l){return l.id===id;});
-  if(item) document.getElementById('modal-listing-info').textContent='📍 '+(item.district||item.po)+' · ₹'+item.price;
-  /* Reset to step 1 */
-  showStep1();
-  document.getElementById('buyer-pay-modal').classList.add('active');
-}
-
-function showStep1(){
-  document.getElementById('modal-step1').style.display='block';
-  document.getElementById('modal-step2').style.display='none';
-  document.getElementById('buyer-thankyou').style.display='none';
-  document.getElementById('utr-input').value='';
-  document.getElementById('utr-error').style.display='none';
-}
-
-function showUTRStep(){
-  document.getElementById('modal-step1').style.display='none';
-  document.getElementById('modal-step2').style.display='block';
-  document.getElementById('buyer-thankyou').style.display='none';
-  document.getElementById('utr-input').value='';
-  document.getElementById('utr-error').style.display='none';
-  setTimeout(function(){try{document.getElementById('utr-input').focus();}catch(e){}},200);
-}
-
-function confirmUTR(){
-  var utr=document.getElementById('utr-input').value.trim();
-  var errEl=document.getElementById('utr-error');
-  /* UTR must be 12–16 digits */
-  if(!/^\d{12,16}$/.test(utr)){
-    errEl.textContent=T[lang].utrInvalid;
-    errEl.style.display='block';
-    return;
-  }
-  /* Valid UTR — unlock number */
-  if(currentUnlockId!==null){
-    unlockedIds.push(currentUnlockId);
-    var item=listings.find(function(l){return l.id===currentUnlockId;});
-    document.getElementById('modal-step2').style.display='none';
-    var ty=document.getElementById('buyer-thankyou');
-    ty.style.display='block';
-    if(item) document.getElementById('b-ty-number').textContent='📞 '+item.mobile;
-    applyFilters();
-  }
-}
-
-function closeModal(){
-  document.getElementById('buyer-pay-modal').classList.remove('active');
-  currentUnlockId=null;
-}
-
-/* Open payment apps via intent (works in browser, no upi:// restriction) */
-function openPayApp(app, amt){
-  var upiId='Q893475252@ybl';
-  var name='BrokerMukto';
-  var amount=amt||99;
-  var pkgs={gpay:'com.google.android.apps.nbu.paisa.user',phonepe:'com.phonepe.app',paytm:'net.one97.paytm'};
-  var pkg=pkgs[app]||pkgs['gpay'];
-  var intent='intent://pay?pa='+upiId+'&pn='+encodeURIComponent(name)+'&am='+amount+'&cu=INR#Intent;scheme=upi;package='+pkg+';end';
-  window.location.href=intent;
-}
-
-function copyUPI(){
-  var upiId='Q893475252@ybl';
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(upiId).then(function(){
-      var el=document.getElementById('modal-copy-confirm');
-      el.style.display='block';
-      document.getElementById('modal-copy-confirm-txt').textContent=T[lang].upiCopied;
-      setTimeout(function(){el.style.display='none';},2500);
-    });
-  }else{
-    /* Fallback for older browsers */
-    var ta=document.createElement('textarea');
-    ta.value=upiId;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    var el=document.getElementById('modal-copy-confirm');
-    el.style.display='block';
-    document.getElementById('modal-copy-confirm-txt').textContent=T[lang].upiCopied;
-    setTimeout(function(){el.style.display='none';},2500);
-  }
-}
-
-/* ── Helpers ─────────────────────────────────────────────────────── */
+/* ─── Filter & Render ────────────────────────────────────────────── */
 function maskNumber(num){return num.substring(0,3)+'XXXXXXX';}
-function shareOnWhatsApp(item){
+function shareOnWhatsApp(po,district,road,landmark,size,unit,type,price,neg,mobile){
   var t=T[lang];
-  var text='🏡 *'+t.appName+'* - '+(lang==='bn'?'সম্পত্তি বিক্রয়':'Property for Sale')+'\n\n📍 '+item.po+', '+(item.district||item.po)+', পশ্চিমবঙ্গ\n'+(item.road?'🛣️ '+item.road+'\n':'')+(item.landmark?'🏫 '+item.landmark+'\n':'')+'🌿 '+item.size+' '+item.unit+' | '+item.type+'\n💰 ₹'+item.price+(item.negotiable?' ('+(lang==='bn'?'দরাদরি যোগ্য':'Negotiable')+')':'')+'\n\n👉 https://devilwork-1819.github.io/broker-mukto';
+  var text='🏠 *'+t.appName+'*\n\n📍 '+po+', '+district+', পশ্চিমবঙ্গ\n'+(road?'🛣️ '+road+'\n':'')+(landmark?'🏫 '+landmark+'\n':'')+'🌿 '+size+' '+unit+' | '+type+'\n💰 ₹'+price+(neg?' ('+t.negLabel+')':'')+'\n\n👉 https://devilwork-1819.github.io/no-broker';
   window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
 }
 
-/* ── Filter & Render ─────────────────────────────────────────────── */
 function applyFilters(){
   var t=T[lang];
   var q=(document.getElementById('search-inp').value||'').toLowerCase().trim();
@@ -1198,13 +1192,8 @@ function applyFilters(){
   var html='';
   filtered.forEach(function(item){
     var isUnlocked=unlockedIds.indexOf(item.id)!==-1;
-    var itemStr=JSON.stringify(item).replace(/"/g,'&quot;');
-    var distDisplay=item.district||item.po;
     var isSold=item.sold;
-
-    html+='<div class="listing-card" style="'+(isSold?'opacity:0.75;border-color:rgba(255,100,100,0.3);':'')+'">';
-
-    /* Status row — badge IS the button, no separate button */
+    html+='<div class="listing-card" style="'+(isSold?'opacity:0.75;border-color:rgba(255,100,100,0.25);':'')+'">';
     html+='<div class="status-row">';
     if(isSold){
       html+='<button class="status-badge-sold" onclick="askSellerVerify('+item.id+')" title="'+t.sellerOnly+'">🔴 '+t.sold+'</button>';
@@ -1212,45 +1201,40 @@ function applyFilters(){
       html+='<button class="status-badge-sale" onclick="askSellerVerify('+item.id+')" title="'+t.sellerOnly+'">🟢 '+t.forSale+'</button>';
     }
     html+='</div>';
-
-    /* Price & badges */
     html+='<div class="listing-top"><div>';
     html+='<div class="listing-price">₹ '+item.price+'</div>';
     if(item.negotiable)html+='<div class="listing-neg">'+t.negLabel+'</div>';
     if(item.type)html+='<div class="listing-type-badge">'+item.type+'</div>';
     if(item.verified)html+='<span class="verified-badge">✓ '+t.verifiedLabel+'</span>';
-    html+='</div><div style="font-size:28px">🏡</div></div>';
-
+    html+='</div><div style="font-size:26px">🏠</div></div>';
     if(item.photos&&item.photos.length>0){html+='<div class="listing-photos">';item.photos.forEach(function(s){html+='<img class="listing-photo" src="'+s+'"/>';});html+='</div>';}
     if(item.hasVideo)html+='<div class="media-tag"><span>🎥</span><span>'+t.videoAvail+'</span></div>';
-    html+='<div class="info-row"><span class="info-lbl">'+t.locLbl+':</span><span>'+item.po+', '+distDisplay+', পশ্চিমবঙ্গ</span></div>';
+    html+='<div class="info-row"><span class="info-lbl">'+t.locLbl+':</span><span>'+item.po+', '+(item.district||item.po)+', পশ্চিমবঙ্গ</span></div>';
     if(item.road)html+='<div class="info-row"><span class="info-lbl">'+t.roadLbl+':</span><span>'+item.road+'</span></div>';
     if(item.landmark)html+='<div class="info-row"><span class="info-lbl">'+t.landLbl+':</span><span>'+item.landmark+'</span></div>';
     if(item.size)html+='<div class="info-row"><span class="info-lbl">'+t.sizeLbl+':</span><span>'+item.size+' '+item.unit+'</span></div>';
     if(item.facing)html+='<div class="info-row"><span class="info-lbl">'+t.faceLbl+':</span><span>'+item.facing+'</span></div>';
-
     if(!isSold){
       if(isUnlocked){
         html+='<div class="unlocked-box"><div class="unlocked-label">'+t.unlockedLabel+'</div>';
         html+='<div class="action-btns"><a class="btn-call" href="tel:'+item.mobile+'">'+t.callBtn+'</a><a class="btn-wa" href="https://wa.me/91'+item.mobile+'" target="_blank">'+t.waBtn+'</a></div></div>';
       }else{
-        html+='<div class="locked-number"><div style="font-size:22px">🔒</div>';
-        html+='<div style="font-size:15px;font-weight:800;color:rgba(255,255,255,0.35);letter-spacing:3px;margin:6px 0;">'+maskNumber(item.mobile)+'</div>';
+        html+='<div class="locked-number"><div style="font-size:20px">🔒</div>';
+        html+='<div style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.3);letter-spacing:3px;margin:6px 0;">'+maskNumber(item.mobile)+'</div>';
         html+='<div class="locked-text">'+t.lockedText+'</div>';
         html+='<button class="unlock-btn" onclick="openUnlockModal('+item.id+')">'+t.unlockBtn+'</button></div>';
       }
     }else{
-      html+='<div style="background:rgba(139,0,0,0.2);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:10px;text-align:center;margin-top:10px;font-size:13px;color:#ff9999;">🔴 '+(lang==='bn'?'এই সম্পত্তি বিক্রি হয়ে গেছে':'This property has been sold')+'</div>';
+      html+='<div style="background:rgba(139,0,0,0.2);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:10px;text-align:center;margin-top:10px;font-size:13px;color:#ff9999;">🔴 '+t.soldMsg+'</div>';
     }
-
     if(item.maps)html+='<a class="btn-maps" href="'+item.maps+'" target="_blank">'+t.mapsBtn+'</a>';
-    html+='<button class="share-btn" onclick=\'shareOnWhatsApp('+itemStr+')\'>'+t.shareBtn+'</button>';
+    html+='<button class="share-btn" onclick="shareOnWhatsApp(\''+item.po+'\',\''+(item.district||item.po)+'\',\''+item.road+'\',\''+item.landmark+'\',\''+item.size+'\',\''+item.unit+'\',\''+item.type+'\',\''+item.price+'\','+(item.negotiable?'true':'false')+',\''+item.mobile+'\')">'+t.shareBtn+'</button>';
     html+='</div>';
   });
   c.innerHTML=html;
 }
 
-/* ── Init ────────────────────────────────────────────────────────── */
+/* ── Init ─────────────────────────────────────────────────────────── */
 applyLang();
 document.getElementById('listing-count').textContent=listings.length;
 </script>
