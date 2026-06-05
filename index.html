@@ -278,14 +278,37 @@ select.inp option{background:#006070;color:#fff;}
   </div>
   <!-- BUYER NOTIFICATION REGISTER -->
   <div class="notif-register-box" id="notif-box">
-    <div class="notif-register-title">🔔 <span id="notif-title-txt"></span></div>
+    <!-- Title row -->
+    <div class="notif-register-title">
+      🔔 <span id="notif-title-txt"></span>
+    </div>
+
+    <!-- Instruction -->
     <div class="notif-register-sub" id="notif-sub-txt"></div>
+
+    <!-- Step labels -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px;">
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);padding-left:2px;" id="notif-mob-label"></div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);padding-left:2px;" id="notif-dist-label"></div>
+    </div>
+
+    <!-- Input row -->
     <div class="notif-input-row">
       <input class="notif-inp" id="notif-mobile" type="tel" maxlength="10" placeholder=""/>
-      <select class="notif-inp" id="notif-district" style="max-width:130px;appearance:none;-webkit-appearance:none;cursor:pointer;"></select>
+      <select class="notif-inp" id="notif-district"
+        style="max-width:140px;appearance:none;-webkit-appearance:none;cursor:pointer;">
+        <option value=""></option>
+      </select>
     </div>
-    <button class="notif-btn" style="width:100%;margin-top:8px;" id="notif-reg-btn" onclick="registerForNotif()"></button>
+
+    <!-- Register button -->
+    <button class="notif-btn" style="width:100%;margin-top:8px;font-size:14px;padding:12px;"
+      id="notif-reg-btn" onclick="registerForNotif()"></button>
+
+    <!-- Success message -->
     <div class="notif-success" id="notif-success-msg"></div>
+
+    <!-- Count -->
     <div class="notif-count" id="notif-count-txt"></div>
   </div>
 
@@ -918,7 +941,7 @@ function goToListings(){
 }
 
 /* ─── Language ───────────────────────────────────────────────────── */
-function toggleLang(){lang=lang==='bn'?'en':'bn';applyLang();}
+function toggleLang(){lang=lang==='bn'?'en':'bn';applyLang();applyNotifLang();applyDisclaimerLang();}
 
 /* ─── Media ──────────────────────────────────────────────────────── */
 function videoSelected(input){var n=input.files[0]?input.files[0].name:'';document.getElementById('video-name-display').textContent=n?'✓ '+n:'';}
@@ -929,8 +952,8 @@ function photosSelected(input){
 }
 
 /* ─── WB Districts ───────────────────────────────────────────────── */
-var WBD=['Alipurduar','Bankura','Birbhum','Cooch Behar','Dakshin Dinajpur','Darjeeling','Hooghly','Howrah','Jalpaiguri','Jhargram','Kalimpong','Kolkata','Malda','Murshidabad','Nadia','North 24 Parganas','Paschim Bardhaman','Paschim Medinipur','Purba Bardhaman','Purba Medinipur','Purulia','South 24 Parganas','Uttar Dinajpur'];
-var WDBN=['আলিপুরদুয়ার','বাঁকুড়া','বীরভূম','কোচবিহার','দক্ষিণ দিনাজপুর','দার্জিলিং','হুগলি','হাওড়া','জলপাইগুড়ি','ঝাড়গ্রাম','কালিম্পং','কলকাতা','মালদা','মুর্শিদাবাদ','নদিয়া','উত্তর ২৪ পরগনা','পশ্চিম বর্ধমান','পশ্চিম মেদিনীপুর','পূর্ব বর্ধমান','পূর্ব মেদিনীপুর','পুরুলিয়া','দক্ষিণ ২৪ পরগনা','উত্তর দিনাজপুর'];
+var WB_DISTRICTS=['Alipurduar','Bankura','Birbhum','Cooch Behar','Dakshin Dinajpur','Darjeeling','Hooghly','Howrah','Jalpaiguri','Jhargram','Kalimpong','Kolkata','Malda','Murshidabad','Nadia','North 24 Parganas','Paschim Bardhaman','Paschim Medinipur','Purba Bardhaman','Purba Medinipur','Purulia','South 24 Parganas','Uttar Dinajpur'];
+var WB_DISTRICTS_BN=['আলিপুরদুয়ার','বাঁকুড়া','বীরভূম','কোচবিহার','দক্ষিণ দিনাজপুর','দার্জিলিং','হুগলি','হাওড়া','জলপাইগুড়ি','ঝাড়গ্রাম','কালিম্পং','কলকাতা','মালদা','মুর্শিদাবাদ','নদিয়া','উত্তর ২৪ পরগনা','পশ্চিম বর্ধমান','পশ্চিম মেদিনীপুর','পূর্ব বর্ধমান','পূর্ব মেদিনীপুর','পুরুলিয়া','দক্ষিণ ২৪ পরগনা','উত্তর দিনাজপুর'];
 function populateDistricts(){
   var isBn=lang==='bn';
   var ph=isBn?'-- জেলা বেছে নিন --':'-- Select District --';
@@ -938,11 +961,11 @@ function populateDistricts(){
   ['s-district-val','b-district-val'].forEach(function(sid){
     var sel=document.getElementById(sid);if(!sel)return;
     var cur=sel.value;sel.innerHTML='<option value="">'+ph+'</option>';
-    WBD.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WDBN[i]:d;sel.appendChild(o);});
+    WB_DISTRICTS.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WB_DISTRICTS_BN[i]:d;sel.appendChild(o);});
     if(sid==='s-district-val'&&!cur)sel.value='Birbhum';else if(cur)sel.value=cur;
   });
   var fs=document.getElementById('filter-district');
-  if(fs){var cur=fs.value;fs.innerHTML='<option value="">'+all+'</option>';WBD.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WDBN[i]:d;fs.appendChild(o);});if(cur)fs.value=cur;}
+  if(fs){var cur=fs.value;fs.innerHTML='<option value="">'+all+'</option>';WB_DISTRICTS.forEach(function(d,i){var o=document.createElement('option');o.value=d;o.textContent=isBn?WB_DISTRICTS_BN[i]:d;fs.appendChild(o);});if(cur)fs.value=cur;}
 }
 function setSelect(id,labels,vals){
   var el=document.getElementById(id);if(!el)return;
@@ -1389,8 +1412,8 @@ function registerForNotif(){
   var msg = document.getElementById('notif-success-msg');
   var isBn2 = lang==='bn';
   msg.textContent = isBn2
-    ? '🔔 সফলভাবে নিবন্ধিত! নতুন সম্পত্তি তালিকাভুক্ত হলে আপনাকে জানানো হবে।'
-    : '🔔 Registered! You will be notified when new properties are listed in your area.';
+    ? '✅ সফলভাবে নিবন্ধিত! আপনার এলাকায় নতুন সম্পত্তি যুক্ত হলে WhatsApp-এ জানানো হবে।'
+    : '✅ Registered! You will get WhatsApp alerts for new properties in your area.';
   msg.style.display='block';
   updateNotifCount();
   setTimeout(function(){ msg.style.display='none'; }, 4000);
@@ -1495,6 +1518,7 @@ function applyDisclaimerLang(){
 /* ── Init ─────────────────────────────────────────────────────────── */
 applyLang();
 applyDisclaimerLang();
+applyNotifLang();
 document.getElementById('listing-count').textContent=listings.length;
 /* Show disclaimer popup on first visit */
 try{
