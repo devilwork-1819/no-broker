@@ -10,7 +10,7 @@
 <title>BROKER MUKTO | ব্রোকার মুক্তো</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <!-- Razorpay SDK -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{min-height:100%;font-family:'Hind Siliguri',Georgia,serif;background:#006d75;color:#fdf6e3;overflow-x:hidden;}
@@ -1292,119 +1292,122 @@ en:{
 
 /* ─── applyLang ──────────────────────────────────────────────────── */
 function applyLang(){
-  try{
   var t=T[lang];
-  document.getElementById('app-name').textContent=t.appName;
-  document.getElementById('lang-btn').textContent=t.langBtn;
-  document.getElementById('h-tagline').textContent=t.tagline;
-  document.getElementById('h-sub').textContent=t.heroSub;
-  document.getElementById('h-sell').textContent=t.sellTitle;
-  document.getElementById('h-sell-desc').textContent=t.sellDesc;
-  document.getElementById('h-sell-fee').textContent=t.sellFee;
-  document.getElementById('h-buy').textContent=t.buyTitle;
-  document.getElementById('h-buy-desc').textContent=t.buyDesc;
-  document.getElementById('h-buy-fee').textContent=t.buyFee;
-  document.getElementById('how-title').textContent=t.howTitle;
-  document.getElementById('how-1').textContent=t.how1;
-  document.getElementById('how-2').textContent=t.how2;
-  document.getElementById('how-3').textContent=t.how3;
-  document.getElementById('how-4').textContent=t.how4;
-  document.getElementById('h-view-listings').textContent=t.viewListings;
-  document.getElementById('footer-note').textContent=t.footerNote;
-  document.getElementById('s-back').textContent=t.back;
-  document.getElementById('s-title').textContent=t.sTitle;
-  document.getElementById('s-form-sub').textContent=t.sFormSub;
-  document.getElementById('s-error').textContent=t.sError;
-  document.getElementById('s-sec1').textContent=t.sec1;
-  document.getElementById('s-sec2').textContent=t.sec2;
-  document.getElementById('s-sec3').textContent=t.sec3;
-  document.getElementById('s-sec4').textContent=t.sec4;
-  document.getElementById('s-video-lbl').textContent=t.sVideoLbl;
-  document.getElementById('s-video-tap').textContent=t.sVideoTap;
-  document.getElementById('s-photo-lbl').textContent=t.sPhotoLbl;
-  document.getElementById('s-photo-tap').textContent=t.sPhotoTap;
-  document.getElementById('s-district-lbl').textContent=t.sDistrictLbl;
-  document.getElementById('s-po-lbl').textContent=t.sPo;
-  document.getElementById('s-po').placeholder=t.sPoPh;
-  document.getElementById('s-road-lbl').textContent=t.sRoad;
-  document.getElementById('s-road').placeholder=t.sRoadPh;
-  document.getElementById('s-landmark-lbl').textContent=t.sLandmark;
-  document.getElementById('s-landmark').placeholder=t.sLandmarkPh;
-  document.getElementById('s-maps-lbl').textContent=t.sMaps;
-  document.getElementById('s-size-lbl').textContent=t.sSizeLbl;
-  document.getElementById('s-unit-lbl').textContent=t.sUnitLbl;
+  if(!t){ console.error('No translation for lang:',lang); return; }
+  function setText(id,val){ var el=document.getElementById(id); if(el) el.textContent=val; }
+  function setVal(id,val){ var el=document.getElementById(id); if(el) el.value=val; }
+  function setPlaceholder(id,val){ var el=document.getElementById(id); if(el) el.placeholder=val; }
+  setText('app-name',t.appName);
+  setText('lang-btn',t.langBtn);
+  setText('h-tagline',t.tagline);
+  setText('h-sub',t.heroSub);
+  setText('h-sell',t.sellTitle);
+  setText('h-sell-desc',t.sellDesc);
+  setText('h-sell-fee',t.sellFee);
+  setText('h-buy',t.buyTitle);
+  setText('h-buy-desc',t.buyDesc);
+  setText('h-buy-fee',t.buyFee);
+  setText('how-title',t.howTitle);
+  setText('how-1',t.how1);
+  setText('how-2',t.how2);
+  setText('how-3',t.how3);
+  setText('how-4',t.how4);
+  setText('h-view-listings',t.viewListings);
+  setText('footer-note',t.footerNote);
+  setText('s-back',t.back);
+  setText('s-title',t.sTitle);
+  setText('s-form-sub',t.sFormSub);
+  setText('s-error',t.sError);
+  setText('s-sec1',t.sec1);
+  setText('s-sec2',t.sec2);
+  setText('s-sec3',t.sec3);
+  setText('s-sec4',t.sec4);
+  setText('s-video-lbl',t.sVideoLbl);
+  setText('s-video-tap',t.sVideoTap);
+  setText('s-photo-lbl',t.sPhotoLbl);
+  setText('s-photo-tap',t.sPhotoTap);
+  setText('s-district-lbl',t.sDistrictLbl);
+  setText('s-po-lbl',t.sPo);
+  setPlaceholder('s-po',t.sPoPh);
+  setText('s-road-lbl',t.sRoad);
+  setPlaceholder('s-road',t.sRoadPh);
+  setText('s-landmark-lbl',t.sLandmark);
+  setPlaceholder('s-landmark',t.sLandmarkPh);
+  setText('s-maps-lbl',t.sMaps);
+  setText('s-size-lbl',t.sSizeLbl);
+  setText('s-unit-lbl',t.sUnitLbl);
   setSelect('s-unit',t.unitOpts,t.unitOpts);
-  document.getElementById('s-type-lbl').textContent=t.sTypeLbl;
+  setText('s-type-lbl',t.sTypeLbl);
   setSelect('s-type',t.typeOpts,t.typeVals);
-  document.getElementById('s-facing-lbl').textContent=t.sFacingLbl;
+  setText('s-facing-lbl',t.sFacingLbl);
   setSelect('s-facing',t.facingOpts,t.facingVals);
-  document.getElementById('s-price-lbl').textContent=t.sPriceLbl;
-  document.getElementById('s-price').placeholder=t.sPricePh;
-  document.getElementById('s-neg-lbl').textContent=t.sNegLbl;
-  document.getElementById('s-mob-lbl').textContent=t.sMobLbl;
-  document.getElementById('s-mobile').placeholder=t.sMobPh;
-  document.getElementById('s-submit').textContent=t.sSubmit;
-  document.getElementById('sp-back').textContent=t.spBack;
-  document.getElementById('sp-title').textContent=t.spTitle;
-  document.getElementById('sp-sub').textContent=t.spSub;
-  document.getElementById('sp-pay-label').textContent=t.spPayLabel;
-  document.getElementById('sp-pay-btn-text').textContent=t.spPayBtn;
-  document.getElementById('sp-secure-text').textContent=t.spSecure;
-  document.getElementById('sp-otp-title').textContent=t.spOtpTitle;
-  document.getElementById('sp-otp-subtitle').textContent=t.spOtpSubtitle;
-  document.getElementById('sp-otp-hint').textContent=t.spOtpHint;
-  document.getElementById('sp-otp-submit').textContent=t.spOtpSubmit;
-  document.getElementById('sp-otp-note').textContent=t.spOtpNote;
-  document.getElementById('sp-ty-title').textContent=t.spTyTitle;
-  document.getElementById('sp-ty-text').textContent=t.spTyText;
-  document.getElementById('b-back').textContent=t.back;
-  document.getElementById('b-title').textContent=t.bTitle;
-  document.getElementById('b-form-sub').textContent=t.bFormSub;
-  document.getElementById('b-success').textContent=t.bSuccess;
-  document.getElementById('b-error').textContent=t.bError;
-  document.getElementById('b-fee-title').textContent=t.bFeeTitle;
-  document.getElementById('b-fee-free').textContent=t.bFeeFree;
-  document.getElementById('b-fee-free-sub').textContent=t.bFeeFreeSub;
-  document.getElementById('b-fee-unlock-sub').textContent=t.bFeeUnlockSub;
-  document.getElementById('b-fee-note').textContent=t.bFeeNote;
-  document.getElementById('b-mob-lbl').textContent=t.bMobLbl;
-  document.getElementById('b-mobile').placeholder=t.bMobPh;
-  document.getElementById('b-po-lbl').textContent=t.bPoLbl;
-  document.getElementById('b-po').placeholder=t.bPoPh;
-  document.getElementById('b-district-lbl').textContent=t.bDistrictLbl;
-  document.getElementById('b-budget-lbl').textContent=t.bBudgetLbl;
-  document.getElementById('b-budget').placeholder=t.bBudgetPh;
-  document.getElementById('b-type-lbl').textContent=t.bTypeLbl;
+  setText('s-price-lbl',t.sPriceLbl);
+  setPlaceholder('s-price',t.sPricePh);
+  setText('s-neg-lbl',t.sNegLbl);
+  setText('s-mob-lbl',t.sMobLbl);
+  setPlaceholder('s-mobile',t.sMobPh);
+  setText('s-submit',t.sSubmit);
+  setText('sp-back',t.spBack);
+  setText('sp-title',t.spTitle);
+  setText('sp-sub',t.spSub);
+  setText('sp-pay-label',t.spPayLabel);
+  setText('sp-pay-btn-text',t.spPayBtn);
+  setText('sp-secure-text',t.spSecure);
+  setText('sp-otp-title',t.spOtpTitle);
+  setText('sp-otp-subtitle',t.spOtpSubtitle);
+  setText('sp-otp-hint',t.spOtpHint);
+  setText('sp-otp-submit',t.spOtpSubmit);
+  setText('sp-otp-note',t.spOtpNote);
+  setText('sp-ty-title',t.spTyTitle);
+  setText('sp-ty-text',t.spTyText);
+  setText('b-back',t.back);
+  setText('b-title',t.bTitle);
+  setText('b-form-sub',t.bFormSub);
+  setText('b-success',t.bSuccess);
+  setText('b-error',t.bError);
+  setText('b-fee-title',t.bFeeTitle);
+  setText('b-fee-free',t.bFeeFree);
+  setText('b-fee-free-sub',t.bFeeFreeSub);
+  setText('b-fee-unlock-sub',t.bFeeUnlockSub);
+  setText('b-fee-note',t.bFeeNote);
+  setText('b-mob-lbl',t.bMobLbl);
+  setPlaceholder('b-mobile',t.bMobPh);
+  setText('b-po-lbl',t.bPoLbl);
+  setPlaceholder('b-po',t.bPoPh);
+  setText('b-district-lbl',t.bDistrictLbl);
+  setText('b-budget-lbl',t.bBudgetLbl);
+  setPlaceholder('b-budget',t.bBudgetPh);
+  setText('b-type-lbl',t.bTypeLbl);
   setSelect('b-type',t.bTypeOpts,t.bTypeOpts);
-  document.getElementById('b-remarks-lbl').textContent=t.bRemarksLbl;
-  document.getElementById('b-remarks').placeholder=t.bRemarksPh;
-  document.getElementById('b-submit').textContent=t.bSubmit;
-  document.getElementById('l-back').textContent=t.back;
-  document.getElementById('l-title').textContent=t.lTitle;
-  document.getElementById('search-inp').placeholder=t.searchPh;
+  setText('b-remarks-lbl',t.bRemarksLbl);
+  setPlaceholder('b-remarks',t.bRemarksPh);
+  setText('b-submit',t.bSubmit);
+  setText('l-back',t.back);
+  setText('l-title',t.lTitle);
+  setPlaceholder('search-inp',t.searchPh);
   setSelect('filter-type',[t.filterTypeAll].concat(t.filterTypeOpts),['','কৃষি জমি','বাসস্থান','বাণিজ্যিক','বাগান','পুকুর সহ','অন্যান্য']);
   setSelect('filter-price',[t.filterPriceAll,t.filterLow,t.filterMid,t.filterHigh],['','low','mid','high']);
   setSelect('filter-neg',[t.filterNegAll,t.filterNegY,t.filterNegN],['','yes','no']);
-  document.getElementById('modal-title').textContent=t.modalTitle;
-  document.getElementById('modal-pay-label').textContent=t.modalPayLabel;
-  document.getElementById('modal-pay-btn-text').textContent=t.modalPayBtn;
-  document.getElementById('modal-secure-text').textContent=t.modalSecure;
-  document.getElementById('modal-otp-title').textContent=t.modalOtpTitle;
-  document.getElementById('modal-otp-subtitle').textContent=t.modalOtpSubtitle;
-  document.getElementById('modal-otp-hint').textContent=t.modalOtpHint;
-  document.getElementById('modal-otp-submit').textContent=t.modalOtpSubmit;
-  document.getElementById('modal-otp-note').textContent=t.modalOtpNote;
-  document.getElementById('b-ty-title').textContent=t.bTyTitle;
-  document.getElementById('ty-close-btn').textContent=t.tyCloseBtn;
-  document.getElementById('verify-title').textContent=t.verifyTitle;
-  document.getElementById('verify-sub').textContent=t.verifySub;
-  document.getElementById('verify-lbl').textContent=t.verifyLbl;
-  document.getElementById('verify-mob-inp').placeholder=t.verifyMobPh;
-  document.getElementById('verify-btn').textContent=t.verifyBtn;
-  document.getElementById('verify-error').textContent=t.verifyErr;
+  setText('modal-title',t.modalTitle);
+  setText('modal-pay-label',t.modalPayLabel);
+  setText('modal-pay-btn-text',t.modalPayBtn);
+  setText('modal-secure-text',t.modalSecure);
+  setText('modal-otp-title',t.modalOtpTitle);
+  setText('modal-otp-subtitle',t.modalOtpSubtitle);
+  setText('modal-otp-hint',t.modalOtpHint);
+  setText('modal-otp-submit',t.modalOtpSubmit);
+  setText('modal-otp-note',t.modalOtpNote);
+  setText('b-ty-title',t.bTyTitle);
+  setText('ty-close-btn',t.tyCloseBtn);
+  setText('verify-title',t.verifyTitle);
+  setText('verify-sub',t.verifySub);
+  setText('verify-lbl',t.verifyLbl);
+  setPlaceholder('verify-mob-inp',t.verifyMobPh);
+  setText('verify-btn',t.verifyBtn);
+  setText('verify-error',t.verifyErr);
   applyFilters();
   populateDistricts();
-  }catch(e){console.error('applyLang:',e);}
+
 }
 
 /* ─── Filter & Render ────────────────────────────────────────────── */
@@ -1525,4 +1528,51 @@ function registerForNotif(){
   var isBn2 = lang==='bn';
   msg.textContent = isBn2
     ? '✅ সফলভাবে নিবন্ধিত! আপনার এলাকায় নতুন সম্পত্তি যুক্ত হলে WhatsApp-এ জানানো হবে।'
-    : '✅ Registered! You will get Wh
+    : '✅ Registered! You will get WhatsApp alerts for new properties in your area.';
+  msg.style.display='block';
+  updateNotifCount();
+  setTimeout(function(){ msg.style.display='none'; }, 4000);
+}
+
+function updateNotifCount(){
+  var el = document.getElementById('notif-count-txt');
+  if(!el) return;
+  var isBn = lang==='bn';
+  var count = registeredBuyers.length;
+  el.textContent = count > 0
+    ? (isBn ? count+' জন ক্রেতা নোটিফিকেশনের জন্য নিবন্ধিত' : count+' buyers registered for notifications')
+    : '';
+}
+
+/* Called when seller posts new listing — send WhatsApp notifications */
+function sendBuyerNotifications(district, po){
+  var interested = registeredBuyers.filter(function(b){
+    return b.district === district;
+  });
+  if(interested.length === 0) return;
+
+  /* Build WhatsApp message */
+  var msg = 'Dear Interested Buyer, check out newly added property details of your area at www.brokermukto.com | Regards - Broker Mukto Team';
+
+  /* Open WhatsApp modal showing who to notify */
+  var modal = document.getElementById('notif-send-modal');
+  var info = document.getElementById('notif-send-info');
+  var list = document.getElementById('notif-send-list');
+  var note = document.getElementById('notif-send-note');
+  var isBn = lang==='bn';
+
+  info.textContent = (isBn
+    ? district+' জেলায় '+interested.length+' জন নিবন্ধিত ক্রেতাকে নোটিফিকেশন পাঠান'
+    : 'Send notification to '+interested.length+' registered buyers in '+district);
+
+  var html = '';
+  interested.forEach(function(b, i){
+    var waUrl = 'https://wa.me/91'+b.mobile+'?text='+encodeURIComponent(msg);
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;margin-bottom:8px;">'
+      + '<div style="font-size:13px;color:#fff;">📱 '+b.mobile+'<br/><span style="font-size:11px;color:rgba(255,255,255,0.4);">'+b.district+'</span></div>'
+      + '<a href="'+waUrl+'" target="_blank" style="background:linear-gradient(135deg,#25d366,#128c3e);border:none;border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">📤 WhatsApp</a>'
+      + '</div>';
+  });
+  html += '<div style="margin-top:10px;">'
+    + '<a href="https://wa.me/?text='+encodeURIComponent(msg)+'" target="_blank" '
+    + 'style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#25d366,#128c3e);border-radius:12px;color:#fff;font-size:14px;font-weight:700;tex
