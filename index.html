@@ -717,6 +717,8 @@ select.inp option{background:#006070;color:#fff;}
   BrokerMukto.com<br/>
   <span id="disc-footer-txt">Platform for connecting buyers &amp; sellers · All deals at user's own risk</span><br/>
   <span style="color:rgba(212,160,23,0.5);cursor:pointer;" onclick="showDisclaimerModal()">⚠️ Read Full Disclaimer</span>
+
+  <div style="margin-top:8px;"><span style="color:rgba(255,255,255,0.12);cursor:pointer;font-size:10px;user-select:none;" onclick="goToAdmin()">⚙</span></div>
 </div>
 
 <script>
@@ -1523,7 +1525,4 @@ function registerForNotif(){
   var isBn2 = lang==='bn';
   msg.textContent = isBn2
     ? '✅ সফলভাবে নিবন্ধিত! আপনার এলাকায় নতুন সম্পত্তি যুক্ত হলে WhatsApp-এ জানানো হবে।'
-    : '✅ Registered! You will get WhatsApp alerts for new properties in your area.';
-  msg.style.display='block';
-  updateNotifCount();
-  setTimeout(function(){ msg.style.display='none'; }, 4000);
+    : '✅ Registered! You will get Wh
