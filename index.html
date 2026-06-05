@@ -183,6 +183,27 @@ select.inp option{background:#006070;color:#fff;}
 .share-btn{display:block;width:100%;padding:8px;margin-top:6px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;color:#25d366;font-size:12px;cursor:pointer;font-family:inherit;text-align:center;}
 .no-listings{text-align:center;padding:40px 0;color:rgba(255,255,255,0.35);font-size:14px;}
 
+/* DISCLAIMER */
+
+
+
+
+
+
+
+
+
+
+
+
+.disclaimer-footer{
+  background:rgba(0,0,0,0.3);
+  padding:14px 16px;text-align:center;
+  font-size:10px;color:rgba(255,255,255,0.3);
+  line-height:1.7;border-top:1px solid rgba(255,255,255,0.06);
+}
+.disclaimer-footer a{color:rgba(212,160,23,0.6);text-decoration:none;}
+
 /* MODALS */
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);z-index:200;align-items:flex-end;justify-content:center;}
 .modal-overlay.active{display:flex;}
@@ -243,6 +264,7 @@ select.inp option{background:#006070;color:#fff;}
   </div>
   <div class="footer-note" id="footer-note"></div>
 </div>
+
 
 <!-- SELLER FORM -->
 <div id="seller-screen" class="screen">
@@ -464,6 +486,36 @@ select.inp option{background:#006070;color:#fff;}
   </div>
 </div>
 
+<!-- DISCLAIMER MODAL (shown on first visit) -->
+<div class="modal-overlay" id="disclaimer-modal" style="align-items:center;background:rgba(0,0,0,0.9);">
+  <div class="modal-box" style="border-radius:20px;max-height:85vh;overflow-y:auto;margin:20px;">
+    <div style="font-size:30px;text-align:center;margin-bottom:10px;">⚠️</div>
+    <div style="font-size:17px;font-weight:800;color:#ffd080;text-align:center;margin-bottom:14px;" id="disc-modal-title">Important Disclaimer</div>
+
+    <div style="font-size:12px;color:rgba(255,220,150,0.9);line-height:1.8;margin-bottom:14px;" id="disc-modal-en">
+      All transactions and deals facilitated through <strong>BrokerMukto.com</strong> are conducted entirely at the user's own risk. The platform serves solely as a medium to connect buyers and sellers and <strong>does not verify</strong> the authenticity of any property, titles, or legal documents.<br/><br/>
+      We strongly urge all users to perform comprehensive due diligence and independently verify all paperwork with appropriate authorities or legal professionals before committing to any financial agreement.<br/><br/>
+      <strong>BrokerMukto disclaims all liability</strong> for any fraudulent activities, misrepresentations, or losses arising from interactions between parties on this platform. Please stay alert and exercise necessary caution in all your dealings.
+    </div>
+
+    <div style="font-size:12px;color:rgba(255,220,150,0.75);line-height:1.8;padding-top:12px;border-top:1px solid rgba(255,160,0,0.2);" id="disc-modal-bn">
+      <strong>BrokerMukto.com</strong>-এ সম্পাদিত সমস্ত লেনদেন ও চুক্তি সম্পূর্ণরূপে ব্যবহারকারীর নিজস্ব ঝুঁকিতে পরিচালিত হয়। এই প্ল্যাটফর্ম শুধুমাত্র ক্রেতা ও বিক্রেতাদের সংযুক্ত করার মাধ্যম হিসেবে কাজ করে এবং কোনো সম্পত্তি, দলিল বা আইনি নথির সত্যতা <strong>যাচাই করে না।</strong><br/><br/>
+      যেকোনো আর্থিক চুক্তির আগে সংশ্লিষ্ট কর্তৃপক্ষ বা আইনি বিশেষজ্ঞের সাথে পরামর্শ করে সব কাগজপত্র স্বাধীনভাবে যাচাই করার জন্য আমরা দৃঢ়ভাবে অনুরোধ করছি।<br/><br/>
+      এই প্ল্যাটফর্মে পক্ষগুলির মধ্যে মিথ্যা তথ্য, প্রতারণা বা ক্ষতির জন্য <strong>BrokerMukto কোনো দায় বহন করে না।</strong> সকল লেনদেনে সতর্ক থাকুন।
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:16px;">
+      <button onclick="closeDisclaimer()" id="disc-agree-btn"
+        style="flex:1;padding:14px;background:linear-gradient(135deg,#1a7a4a,#0d5c37);border:2px solid #d4a017;border-radius:12px;color:#fff;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;">
+        ✓ I Agree / আমি সম্মত আছি
+      </button>
+    </div>
+    <div style="font-size:10px;color:rgba(255,255,255,0.3);text-align:center;margin-top:10px;" id="disc-modal-note">
+      By tapping agree, you accept our terms and proceed at your own risk.
+    </div>
+  </div>
+</div>
+
 <!-- SELLER VERIFY MODAL -->
 <div class="modal-overlay" id="verify-modal">
   <div class="modal-box">
@@ -478,6 +530,14 @@ select.inp option{background:#006070;color:#fff;}
 </div>
 
 </div></div>
+
+<!-- SITE FOOTER WITH DISCLAIMER LINK -->
+<div class="disclaimer-footer">
+  BrokerMukto.com<br/>
+  <span id="disc-footer-txt">Platform for connecting buyers &amp; sellers · All deals at user's own risk</span><br/>
+  <span style="color:rgba(212,160,23,0.5);cursor:pointer;" onclick="showDisclaimerModal()">⚠️ Read Full Disclaimer</span>
+</div>
+
 <script>
 /* ═══════════════════════════════════════════════════════════════════
    BROKER MUKTO — Main JS
@@ -1234,9 +1294,31 @@ function applyFilters(){
   c.innerHTML=html;
 }
 
+/* ── Disclaimer ─────────────────────────────────────────────────── */
+function showDisclaimerModal(){
+  document.getElementById('disclaimer-modal').classList.add('active');
+}
+function closeDisclaimer(){
+  document.getElementById('disclaimer-modal').classList.remove('active');
+  try{ sessionStorage.setItem('disc_agreed','1'); }catch(e){}
+}
+function toggleDisclaimer(){ showDisclaimerModal(); }
+function applyDisclaimerLang(){
+  var isBn=lang==='bn';
+  var ft=document.getElementById('disc-footer-txt');
+  if(ft) ft.textContent=isBn?'ক্রেতা ও বিক্রেতা সংযোগের প্ল্যাটফর্ম · সব লেনদেন নিজ ঝুঁকিতে':'Platform connecting buyers and sellers · All deals at users own risk';
+}
+
 /* ── Init ─────────────────────────────────────────────────────────── */
 applyLang();
+applyDisclaimerLang();
 document.getElementById('listing-count').textContent=listings.length;
+/* Show disclaimer popup on first visit */
+try{
+  if(!sessionStorage.getItem('disc_agreed')){
+    setTimeout(function(){ showDisclaimerModal(); },900);
+  }
+}catch(e){ setTimeout(function(){ showDisclaimerModal(); },900); }
 </script>
 </body>
 </html>
