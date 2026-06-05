@@ -183,6 +183,47 @@ select.inp option{background:#006070;color:#fff;}
 .share-btn{display:block;width:100%;padding:8px;margin-top:6px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);border-radius:10px;color:#25d366;font-size:12px;cursor:pointer;font-family:inherit;text-align:center;}
 .no-listings{text-align:center;padding:40px 0;color:rgba(255,255,255,0.35);font-size:14px;}
 
+/* ADMIN PANEL */
+.admin-login-box{max-width:340px;margin:60px auto 0;background:rgba(0,0,0,0.35);border:2px solid rgba(212,160,23,0.4);border-radius:20px;padding:30px 24px;text-align:center;}
+.admin-login-icon{font-size:48px;margin-bottom:12px;}
+.admin-login-title{font-size:20px;font-weight:800;color:#d4a017;margin-bottom:6px;}
+.admin-login-sub{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:20px;}
+.admin-pass-inp{width:100%;background:rgba(0,0,0,0.3);border:1.5px solid rgba(212,160,23,0.3);border-radius:11px;padding:13px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:10px;text-align:center;letter-spacing:2px;}
+.admin-pass-inp::placeholder{letter-spacing:0;color:rgba(255,255,255,0.3);}
+.admin-login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#d4a017,#b8860b);border:none;border-radius:12px;color:#1a1a2e;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;}
+.admin-err{font-size:12px;color:#ff9999;margin-top:8px;display:none;}
+
+.admin-panel{padding:16px;}
+.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(212,160,23,0.2);}
+.admin-title{font-size:20px;font-weight:800;color:#d4a017;}
+.admin-logout{background:rgba(255,100,100,0.15);border:1px solid rgba(255,100,100,0.4);border-radius:10px;padding:7px 14px;color:#ff9999;font-size:12px;cursor:pointer;font-family:inherit;}
+
+.admin-stat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
+.admin-stat{background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.1);border-radius:14px;padding:14px;text-align:center;}
+.admin-stat-num{font-size:26px;font-weight:800;color:#d4a017;}
+.admin-stat-lbl{font-size:10px;color:rgba(255,255,255,0.45);margin-top:4px;}
+
+.admin-section-title{font-size:13px;font-weight:800;color:rgba(212,160,23,0.8);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(212,160,23,0.15);}
+
+.admin-filter-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.admin-filter-sel{background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:8px 12px;color:#fff;font-size:12px;font-family:inherit;outline:none;cursor:pointer;flex:1;}
+.admin-filter-sel option{background:#005f65;}
+.admin-search-inp{flex:2;background:rgba(0,0,0,0.25);border:1.5px solid rgba(255,255,255,0.15);border-radius:10px;padding:8px 12px;color:#fff;font-size:12px;font-family:inherit;outline:none;}
+.admin-search-inp::placeholder{color:rgba(255,255,255,0.3);}
+
+.buyer-card{background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.buyer-info{flex:1;}
+.buyer-mob{font-size:15px;font-weight:700;color:#fff;}
+.buyer-dist{font-size:11px;color:rgba(255,255,255,0.45);margin-top:2px;}
+.buyer-date{font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px;}
+.buyer-wa-btn{background:linear-gradient(135deg,#25d366,#128c3e);border:none;border-radius:9px;padding:9px 12px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;text-decoration:none;display:inline-block;}
+.buyer-del-btn{background:rgba(180,40,40,0.25);border:1px solid rgba(255,100,100,0.3);border-radius:9px;padding:9px 10px;color:#ff9999;font-size:11px;cursor:pointer;font-family:inherit;margin-left:4px;}
+
+.admin-broadcast-btn{width:100%;padding:14px;background:linear-gradient(135deg,#25d366,#128c3e);border:none;border-radius:13px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.admin-export-btn{width:100%;padding:12px;background:rgba(212,160,23,0.12);border:1.5px solid rgba(212,160,23,0.4);border-radius:13px;color:#d4a017;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:20px;}
+.admin-empty{text-align:center;padding:30px 0;color:rgba(255,255,255,0.3);font-size:13px;}
+.admin-back-btn{background:transparent;border:none;color:rgba(255,255,255,0.55);font-size:13px;cursor:pointer;padding:0 0 14px;display:block;font-family:inherit;}
+
 /* NOTIFICATION REGISTER */
 .notif-register-box{
   background:linear-gradient(135deg,rgba(26,60,120,0.4),rgba(26,40,100,0.3));
@@ -584,6 +625,75 @@ select.inp option{background:#006070;color:#fff;}
     <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;" id="notif-send-info"></div>
     <div id="notif-send-list" style="max-height:300px;overflow-y:auto;margin-bottom:14px;"></div>
     <div style="font-size:11px;color:rgba(255,255,255,0.4);line-height:1.6;" id="notif-send-note"></div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL SCREEN -->
+<div id="admin-screen" class="screen" style="padding:0;min-height:100vh;">
+
+  <!-- Login Box -->
+  <div id="admin-login-wrap" style="padding:16px;">
+    <button class="admin-back-btn" onclick="showScreen('home-screen')">← Back to Home</button>
+    <div class="admin-login-box">
+      <div class="admin-login-icon">🔐</div>
+      <div class="admin-login-title">Admin Panel</div>
+      <div class="admin-login-sub">BrokerMukto · Secure Access Only</div>
+      <input class="admin-pass-inp" id="admin-pass-inp" type="password" placeholder="Enter Password"
+        onkeydown="if(event.key==='Enter') adminLogin()"/>
+      <button class="admin-login-btn" onclick="adminLogin()">🔓 Login</button>
+      <div class="admin-err" id="admin-err">❌ Wrong password. Try again.</div>
+    </div>
+  </div>
+
+  <!-- Dashboard (shown after login) -->
+  <div id="admin-dashboard" style="display:none;padding:16px;">
+    <div class="admin-header">
+      <div class="admin-title">📊 Admin Dashboard</div>
+      <button class="admin-logout" onclick="adminLogout()">🚪 Logout</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="admin-stat-row">
+      <div class="admin-stat">
+        <div class="admin-stat-num" id="stat-total">0</div>
+        <div class="admin-stat-lbl">Total Buyers</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-num" id="stat-listings">0</div>
+        <div class="admin-stat-lbl">Listings</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-num" id="stat-districts">0</div>
+        <div class="admin-stat-lbl">Districts</div>
+      </div>
+    </div>
+
+    <!-- Broadcast -->
+    <div class="admin-section-title">📢 Send Notification to All</div>
+    <button class="admin-broadcast-btn" onclick="adminBroadcastAll()">
+      📤 WhatsApp All Registered Buyers
+    </button>
+
+    <!-- Filter & Search -->
+    <div class="admin-section-title">👥 Registered Buyers</div>
+    <div class="admin-filter-row">
+      <input class="admin-search-inp" id="admin-search" placeholder="🔍 Search mobile or district..."
+        oninput="renderAdminBuyers()"/>
+      <select class="admin-filter-sel" id="admin-dist-filter" onchange="renderAdminBuyers()">
+        <option value="">All Districts</option>
+      </select>
+    </div>
+
+    <!-- Buyers List -->
+    <div id="admin-buyers-list"></div>
+
+    <!-- Export -->
+    <div class="admin-section-title">📥 Export Data</div>
+    <button class="admin-export-btn" onclick="exportBuyers()">📋 Copy All as Text</button>
+
+    <!-- Listings overview -->
+    <div class="admin-section-title">🏡 Property Listings</div>
+    <div id="admin-listings-list"></div>
   </div>
 </div>
 
@@ -1417,115 +1527,3 @@ function registerForNotif(){
   msg.style.display='block';
   updateNotifCount();
   setTimeout(function(){ msg.style.display='none'; }, 4000);
-}
-
-function updateNotifCount(){
-  var el = document.getElementById('notif-count-txt');
-  if(!el) return;
-  var isBn = lang==='bn';
-  var count = registeredBuyers.length;
-  el.textContent = count > 0
-    ? (isBn ? count+' জন ক্রেতা নোটিফিকেশনের জন্য নিবন্ধিত' : count+' buyers registered for notifications')
-    : '';
-}
-
-/* Called when seller posts new listing — send WhatsApp notifications */
-function sendBuyerNotifications(district, po){
-  var interested = registeredBuyers.filter(function(b){
-    return b.district === district;
-  });
-  if(interested.length === 0) return;
-
-  /* Build WhatsApp message */
-  var msg = 'Dear Interested Buyer, check out newly added property details of your area at www.brokermukto.com | Regards - Broker Mukto Team';
-
-  /* Open WhatsApp modal showing who to notify */
-  var modal = document.getElementById('notif-send-modal');
-  var info = document.getElementById('notif-send-info');
-  var list = document.getElementById('notif-send-list');
-  var note = document.getElementById('notif-send-note');
-  var isBn = lang==='bn';
-
-  info.textContent = (isBn
-    ? district+' জেলায় '+interested.length+' জন নিবন্ধিত ক্রেতাকে নোটিফিকেশন পাঠান'
-    : 'Send notification to '+interested.length+' registered buyers in '+district);
-
-  var html = '';
-  interested.forEach(function(b, i){
-    var waUrl = 'https://wa.me/91'+b.mobile+'?text='+encodeURIComponent(msg);
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;margin-bottom:8px;">'
-      + '<div style="font-size:13px;color:#fff;">📱 '+b.mobile+'<br/><span style="font-size:11px;color:rgba(255,255,255,0.4);">'+b.district+'</span></div>'
-      + '<a href="'+waUrl+'" target="_blank" style="background:linear-gradient(135deg,#25d366,#128c3e);border:none;border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">📤 WhatsApp</a>'
-      + '</div>';
-  });
-  html += '<div style="margin-top:10px;">'
-    + '<a href="https://wa.me/?text='+encodeURIComponent(msg)+'" target="_blank" '
-    + 'style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#25d366,#128c3e);border-radius:12px;color:#fff;font-size:14px;font-weight:700;text-align:center;text-decoration:none;">'
-    + '📢 '+(isBn?'সবাইকে একসাথে WhatsApp করুন':'Broadcast to All via WhatsApp')+'</a></div>';
-
-  list.innerHTML = html;
-  note.textContent = isBn
-    ? 'প্রতিটি ক্রেতার WhatsApp বাটনে চাপুন অথবা Broadcast ব্যবহার করুন।'
-    : 'Tap each buyer WhatsApp button or use Broadcast to notify all at once.';
-
-  modal.classList.add('active');
-}
-
-function applyNotifLang(){
-  var isBn = lang==='bn';
-  var t = document.getElementById('notif-title-txt');
-  var s = document.getElementById('notif-sub-txt');
-  var b = document.getElementById('notif-reg-btn');
-  var inp = document.getElementById('notif-mobile');
-  if(t) t.textContent = isBn ? 'নতুন সম্পত্তির নোটিফিকেশন পান' : 'Get Notified for New Properties';
-  if(s) s.textContent = isBn
-    ? 'আপনার মোবাইল নম্বর ও জেলা দিন। আপনার এলাকায় নতুন সম্পত্তি তালিকাভুক্ত হলে WhatsApp এ জানানো হবে।'
-    : 'Enter your mobile & district. Get WhatsApp alerts when new properties are listed in your area.';
-  if(b) b.textContent = isBn ? '🔔 নোটিফিকেশন চালু করুন' : '🔔 Enable Notifications';
-  if(inp) inp.placeholder = isBn ? '১০ সংখ্যার মোবাইল নম্বর' : '10-digit mobile number';
-  /* Populate notif district dropdown */
-  var nd = document.getElementById('notif-district');
-  if(nd){
-    var cur = nd.value;
-    var allOpt = isBn ? '-- জেলা বেছে নিন --' : '-- Select District --';
-    nd.innerHTML = '<option value="">'+allOpt+'</option>';
-    WB_DISTRICTS.forEach(function(d,i){
-      var o = document.createElement('option');
-      o.value = d;
-      o.textContent = isBn ? WB_DISTRICTS_BN[i] : d;
-      nd.appendChild(o);
-    });
-    if(cur) nd.value = cur;
-  }
-  updateNotifCount();
-}
-
-/* ── Disclaimer ─────────────────────────────────────────────────── */
-function showDisclaimerModal(){
-  document.getElementById('disclaimer-modal').classList.add('active');
-}
-function closeDisclaimer(){
-  document.getElementById('disclaimer-modal').classList.remove('active');
-  try{ sessionStorage.setItem('disc_agreed','1'); }catch(e){}
-}
-function toggleDisclaimer(){ showDisclaimerModal(); }
-function applyDisclaimerLang(){
-  var isBn=lang==='bn';
-  var ft=document.getElementById('disc-footer-txt');
-  if(ft) ft.textContent=isBn?'ক্রেতা ও বিক্রেতা সংযোগের প্ল্যাটফর্ম · সব লেনদেন নিজ ঝুঁকিতে':'Platform connecting buyers and sellers · All deals at users own risk';
-}
-
-/* ── Init ─────────────────────────────────────────────────────────── */
-applyLang();
-applyDisclaimerLang();
-applyNotifLang();
-document.getElementById('listing-count').textContent=listings.length;
-/* Show disclaimer popup on first visit */
-try{
-  if(!sessionStorage.getItem('disc_agreed')){
-    setTimeout(function(){ showDisclaimerModal(); },900);
-  }
-}catch(e){ setTimeout(function(){ showDisclaimerModal(); },900); }
-</script>
-</body>
-</html>
