@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#008080"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -24,7 +24,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#d4a017!import
   background:radial-gradient(circle at 10% 10%,rgba(212,160,23,0.12) 0%,transparent 45%),
              radial-gradient(circle at 90% 90%,rgba(0,200,200,0.1) 0%,transparent 45%);
   pointer-events:none;z-index:0;}
-.wrap{max-width:480px;margin:0 auto;padding-bottom:70px;position:relative;z-index:1;}
+.wrap{max-width:100%;margin:0 auto;padding-bottom:70px;position:relative;z-index:1;}
 
 /* HEADER */
 .hdr{padding:10px 16px 8px;border-bottom:1px solid rgba(212,160,23,0.25);
@@ -46,6 +46,7 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:#d4a017!import
 .screen{display:none;padding:16px;}
 .screen.active{display:block;}
 #home-screen{display:block;padding:0;}
+/* Desktop override handled via media query with !important on #home-screen */
 
 /* HOME */
 .hero{padding:24px 16px 14px;text-align:center;}
@@ -276,6 +277,145 @@ select.inp option{background:#006070;color:#fff;}
 .modal-close{float:right;background:rgba(255,255,255,0.1);border:none;color:#fff;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;line-height:28px;text-align:center;}
 .modal-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:4px;clear:both;}
 .modal-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:16px;}
+
+/* ── RESPONSIVE LAYOUT ─────────────────────────────────────────── */
+
+/* Tablet: 600px – 1023px */
+@media (min-width:600px){
+  .wrap{max-width:620px;margin:0 auto;}
+  .hero-title{font-size:26px;}
+  .hero-sub{font-size:14px;max-width:480px;}
+  .hero-icon{font-size:58px;}
+  .card-row{grid-template-columns:1fr 1fr;gap:18px;padding:0 20px 18px;}
+  .card-sell,.card-buy{padding:28px 18px;border-radius:24px;}
+  .card-icon{font-size:42px;}
+  .card-title{font-size:16px;}
+  .card-desc{font-size:12px;}
+  .card-fee-sell,.card-fee-buy{font-size:13px;}
+  .how-box{margin:0 20px 18px;padding:18px 20px;}
+  .how-title{font-size:15px;}
+  .how-text{font-size:13px;}
+  .list-btn{margin:0 20px 18px;font-size:17px;padding:18px;}
+  .notif-register-box{margin:0 20px 18px;padding:20px;}
+  .hdr{padding:12px 22px 10px;}
+  .logo{font-size:21px;}
+  .screen{padding:22px;}
+  .form-title{font-size:22px;}
+  .lbl{font-size:13px;}
+  .inp{padding:14px 15px;font-size:15px;}
+  .submit-btn{font-size:16px;padding:16px;}
+  .pay-amount-big{font-size:52px;}
+  .admin-stat-row{grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .admin-stat-num{font-size:30px;}
+  .modal-box{border-radius:20px;max-width:560px;margin:auto;bottom:auto;}
+  .modal-overlay{align-items:center;}
+  .listing-card{padding:18px;}
+  .listing-price{font-size:22px;}
+  .action-btns{gap:10px;}
+  .btn-call,.btn-wa{font-size:13px;padding:13px 6px;}
+}
+
+/* Laptop / Desktop: 1024px+ — Two-column layout */
+@media (min-width:1024px){
+  html,body{background:#004a50;}
+  .app{min-height:100vh;display:flex;flex-direction:column;}
+  .bgfx{background:
+    radial-gradient(circle at 5% 15%,rgba(212,160,23,0.18) 0%,transparent 40%),
+    radial-gradient(circle at 95% 85%,rgba(0,220,220,0.13) 0%,transparent 40%),
+    radial-gradient(circle at 50% 50%,rgba(0,100,120,0.08) 0%,transparent 60%);}
+
+  /* Sticky sidebar header becomes a top nav */
+  .hdr{
+    max-width:100%;
+    padding:14px 60px;
+    border-bottom:1px solid rgba(212,160,23,0.3);
+  }
+  .logo{font-size:24px;}
+  .logo-sub{font-size:9px;}
+  .logo-img,.logo-img-placeholder{width:50px;height:50px;}
+
+  /* Main content wrapper: centre column, wider */
+  .wrap{
+    max-width:900px;
+    padding-bottom:60px;
+  }
+
+  /* Home screen: two-column layout */
+  #home-screen{display:grid !important;grid-template-columns:1fr 1fr;gap:0;padding:0;}
+  #home-screen .hero{grid-column:1/-1;padding:36px 32px 20px;}
+  #home-screen .hero-title{font-size:30px;}
+  #home-screen .hero-icon{font-size:64px;}
+  #home-screen .hero-sub{font-size:15px;max-width:540px;}
+  #home-screen .card-row{grid-column:1/-1;grid-template-columns:1fr 1fr;gap:24px;padding:0 32px 24px;}
+  #home-screen .card-sell,#home-screen .card-buy{padding:32px 24px;border-radius:26px;}
+  #home-screen .card-icon{font-size:48px;}
+  #home-screen .card-title{font-size:18px;}
+  #home-screen .card-desc{font-size:13px;}
+  #home-screen .how-box{grid-column:1/-1;margin:0 32px 20px;padding:22px 24px;}
+  #home-screen .notif-register-box{grid-column:1/-1;margin:0 32px 20px;}
+  #home-screen .list-btn{grid-column:1/-1;margin:0 32px 20px;font-size:18px;padding:20px;}
+  #home-screen .footer-note{grid-column:1/-1;padding:0 32px 20px;}
+
+  /* Screens (forms) use a centred card look */
+  .screen{padding:36px 40px;}
+  .form-title{font-size:26px;}
+  .form-sub{font-size:14px;}
+  .lbl{font-size:13px;}
+  .inp{padding:14px 16px;font-size:15px;border-radius:13px;}
+  .inp-row{gap:16px;}
+  .submit-btn{font-size:17px;padding:18px;border-radius:15px;}
+
+  /* Payment screen */
+  .pay-amount-big{font-size:60px;}
+  .pay-section{padding:28px;}
+  .razorpay-btn{font-size:18px;padding:18px;}
+
+  /* Listing cards side by side */
+  #browse-screen .screen{padding:24px 40px;}
+  .listing-card{padding:22px;}
+  .listing-price{font-size:24px;}
+  .info-row{font-size:13px;}
+
+  /* Admin panel wider */
+  .admin-panel{padding:28px 40px;}
+  .admin-stat-row{grid-template-columns:repeat(3,1fr);gap:20px;}
+  .admin-stat{padding:20px;}
+  .admin-stat-num{font-size:34px;}
+  .buyer-card{padding:16px 20px;}
+
+  /* Modal centred */
+  .modal-overlay{align-items:center;}
+  .modal-box{
+    border-radius:20px;
+    max-width:580px;
+    margin:auto;
+    max-height:85vh;
+  }
+
+  /* OTP inputs larger */
+  .otp-digit{width:56px;height:64px;font-size:26px;}
+  .otp-inputs{gap:14px;}
+
+  /* Back button bigger hit area */
+  .back-btn{font-size:14px;padding:0 0 16px;}
+
+  /* Photo thumbnails larger */
+  .photo-thumb{width:80px;height:80px;}
+  .listing-photo{width:80px;height:80px;}
+}
+
+/* Very large screens: 1440px+ */
+@media (min-width:1440px){
+  .wrap{max-width:1100px;}
+  #home-screen .card-row{grid-template-columns:1fr 1fr;gap:32px;padding:0 48px 32px;}
+  #home-screen .hero{padding:48px 48px 24px;}
+  #home-screen .how-box{margin:0 48px 24px;}
+  #home-screen .notif-register-box{margin:0 48px 24px;}
+  #home-screen .list-btn{margin:0 48px 24px;font-size:20px;}
+  #home-screen .footer-note{padding:0 48px 24px;}
+  .screen{padding:40px 60px;}
+  .hdr{padding:16px 80px;}
+}
 </style>
 </head>
 <body>
@@ -1470,353 +1610,4 @@ function applyFilters(){
         html+='<div class="action-btns"><a class="btn-call" href="tel:'+item.mobile+'">'+t.callBtn+'</a><a class="btn-wa" href="https://wa.me/91'+item.mobile+'" target="_blank">'+t.waBtn+'</a></div></div>';
       }else{
         html+='<div class="locked-number"><div style="font-size:20px">🔒</div>';
-        html+='<div style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.3);letter-spacing:3px;margin:6px 0;">'+maskNumber(item.mobile)+'</div>';
-        html+='<div class="locked-text">'+t.lockedText+'</div>';
-        html+='<button class="unlock-btn" onclick="openUnlockModal('+item.id+')">'+t.unlockBtn+'</button></div>';
-      }
-    }else{
-      html+='<div style="background:rgba(139,0,0,0.2);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:10px;text-align:center;margin-top:10px;font-size:13px;color:#ff9999;">🔴 '+t.soldMsg+'</div>';
-    }
-    if(item.maps)html+='<a class="btn-maps" href="'+item.maps+'" target="_blank">'+t.mapsBtn+'</a>';
-    html+='<button class="share-btn" onclick="shareOnWhatsApp(\''+item.po+'\',\''+(item.district||item.po)+'\',\''+item.road+'\',\''+item.landmark+'\',\''+item.size+'\',\''+item.unit+'\',\''+item.type+'\',\''+item.price+'\','+(item.negotiable?'true':'false')+',\''+item.mobile+'\')">'+t.shareBtn+'</button>';
-    html+='</div>';
-  });
-  c.innerHTML=html;
-}
-
-/* ── Notification System ────────────────────────────────────────── */
-/* Stores registered buyers: [{mobile, district}] */
-var registeredBuyers = [];
-try {
-  var saved = localStorage.getItem('bm_buyers');
-  if(saved) registeredBuyers = JSON.parse(saved);
-} catch(e){ registeredBuyers = []; }
-
-function saveRegisteredBuyers(){
-  try{ localStorage.setItem('bm_buyers', JSON.stringify(registeredBuyers)); }catch(e){}
-}
-
-function registerForNotif(){
-  var mob = document.getElementById('notif-mobile').value.trim();
-  var dist = document.getElementById('notif-district').value;
-  var isBn = lang==='bn';
-
-  if(!/^\d{10}$/.test(mob)){
-    alert(isBn ? '১০ সংখ্যার মোবাইল নম্বর দিন' : 'Enter a valid 10-digit mobile number');
-    return;
-  }
-  if(!dist){
-    alert(isBn ? 'জেলা বেছে নিন' : 'Please select a district');
-    return;
-  }
-
-  /* Check if already registered */
-  var exists = registeredBuyers.find(function(b){ return b.mobile===mob && b.district===dist; });
-  if(exists){
-    var msg = document.getElementById('notif-success-msg');
-    msg.textContent = isBn ? '✓ আপনি ইতিমধ্যে নিবন্ধিত!' : '✓ You are already registered!';
-    msg.style.display='block';
-    setTimeout(function(){ msg.style.display='none'; },3000);
-    return;
-  }
-
-  registeredBuyers.push({ mobile: mob, district: dist, date: new Date().toLocaleDateString() });
-  saveRegisteredBuyers();
-
-  document.getElementById('notif-mobile').value = '';
-  var msg = document.getElementById('notif-success-msg');
-  var isBn2 = lang==='bn';
-  msg.textContent = isBn2
-    ? '✅ সফলভাবে নিবন্ধিত! আপনার এলাকায় নতুন সম্পত্তি যুক্ত হলে WhatsApp-এ জানানো হবে।'
-    : '✅ Registered! You will get WhatsApp alerts for new properties in your area.';
-  msg.style.display='block';
-  updateNotifCount();
-  setTimeout(function(){ msg.style.display='none'; }, 4000);
-}
-
-function updateNotifCount(){
-  var el = document.getElementById('notif-count-txt');
-  if(!el) return;
-  var isBn = lang==='bn';
-  var count = registeredBuyers.length;
-  el.textContent = count > 0
-    ? (isBn ? count+' জন ক্রেতা নোটিফিকেশনের জন্য নিবন্ধিত' : count+' buyers registered for notifications')
-    : '';
-}
-
-/* Called when seller posts new listing — send WhatsApp notifications */
-function sendBuyerNotifications(district, po){
-  var interested = registeredBuyers.filter(function(b){
-    return b.district === district;
-  });
-  if(interested.length === 0) return;
-
-  /* Build WhatsApp message */
-  var msg = 'Dear Interested Buyer, check out newly added property details of your area at www.brokermukto.com | Regards - Broker Mukto Team';
-
-  /* Open WhatsApp modal showing who to notify */
-  var modal = document.getElementById('notif-send-modal');
-  var info = document.getElementById('notif-send-info');
-  var list = document.getElementById('notif-send-list');
-  var note = document.getElementById('notif-send-note');
-  var isBn = lang==='bn';
-
-  info.textContent = (isBn
-    ? district+' জেলায় '+interested.length+' জন নিবন্ধিত ক্রেতাকে নোটিফিকেশন পাঠান'
-    : 'Send notification to '+interested.length+' registered buyers in '+district);
-
-  var html = '';
-  interested.forEach(function(b, i){
-    var waUrl = 'https://wa.me/91'+b.mobile+'?text='+encodeURIComponent(msg);
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;margin-bottom:8px;">'
-      + '<div style="font-size:13px;color:#fff;">📱 '+b.mobile+'<br/><span style="font-size:11px;color:rgba(255,255,255,0.4);">'+b.district+'</span></div>'
-      + '<a href="'+waUrl+'" target="_blank" style="background:linear-gradient(135deg,#25d366,#128c3e);border:none;border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">📤 WhatsApp</a>'
-      + '</div>';
-  });
-  html += '<div style="margin-top:10px;">'
-    + '<a href="https://wa.me/?text='+encodeURIComponent(msg)+'" target="_blank" '
-    + 'style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#25d366,#128c3e);border-radius:12px;color:#fff;font-size:14px;font-weight:700;text-align:center;text-decoration:none;">'
-    + '📢 '+(isBn?'সবাইকে একসাথে WhatsApp করুন':'Broadcast to All via WhatsApp')+'</a></div>';
-
-  list.innerHTML = html;
-  note.textContent = isBn
-    ? 'প্রতিটি ক্রেতার WhatsApp বাটনে চাপুন অথবা Broadcast ব্যবহার করুন।'
-    : 'Tap each buyer WhatsApp button or use Broadcast to notify all at once.';
-
-  modal.classList.add('active');
-}
-
-function applyNotifLang(){
-  var isBn = lang==='bn';
-  var t = document.getElementById('notif-title-txt');
-  var s = document.getElementById('notif-sub-txt');
-  var b = document.getElementById('notif-reg-btn');
-  var inp = document.getElementById('notif-mobile');
-  if(t) t.textContent = isBn ? 'নতুন সম্পত্তির নোটিফিকেশন পান' : 'Get Notified for New Properties';
-  if(s) s.textContent = isBn
-    ? 'আপনার মোবাইল নম্বর ও জেলা দিন। আপনার এলাকায় নতুন সম্পত্তি তালিকাভুক্ত হলে WhatsApp এ জানানো হবে।'
-    : 'Enter your mobile & district. Get WhatsApp alerts when new properties are listed in your area.';
-  if(b) b.textContent = isBn ? '🔔 নোটিফিকেশন চালু করুন' : '🔔 Enable Notifications';
-  if(inp) inp.placeholder = isBn ? '১০ সংখ্যার মোবাইল নম্বর' : '10-digit mobile number';
-  /* Populate notif district dropdown */
-  var nd = document.getElementById('notif-district');
-  if(nd){
-    var cur = nd.value;
-    var allOpt = isBn ? '-- জেলা বেছে নিন --' : '-- Select District --';
-    nd.innerHTML = '<option value="">'+allOpt+'</option>';
-    WB_DISTRICTS.forEach(function(d,i){
-      var o = document.createElement('option');
-      o.value = d;
-      o.textContent = isBn ? WB_DISTRICTS_BN[i] : d;
-      nd.appendChild(o);
-    });
-    if(cur) nd.value = cur;
-  }
-  updateNotifCount();
-}
-
-/* ── Disclaimer ─────────────────────────────────────────────────── */
-function showDisclaimerModal(){
-  document.getElementById('disclaimer-modal').classList.add('active');
-}
-function closeDisclaimer(){
-  document.getElementById('disclaimer-modal').classList.remove('active');
-  try{ sessionStorage.setItem('disc_agreed','1'); }catch(e){}
-}
-function toggleDisclaimer(){ showDisclaimerModal(); }
-function applyDisclaimerLang(){
-  var isBn=lang==='bn';
-  var ft=document.getElementById('disc-footer-txt');
-  if(ft) ft.textContent=isBn?'ক্রেতা ও বিক্রেতা সংযোগের প্ল্যাটফর্ম · সব লেনদেন নিজ ঝুঁকিতে':'Platform connecting buyers and sellers · All deals at users own risk';
-}
-
-/* ── Admin Panel ─────────────────────────────────────────────────── */
-var ADMIN_PASS = 'Dba1@smh';
-var adminLoggedIn = false;
-
-function goToAdmin(){
-  showScreen('admin-screen');
-  document.getElementById('admin-pass-inp').value='';
-  document.getElementById('admin-err').style.display='none';
-  document.getElementById('admin-login-wrap').style.display='block';
-  document.getElementById('admin-dashboard').style.display='none';
-}
-
-function adminLogin(){
-  var entered = document.getElementById('admin-pass-inp').value;
-  if(entered === ADMIN_PASS){
-    adminLoggedIn = true;
-    document.getElementById('admin-login-wrap').style.display='none';
-    document.getElementById('admin-dashboard').style.display='block';
-    renderAdminDashboard();
-  } else {
-    document.getElementById('admin-err').style.display='block';
-    document.getElementById('admin-pass-inp').value='';
-    setTimeout(function(){ document.getElementById('admin-err').style.display='none'; },3000);
-  }
-}
-
-function adminLogout(){
-  adminLoggedIn = false;
-  document.getElementById('admin-login-wrap').style.display='block';
-  document.getElementById('admin-dashboard').style.display='none';
-  document.getElementById('admin-pass-inp').value='';
-}
-
-function renderAdminDashboard(){
-  /* Stats */
-  var buyers = registeredBuyers || [];
-  document.getElementById('stat-total').textContent = buyers.length;
-  document.getElementById('stat-listings').textContent = listings.length;
-  var uniqueDist = [...new Set(buyers.map(function(b){return b.district;}))].length;
-  document.getElementById('stat-districts').textContent = uniqueDist;
-
-  /* Populate district filter */
-  var distSel = document.getElementById('admin-dist-filter');
-  var allDistricts = [...new Set(buyers.map(function(b){return b.district;}))].sort();
-  distSel.innerHTML = '<option value="">All Districts</option>';
-  allDistricts.forEach(function(d){
-    var o = document.createElement('option');
-    o.value = d; o.textContent = d;
-    distSel.appendChild(o);
-  });
-
-  renderAdminBuyers();
-  renderAdminListings();
-}
-
-function renderAdminBuyers(){
-  var buyers = registeredBuyers || [];
-  var search = (document.getElementById('admin-search').value||'').toLowerCase().trim();
-  var distF = document.getElementById('admin-dist-filter').value||'';
-  var notifMsg = 'Dear Interested Buyer, check out newly added property details of your area at www.brokermukto.com | Regards - Broker Mukto Team';
-
-  var filtered = buyers.filter(function(b){
-    if(search && b.mobile.indexOf(search)===-1 && b.district.toLowerCase().indexOf(search)===-1) return false;
-    if(distF && b.district !== distF) return false;
-    return true;
-  });
-
-  var el = document.getElementById('admin-buyers-list');
-  if(filtered.length === 0){
-    el.innerHTML='<div class="admin-empty">No registered buyers found.</div>';
-    return;
-  }
-
-  var html = '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:8px;">Showing '+filtered.length+' of '+buyers.length+' buyers</div>';
-  filtered.forEach(function(b, idx){
-    var waUrl = 'https://wa.me/91'+b.mobile+'?text='+encodeURIComponent(notifMsg);
-    var realIdx = buyers.indexOf(b);
-    html += '<div class="buyer-card">'
-      + '<div class="buyer-info">'
-      + '<div class="buyer-mob">📱 '+b.mobile+'</div>'
-      + '<div class="buyer-dist">📍 '+b.district+'</div>'
-      + '<div class="buyer-date">🗓️ '+(b.date||'Unknown date')+'</div>'
-      + '</div>'
-      + '<a class="buyer-wa-btn" href="'+waUrl+'" target="_blank">💬 Notify</a>'
-      + '<button class="buyer-del-btn" onclick="deleteBuyer('+realIdx+')">🗑️</button>'
-      + '</div>';
-  });
-  el.innerHTML = html;
-}
-
-function renderAdminListings(){
-  var el = document.getElementById('admin-listings-list');
-  if(!listings || listings.length===0){
-    el.innerHTML='<div class="admin-empty">No listings yet.</div>';
-    return;
-  }
-  var html='';
-  listings.forEach(function(item){
-    html += '<div class="buyer-card">'
-      + '<div class="buyer-info">'
-      + '<div class="buyer-mob">🏡 ₹'+item.price+'</div>'
-      + '<div class="buyer-dist">📍 '+item.po+', '+(item.district||'')+'</div>'
-      + '<div class="buyer-date">'+item.type+' · '+item.size+' '+item.unit
-      + (item.sold?' · <span style="color:#ff6b6b">SOLD</span>':' · <span style="color:#25d366">FOR SALE</span>')
-      + '</div></div>'
-      + '<div style="font-size:11px;color:rgba(255,255,255,0.4);">📞 '+item.mobile+'</div>'
-      + '</div>';
-  });
-  el.innerHTML = html;
-}
-
-function deleteBuyer(idx){
-  if(confirm('Remove this buyer from notifications list?')){
-    registeredBuyers.splice(idx, 1);
-    saveRegisteredBuyers();
-    renderAdminDashboard();
-  }
-}
-
-function adminBroadcastAll(){
-  var buyers = registeredBuyers || [];
-  if(buyers.length===0){ alert('No registered buyers yet.'); return; }
-  var msg = 'Dear Interested Buyer, check out newly added property details at www.brokermukto.com | Regards - Broker Mukto Team';
-  var nums = buyers.map(function(b){return '91'+b.mobile;}).join(',');
-  /* Open WhatsApp - will send to first number, user can then broadcast */
-  var first = buyers[0];
-  var waUrl = 'https://wa.me/91'+first.mobile+'?text='+encodeURIComponent(msg);
-
-  /* Show summary modal */
-  var summary = 'Broadcasting to '+buyers.length+' buyers. Tap OK to open WhatsApp for the first buyer.';
-  alert(summary);
-  window.open(waUrl,'_blank');
-}
-
-function exportBuyers(){
-  var buyers = registeredBuyers || [];
-  if(buyers.length===0){ alert('No buyers to export.'); return; }
-  var rows=['BrokerMukto Buyers - Total: '+buyers.length];buyers.forEach(function(b,i){rows.push((i+1)+'. '+b.mobile+' | '+b.district+' | '+(b.date||'N/A'));});var txt=rows.join(' | ');
-  /* Copy to clipboard */
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(txt).then(function(){
-      alert('✅ Buyer list copied to clipboard! Paste in WhatsApp or Notes.');
-    });
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = txt;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    alert('✅ Buyer list copied to clipboard!');
-  }
-}
-
-/* Access admin via URL hash */
-function checkAdminHash(){
-  if(window.location.hash === '#admin'){
-    goToAdmin();
-  }
-}
-window.addEventListener('hashchange', function(){
-  if(window.location.hash === '#admin') goToAdmin();
-  else if(window.location.hash === '') showScreen('home-screen');
-});
-window.addEventListener('DOMContentLoaded', function(){
-  setTimeout(function(){ checkAdminHash(); },200);
-});
-
-/* ── Init ─────────────────────────────────────────────────────────── */
-applyLang();
-applyDisclaimerLang();
-applyNotifLang();
-/* Force re-apply to ensure all text is set */
-setTimeout(function(){
-  applyNotifLang();
-  applyDisclaimerLang();
-},50);
-document.getElementById('listing-count').textContent=listings.length;
-/* Show disclaimer popup on first visit */
-try{
-  if(!sessionStorage.getItem('disc_agreed')){
-    setTimeout(function(){ showDisclaimerModal(); },900);
-  }
-}catch(e){ setTimeout(function(){ showDisclaimerModal(); },900); }
-
-/* Check admin hash LAST - after everything renders */
-setTimeout(function(){ checkAdminHash(); }, 100);
-</script>
-</body>
-</html>
+        html+='<div style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.3);letter-spacing:3px;margin:6px 0;">'+mask
