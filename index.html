@@ -782,7 +782,11 @@ select.inp option{background:#006070;color:#fff;}
     <div class="admin-stat-row">
       <div class="admin-stat">
         <div class="admin-stat-num" id="stat-total">0</div>
-        <div class="admin-stat-lbl">Total Buyers</div>
+        <div class="admin-stat-lbl">Notif. Buyers</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-num" id="stat-leads">0</div>
+        <div class="admin-stat-lbl">Buyer Leads</div>
       </div>
       <div class="admin-stat">
         <div class="admin-stat-num" id="stat-listings">0</div>
@@ -816,6 +820,15 @@ select.inp option{background:#006070;color:#fff;}
     <!-- Export -->
     <div class="admin-section-title">📥 Export Data</div>
     <button class="admin-export-btn" onclick="exportBuyers()">📋 Copy All as Text</button>
+
+    <!-- Buyer Leads from Buy Form -->
+    <div class="admin-section-title">🛒 Buyer Leads (from Buy Form)</div>
+    <div class="admin-filter-row">
+      <input class="admin-search-inp" id="admin-lead-search" placeholder="🔍 Search mobile, district, type..."
+        oninput="renderBuyerLeads()"/>
+    </div>
+    <div id="admin-leads-list"></div>
+    <button class="admin-export-btn" onclick="exportBuyerLeads()" style="margin-top:8px;">📋 Copy Leads as Text</button>
 
     <!-- Listings overview -->
     <div class="admin-section-title">🏡 Property Listings</div>
@@ -1088,14 +1101,56 @@ function validateSellerForm(){
 
 /* ─── Buyer submit ───────────────────────────────────────────────── */
 function submitBuyer(){
-  if(!document.getElementById('b-mobile').value.trim()){
+  var mobile = document.getElementById('b-mobile').value.trim();
+  if(!mobile){
     var err=document.getElementById('b-error');err.style.display='block';
     setTimeout(function(){err.style.display='none';},3000);return;
   }
+  /* Collect all buyer details */
+  var buyerData = {
+    mobile: mobile,
+    po: document.getElementById('b-po').value.trim(),
+    district: document.getElementById('b-district-val').value,
+    budget: document.getElementById('b-budget').value.trim(),
+    type: document.getElementById('b-type').value,
+    remarks: document.getElementById('b-remarks').value.trim(),
+    date: new Date().toLocaleDateString('en-IN'),
+    source: 'buy-form'
+  };
+  /* Save to buyerLeads array (separate from notification registrations) */
+  buyerLeads.push(buyerData);
+  saveBuyerLeads();
+  /* Clear form */
   ['b-mobile','b-po','b-remarks','b-budget'].forEach(function(id){document.getElementById(id).value='';});
   document.getElementById('b-type').value='';
   var s=document.getElementById('b-success');s.style.display='block';
-  setTimeout(function(){s.style.display='none';showScreen('listings-screen');},1800);
+  /* After 1.8s: hide success, go to listings, scroll to search bar */
+  setTimeout(function(){
+    s.style.display='none';
+    goToListingsAndSearch();
+  },1800);
+}
+
+/* Navigate to listings screen and focus the search bar */
+function goToListingsAndSearch(){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('listings-screen').classList.add('active');
+  applyFilters();
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(function(){
+    var el=document.getElementById('search-inp');
+    if(!el) return;
+    var hdrH=document.querySelector('.hdr').offsetHeight||60;
+    var top=el.getBoundingClientRect().top+window.pageYOffset-hdrH-10;
+    window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    setTimeout(function(){
+      try{ el.focus(); }catch(e){}
+      /* Flash highlight on search bar to draw attention */
+      el.style.transition='box-shadow 0.3s';
+      el.style.boxShadow='0 0 0 3px rgba(212,160,23,0.8)';
+      setTimeout(function(){ el.style.boxShadow=''; },1500);
+    },300);
+  },200);
 }
 
 /* ─── Unlock modal ───────────────────────────────────────────────── */
@@ -1583,410 +1638,4 @@ function applyFilters(){
     if(item.type)html+='<div class="listing-type-badge">'+item.type+'</div>';
     if(item.verified)html+='<span class="verified-badge">✓ '+t.verifiedLabel+'</span>';
     html+='</div><div style="font-size:26px">🏠</div></div>';
-    if(item.photos&&item.photos.length>0){html+='<div class="listing-photos">';item.photos.forEach(function(s){html+='<img class="listing-photo" src="'+s+'"/>';});html+='</div>';}
-    if(item.hasVideo)html+='<div class="media-tag"><span>🎥</span><span>'+t.videoAvail+'</span></div>';
-    html+='<div class="info-row"><span class="info-lbl">'+t.locLbl+':</span><span>'+item.po+', '+(item.district||item.po)+', পশ্চিমবঙ্গ</span></div>';
-    if(item.road)html+='<div class="info-row"><span class="info-lbl">'+t.roadLbl+':</span><span>'+item.road+'</span></div>';
-    if(item.landmark)html+='<div class="info-row"><span class="info-lbl">'+t.landLbl+':</span><span>'+item.landmark+'</span></div>';
-    if(item.size)html+='<div class="info-row"><span class="info-lbl">'+t.sizeLbl+':</span><span>'+item.size+' '+item.unit+'</span></div>';
-    if(item.facing)html+='<div class="info-row"><span class="info-lbl">'+t.faceLbl+':</span><span>'+item.facing+'</span></div>';
-    if(!isSold){
-      if(isUnlocked){
-        html+='<div class="unlocked-box"><div class="unlocked-label">'+t.unlockedLabel+'</div>';
-        html+='<div class="action-btns"><a class="btn-call" href="tel:'+item.mobile+'">'+t.callBtn+'</a><a class="btn-wa" href="https://wa.me/91'+item.mobile+'" target="_blank">'+t.waBtn+'</a></div></div>';
-      }else{
-        html+='<div class="locked-number"><div style="font-size:20px">🔒</div>';
-        html+='<div style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.3);letter-spacing:3px;margin:6px 0;">'+maskNumber(item.mobile)+'</div>';
-        html+='<div class="locked-text">'+t.lockedText+'</div>';
-        html+='<button class="unlock-btn" onclick="openUnlockModal('+item.id+')">'+t.unlockBtn+'</button></div>';
-      }
-    }else{
-      html+='<div style="background:rgba(139,0,0,0.2);border:1px solid rgba(255,100,100,0.3);border-radius:10px;padding:10px;text-align:center;margin-top:10px;font-size:13px;color:#ff9999;">🔴 '+t.soldMsg+'</div>';
-    }
-    if(item.maps)html+='<a class="btn-maps" href="'+item.maps+'" target="_blank">'+t.mapsBtn+'</a>';
-    html+='<button class="share-btn" onclick="shareOnWhatsApp(\''+item.po+'\',\''+(item.district||item.po)+'\',\''+item.road+'\',\''+item.landmark+'\',\''+item.size+'\',\''+item.unit+'\',\''+item.type+'\',\''+item.price+'\','+(item.negotiable?'true':'false')+',\''+item.mobile+'\')">'+t.shareBtn+'</button>';
-    html+='</div>';
-  });
-  c.innerHTML=html;
-}
-
-/* ── Notification System ────────────────────────────────────────── */
-/* Stores registered buyers: [{mobile, district}] */
-var registeredBuyers = [];
-try {
-  var saved = localStorage.getItem('bm_buyers');
-  if(saved) registeredBuyers = JSON.parse(saved);
-} catch(e){ registeredBuyers = []; }
-
-function saveRegisteredBuyers(){
-  try{ localStorage.setItem('bm_buyers', JSON.stringify(registeredBuyers)); }catch(e){}
-}
-
-function registerForNotif(){
-  var mob = document.getElementById('notif-mobile').value.trim();
-  var dist = document.getElementById('notif-district').value;
-  var isBn = lang==='bn';
-
-  if(!/^\d{10}$/.test(mob)){
-    alert(isBn ? '১০ সংখ্যার মোবাইল নম্বর দিন' : 'Enter a valid 10-digit mobile number');
-    return;
-  }
-  if(!dist){
-    alert(isBn ? 'জেলা বেছে নিন' : 'Please select a district');
-    return;
-  }
-
-  /* Check if already registered */
-  var exists = registeredBuyers.find(function(b){ return b.mobile===mob && b.district===dist; });
-  if(exists){
-    var msg = document.getElementById('notif-success-msg');
-    msg.textContent = isBn ? '✓ আপনি ইতিমধ্যে নিবন্ধিত!' : '✓ You are already registered!';
-    msg.style.display='block';
-    setTimeout(function(){ msg.style.display='none'; },3000);
-    return;
-  }
-
-  registeredBuyers.push({ mobile: mob, district: dist, date: new Date().toLocaleDateString() });
-  saveRegisteredBuyers();
-
-  document.getElementById('notif-mobile').value = '';
-  var msg = document.getElementById('notif-success-msg');
-  var isBn2 = lang==='bn';
-  msg.textContent = isBn2
-    ? '✅ সফলভাবে নিবন্ধিত! আপনার এলাকায় নতুন সম্পত্তি যুক্ত হলে WhatsApp-এ জানানো হবে।'
-    : '✅ Registered! You will get WhatsApp alerts for new properties in your area.';
-  msg.style.display='block';
-  updateNotifCount();
-  setTimeout(function(){ msg.style.display='none'; }, 4000);
-}
-
-function updateNotifCount(){
-  var el = document.getElementById('notif-count-txt');
-  if(!el) return;
-  var isBn = lang==='bn';
-  var count = registeredBuyers.length;
-  el.textContent = count > 0
-    ? (isBn ? count+' জন ক্রেতা নোটিফিকেশনের জন্য নিবন্ধিত' : count+' buyers registered for notifications')
-    : '';
-}
-
-/* Called when seller posts new listing — send WhatsApp notifications */
-function sendBuyerNotifications(district, po){
-  var interested = registeredBuyers.filter(function(b){
-    return b.district === district;
-  });
-  if(interested.length === 0) return;
-
-  /* Build WhatsApp message */
-  var msg = 'Dear Interested Buyer, check out newly added property details of your area at www.brokermukto.com | Regards - Broker Mukto Team';
-
-  /* Open WhatsApp modal showing who to notify */
-  var modal = document.getElementById('notif-send-modal');
-  var info = document.getElementById('notif-send-info');
-  var list = document.getElementById('notif-send-list');
-  var note = document.getElementById('notif-send-note');
-  var isBn = lang==='bn';
-
-  info.textContent = (isBn
-    ? district+' জেলায় '+interested.length+' জন নিবন্ধিত ক্রেতাকে নোটিফিকেশন পাঠান'
-    : 'Send notification to '+interested.length+' registered buyers in '+district);
-
-  var html = '';
-  interested.forEach(function(b, i){
-    var waUrl = 'https://wa.me/91'+b.mobile+'?text='+encodeURIComponent(msg);
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:rgba(255,255,255,0.05);border-radius:10px;margin-bottom:8px;">'
-      + '<div style="font-size:13px;color:#fff;">📱 '+b.mobile+'<br/><span style="font-size:11px;color:rgba(255,255,255,0.4);">'+b.district+'</span></div>'
-      + '<a href="'+waUrl+'" target="_blank" style="background:linear-gradient(135deg,#25d366,#128c3e);border:none;border-radius:8px;padding:8px 12px;color:#fff;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">📤 WhatsApp</a>'
-      + '</div>';
-  });
-  html += '<div style="margin-top:10px;">'
-    + '<a href="https://wa.me/?text='+encodeURIComponent(msg)+'" target="_blank" '
-    + 'style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#25d366,#128c3e);border-radius:12px;color:#fff;font-size:14px;font-weight:700;text-align:center;text-decoration:none;">'
-    + '📢 '+(isBn?'সবাইকে একসাথে WhatsApp করুন':'Broadcast to All via WhatsApp')+'</a></div>';
-
-  list.innerHTML = html;
-  note.textContent = isBn
-    ? 'প্রতিটি ক্রেতার WhatsApp বাটনে চাপুন অথবা Broadcast ব্যবহার করুন।'
-    : 'Tap each buyer WhatsApp button or use Broadcast to notify all at once.';
-
-  modal.classList.add('active');
-}
-
-function applyNotifLang(){
-  var isBn = lang==='bn';
-  var t = document.getElementById('notif-title-txt');
-  var s = document.getElementById('notif-sub-txt');
-  var b = document.getElementById('notif-reg-btn');
-  var inp = document.getElementById('notif-mobile');
-  if(t) t.textContent = isBn ? 'নতুন সম্পত্তির নোটিফিকেশন পান' : 'Get Notified for New Properties';
-  if(s) s.textContent = isBn
-    ? 'আপনার মোবাইল নম্বর ও জেলা দিন। আপনার এলাকায় নতুন সম্পত্তি তালিকাভুক্ত হলে WhatsApp এ জানানো হবে।'
-    : 'Enter your mobile & district. Get WhatsApp alerts when new properties are listed in your area.';
-  if(b) b.textContent = isBn ? '🔔 নোটিফিকেশন চালু করুন' : '🔔 Enable Notifications';
-  if(inp) inp.placeholder = isBn ? '১০ সংখ্যার মোবাইল নম্বর' : '10-digit mobile number';
-  /* Populate notif district dropdown */
-  var nd = document.getElementById('notif-district');
-  if(nd){
-    var cur = nd.value;
-    var allOpt = isBn ? '-- জেলা বেছে নিন --' : '-- Select District --';
-    nd.innerHTML = '<option value="">'+allOpt+'</option>';
-    WB_DISTRICTS.forEach(function(d,i){
-      var o = document.createElement('option');
-      o.value = d;
-      o.textContent = isBn ? WB_DISTRICTS_BN[i] : d;
-      nd.appendChild(o);
-    });
-    if(cur) nd.value = cur;
-  }
-  updateNotifCount();
-}
-
-/* ── Disclaimer ─────────────────────────────────────────────────── */
-function showDisclaimerModal(){
-  document.getElementById('disclaimer-modal').classList.add('active');
-}
-function closeDisclaimer(){
-  document.getElementById('disclaimer-modal').classList.remove('active');
-  try{ sessionStorage.setItem('disc_agreed','1'); }catch(e){}
-}
-function toggleDisclaimer(){ showDisclaimerModal(); }
-function applyDisclaimerLang(){
-  var isBn=lang==='bn';
-  var ft=document.getElementById('disc-footer-txt');
-  if(ft) ft.textContent=isBn?'ক্রেতা ও বিক্রেতা সংযোগের প্ল্যাটফর্ম · সব লেনদেন নিজ ঝুঁকিতে':'Platform connecting buyers and sellers · All deals at users own risk';
-}
-
-/* ── Admin Panel ─────────────────────────────────────────────────── */
-var ADMIN_PASS = 'Dba1@smh';
-var adminLoggedIn = false;
-
-function goToAdmin(){
-  showScreen('admin-screen');
-  document.getElementById('admin-pass-inp').value='';
-  document.getElementById('admin-err').style.display='none';
-  document.getElementById('admin-login-wrap').style.display='block';
-  document.getElementById('admin-dashboard').style.display='none';
-}
-
-function adminLogin(){
-  var entered = document.getElementById('admin-pass-inp').value;
-  if(entered === ADMIN_PASS){
-    adminLoggedIn = true;
-    document.getElementById('admin-login-wrap').style.display='none';
-    document.getElementById('admin-dashboard').style.display='block';
-    renderAdminDashboard();
-  } else {
-    document.getElementById('admin-err').style.display='block';
-    document.getElementById('admin-pass-inp').value='';
-    setTimeout(function(){ document.getElementById('admin-err').style.display='none'; },3000);
-  }
-}
-
-function adminLogout(){
-  adminLoggedIn = false;
-  document.getElementById('admin-login-wrap').style.display='block';
-  document.getElementById('admin-dashboard').style.display='none';
-  document.getElementById('admin-pass-inp').value='';
-}
-
-function renderAdminDashboard(){
-  /* Stats */
-  var buyers = registeredBuyers || [];
-  document.getElementById('stat-total').textContent = buyers.length;
-  document.getElementById('stat-listings').textContent = listings.length;
-  var uniqueDist = [...new Set(buyers.map(function(b){return b.district;}))].length;
-  document.getElementById('stat-districts').textContent = uniqueDist;
-
-  /* Populate district filter */
-  var distSel = document.getElementById('admin-dist-filter');
-  var allDistricts = [...new Set(buyers.map(function(b){return b.district;}))].sort();
-  distSel.innerHTML = '<option value="">All Districts</option>';
-  allDistricts.forEach(function(d){
-    var o = document.createElement('option');
-    o.value = d; o.textContent = d;
-    distSel.appendChild(o);
-  });
-
-  renderAdminBuyers();
-  renderAdminListings();
-}
-
-function renderAdminBuyers(){
-  var buyers = registeredBuyers || [];
-  var search = (document.getElementById('admin-search').value||'').toLowerCase().trim();
-  var distF = document.getElementById('admin-dist-filter').value||'';
-  var notifMsg = 'Dear Interested Buyer, check out newly added property details of your area at www.brokermukto.com | Regards - Broker Mukto Team';
-
-  var filtered = buyers.filter(function(b){
-    if(search && b.mobile.indexOf(search)===-1 && b.district.toLowerCase().indexOf(search)===-1) return false;
-    if(distF && b.district !== distF) return false;
-    return true;
-  });
-
-  var el = document.getElementById('admin-buyers-list');
-  if(filtered.length === 0){
-    el.innerHTML='<div class="admin-empty">No registered buyers found.</div>';
-    return;
-  }
-
-  var html = '<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:8px;">Showing '+filtered.length+' of '+buyers.length+' buyers</div>';
-  filtered.forEach(function(b, idx){
-    var waUrl = 'https://wa.me/91'+b.mobile+'?text='+encodeURIComponent(notifMsg);
-    var realIdx = buyers.indexOf(b);
-    html += '<div class="buyer-card">'
-      + '<div class="buyer-info">'
-      + '<div class="buyer-mob">📱 '+b.mobile+'</div>'
-      + '<div class="buyer-dist">📍 '+b.district+'</div>'
-      + '<div class="buyer-date">🗓️ '+(b.date||'Unknown date')+'</div>'
-      + '</div>'
-      + '<a class="buyer-wa-btn" href="'+waUrl+'" target="_blank">💬 Notify</a>'
-      + '<button class="buyer-del-btn" onclick="deleteBuyer('+realIdx+')">🗑️</button>'
-      + '</div>';
-  });
-  el.innerHTML = html;
-}
-
-function renderAdminListings(){
-  var el = document.getElementById('admin-listings-list');
-  if(!listings || listings.length===0){
-    el.innerHTML='<div class="admin-empty">No listings yet.</div>';
-    return;
-  }
-  var html='';
-  listings.forEach(function(item){
-    html += '<div class="buyer-card">'
-      + '<div class="buyer-info">'
-      + '<div class="buyer-mob">🏡 ₹'+item.price+'</div>'
-      + '<div class="buyer-dist">📍 '+item.po+', '+(item.district||'')+'</div>'
-      + '<div class="buyer-date">'+item.type+' · '+item.size+' '+item.unit
-      + (item.sold?' · <span style="color:#ff6b6b">SOLD</span>':' · <span style="color:#25d366">FOR SALE</span>')
-      + '</div></div>'
-      + '<div style="font-size:11px;color:rgba(255,255,255,0.4);">📞 '+item.mobile+'</div>'
-      + '</div>';
-  });
-  el.innerHTML = html;
-}
-
-function deleteBuyer(idx){
-  if(confirm('Remove this buyer from notifications list?')){
-    registeredBuyers.splice(idx, 1);
-    saveRegisteredBuyers();
-    renderAdminDashboard();
-  }
-}
-
-function adminBroadcastAll(){
-  var buyers = registeredBuyers || [];
-  if(buyers.length===0){ alert('No registered buyers yet.'); return; }
-  var msg = 'Dear Interested Buyer, check out newly added property details at www.brokermukto.com | Regards - Broker Mukto Team';
-  var nums = buyers.map(function(b){return '91'+b.mobile;}).join(',');
-  /* Open WhatsApp - will send to first number, user can then broadcast */
-  var first = buyers[0];
-  var waUrl = 'https://wa.me/91'+first.mobile+'?text='+encodeURIComponent(msg);
-
-  /* Show summary modal */
-  var summary = 'Broadcasting to '+buyers.length+' buyers. Tap OK to open WhatsApp for the first buyer.';
-  alert(summary);
-  window.open(waUrl,'_blank');
-}
-
-function exportBuyers(){
-  var buyers = registeredBuyers || [];
-  if(buyers.length===0){ alert('No buyers to export.'); return; }
-  var rows=['BrokerMukto Buyers - Total: '+buyers.length];buyers.forEach(function(b,i){rows.push((i+1)+'. '+b.mobile+' | '+b.district+' | '+(b.date||'N/A'));});var txt=rows.join(' | ');
-  /* Copy to clipboard */
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(txt).then(function(){
-      alert('✅ Buyer list copied to clipboard! Paste in WhatsApp or Notes.');
-    });
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = txt;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    alert('✅ Buyer list copied to clipboard!');
-  }
-}
-
-/* Access admin via URL hash */
-function checkAdminHash(){
-  if(window.location.hash === '#admin'){
-    goToAdmin();
-  }
-}
-window.addEventListener('hashchange', function(){
-  if(window.location.hash === '#admin') goToAdmin();
-  else if(window.location.hash === '') showScreen('home-screen');
-});
-window.addEventListener('DOMContentLoaded', function(){
-  setTimeout(function(){ checkAdminHash(); },200);
-});
-
-/* ── Init ─────────────────────────────────────────────────────────── */
-applyLang();
-applyDisclaimerLang();
-applyNotifLang();
-/* Force re-apply to ensure all text is set */
-setTimeout(function(){
-  applyNotifLang();
-  applyDisclaimerLang();
-},50);
-document.getElementById('listing-count').textContent=listings.length;
-/* Show disclaimer popup on first visit */
-try{
-  if(!sessionStorage.getItem('disc_agreed')){
-    setTimeout(function(){ showDisclaimerModal(); },900);
-  }
-}catch(e){ setTimeout(function(){ showDisclaimerModal(); },900); }
-
-/* Check admin hash LAST - after everything renders */
-setTimeout(function(){ checkAdminHash(); }, 100);
-</script>
-
-<!-- CONTACT US MODAL -->
-<div class="contact-modal-overlay" id="contact-modal-overlay" onclick="closeContactModal(event)">
-  <div class="contact-modal-box">
-    <button class="contact-modal-close" onclick="closeContactModal()">✕</button>
-    <div class="contact-modal-title">📞 Contact Us</div>
-    <div class="contact-modal-sub">We're here to help — reach us anytime</div>
-
-    <a class="contact-item" href="tel:+919483319235">
-      <div class="contact-icon">📱</div>
-      <div class="contact-info-wrap">
-        <div class="contact-label">Call / WhatsApp</div>
-        <div class="contact-value">+91 94833 19235</div>
-      </div>
-    </a>
-
-    <a class="contact-item" href="https://wa.me/919483319235" target="_blank" rel="noopener">
-      <div class="contact-icon">💬</div>
-      <div class="contact-info-wrap">
-        <div class="contact-label">WhatsApp Chat</div>
-        <div class="contact-value">wa.me/919483319235</div>
-      </div>
-    </a>
-
-    <a class="contact-item" href="mailto:brokermukto@gmail.com">
-      <div class="contact-icon">✉️</div>
-      <div class="contact-info-wrap">
-        <div class="contact-label">Email Support</div>
-        <div class="contact-value">brokermukto@gmail.com</div>
-      </div>
-    </a>
-  </div>
-</div>
-
-<script>
-function openContactModal(){
-  document.getElementById('contact-modal-overlay').classList.add('open');
-}
-function closeContactModal(e){
-  if(!e || e.target===document.getElementById('contact-modal-overlay')){
-    document.getElementById('contact-modal-overlay').classList.remove('open');
-  }
-}
-</script>
-</body>
-</html>
+    if(item.photos&&item.photos.length>0){html+='<div class="listing-photos">';item.photos.forEach(function(s){html+='<img class="listing-photo" src="'+s
