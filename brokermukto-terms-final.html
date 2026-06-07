@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms &amp; Conditions | BrokerMukto.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0f2744; --navy-mid:#1a3c5e; --gold:#c9882a; --gold-light:#f0c060;
+  --cream:#faf7f2; --paper:#fff9f1; --border:#e8ddd0;
+  --text-dark:#1c1c1c; --text-body:#3a3a3a; --text-muted:#7a7a7a;
+  --tag-en-bg:#e8f0fe; --tag-en-txt:#1a56db;
+  --tag-bn-bg:#fef3e2; --tag-bn-txt:#b45309;
+  --green-bg:#f0faf4; --green-bd:#86efac;
+  --amber-bg:#fffbeb; --amber-bd:#fcd34d;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans','Hind Siliguri',sans-serif;background:var(--cream);color:var(--text-body);line-height:1.8;font-size:15px;}
+
+/* ── CONSENT OVERLAY ── */
+#consent-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(10,20,40,0.82);
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  backdrop-filter:blur(4px);
+}
+#consent-box{
+  background:#fff;border-radius:20px;
+  max-width:520px;width:100%;
+  box-shadow:0 24px 60px rgba(0,0,0,0.35);
+  overflow:hidden;
+}
+.consent-header{
+  background:linear-gradient(135deg,var(--navy),#0a1e38);
+  padding:28px 28px 20px;
+  text-align:center;
+}
+.consent-logo{
+  font-family:'DM Serif Display',serif;
+  font-size:26px;color:#fff;margin-bottom:4px;
+}
+.consent-logo span{color:var(--gold-light);font-style:italic;}
+.consent-tagline{font-size:12px;color:rgba(255,255,255,0.5);letter-spacing:0.5px;}
+.consent-body{padding:24px 28px;}
+.consent-title{
+  font-family:'DM Serif Display',serif;
+  font-size:18px;color:var(--navy);margin-bottom:6px;
+}
+.consent-title-bn{
+  font-family:'Hind Siliguri',sans-serif;
+  font-size:15px;color:var(--text-muted);margin-bottom:16px;
+}
+.consent-items{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.consent-item{
+  display:flex;align-items:flex-start;gap:12px;
+  background:#f8f6f2;border-radius:10px;padding:12px 14px;
+}
+.ci-icon{font-size:22px;flex-shrink:0;line-height:1;}
+.ci-text{flex:1;}
+.ci-text strong{display:block;font-size:13px;color:var(--navy);font-weight:600;margin-bottom:1px;}
+.ci-text span{font-family:'Hind Siliguri',sans-serif;font-size:12px;color:var(--text-muted);display:block;}
+.consent-note{
+  font-size:12px;color:var(--text-muted);line-height:1.7;
+  text-align:center;margin-bottom:20px;
+}
+.consent-note a{color:var(--gold);text-decoration:none;font-weight:600;}
+.consent-note a:hover{text-decoration:underline;}
+.consent-btn{
+  display:block;width:100%;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  color:#fff;border:none;border-radius:10px;
+  padding:14px;font-size:15px;font-weight:600;
+  cursor:pointer;transition:opacity 0.2s;
+  font-family:'DM Sans',sans-serif;
+  letter-spacing:0.3px;
+}
+.consent-btn:hover{opacity:0.9;}
+.consent-btn-sub{
+  display:block;text-align:center;margin-top:10px;
+  font-family:'Hind Siliguri',sans-serif;
+  font-size:13px;color:var(--text-muted);
+}
+
+/* ── LANG BAR ── */
+.lang-bar{
+  position:sticky;top:0;z-index:100;
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 24px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.25);
+}
+.lang-bar-brand{
+  font-family:'DM Serif Display',serif;
+  font-size:17px;color:rgba(255,255,255,0.9);
+}
+.lang-bar-brand span{color:var(--gold-light);}
+.lang-bar-home{
+  font-size:11px;color:rgba(255,255,255,0.45);
+  text-decoration:none;margin-left:10px;
+  border:1px solid rgba(255,255,255,0.15);
+  padding:2px 8px;border-radius:4px;
+  transition:color 0.2s;
+  font-weight:500;letter-spacing:0.3px;
+}
+.lang-bar-home:hover{color:var(--gold-light);}
+.lang-bar-left{display:flex;align-items:center;gap:0;}
+.lang-toggle{
+  display:flex;background:rgba(255,255,255,0.1);
+  border-radius:8px;padding:3px;gap:3px;
+}
+.lang-btn{
+  padding:5px 14px;border:none;border-radius:6px;
+  font-size:12px;font-weight:600;cursor:pointer;
+  transition:all 0.2s;font-family:'DM Sans',sans-serif;
+  letter-spacing:0.4px;
+}
+.lang-btn.active{background:var(--gold);color:#fff;}
+.lang-btn:not(.active){background:transparent;color:rgba(255,255,255,0.55);}
+.lang-btn:hover:not(.active){background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.9);}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,var(--navy) 0%,#0a1e38 100%);
+  position:relative;overflow:hidden;
+}
+.header-pattern{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 20% 50%,rgba(201,136,42,0.08) 0%,transparent 50%),
+    radial-gradient(circle at 80% 20%,rgba(201,136,42,0.06) 0%,transparent 40%);
+}
+.header-inner{
+  max-width:900px;margin:0 auto;
+  padding:60px 28px 52px;
+  position:relative;z-index:1;
+}
+.header-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,136,42,0.15);
+  border:1px solid rgba(201,136,42,0.3);
+  border-radius:50px;padding:5px 14px 5px 6px;margin-bottom:24px;
+}
+.badge-dot{
+  width:28px;height:28px;background:var(--gold);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:11px;color:#fff;
+  font-family:'DM Serif Display',serif;
+}
+.badge-text{font-size:12px;font-weight:600;color:var(--gold-light);letter-spacing:1px;text-transform:uppercase;}
+.header-title-en{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(34px,5.5vw,58px);color:#fff;line-height:1.1;margin-bottom:6px;
+}
+.header-title-en span{color:var(--gold-light);font-style:italic;}
+.header-title-bn{
+  font-family:'Hind Siliguri',sans-serif;
+  font-size:clamp(18px,3vw,26px);font-weight:500;
+  color:rgba(255,255,255,0.5);margin-bottom:24px;
+}
+.header-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:24px;border-radius:2px;}
+.header-pills{display:flex;flex-wrap:wrap;gap:10px;}
+.pill{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:50px;padding:5px 14px;
+  font-size:11px;font-weight:500;color:rgba(255,255,255,0.6);
+}
+.accent-bar{height:5px;background:linear-gradient(90deg,var(--gold) 0%,var(--gold-light) 40%,transparent 100%);}
+
+/* ── MAIN ── */
+main{max-width:900px;margin:0 auto;padding:24px 24px 80px;}
+
+/* Section card */
+.section-card{
+  background:var(--paper);border:1px solid var(--border);
+  border-radius:16px;margin-bottom:18px;overflow:hidden;
+  box-shadow:0 1px 6px rgba(0,0,0,0.04);
+  transition:box-shadow 0.25s,transform 0.25s;
+  animation:fadeUp 0.45s ease both;
+}
+.section-card:hover{box-shadow:0 6px 24px rgba(15,39,68,0.1);transform:translateY(-2px);}
+
+.card-header{
+  background:linear-gradient(90deg,var(--navy) 0%,var(--navy-mid) 100%);
+  padding:18px 28px;display:flex;align-items:center;gap:16px;
+}
+.card-num{
+  width:36px;height:36px;background:var(--gold);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Serif Display',serif;font-size:16px;color:#fff;flex-shrink:0;
+}
+.card-titles{flex:1;}
+.card-title-en{font-family:'DM Serif Display',serif;font-size:17px;color:#fff;line-height:1.3;}
+.card-title-bn{font-family:'Hind Siliguri',sans-serif;font-size:14px;color:rgba(255,255,255,0.5);margin-top:1px;}
+.new-badge{background:#22c55e;color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;}
+.fixed-badge{background:var(--gold);color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:4px;text-transform:uppercase;flex-shrink:0;}
+
+.card-body{padding:26px 28px;}
+
+.bilingual{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:8px;}
+.bilingual-list{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:640px){
+  .bilingual,.bilingual-list{grid-template-columns:1fr;}
+  .card-header{padding:16px 18px;}
+  .card-body{padding:20px 18px;}
+  .header-inner{padding:44px 18px 40px;}
+}
+
+.lang-label{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;
+  padding:3px 9px;border-radius:4px;margin-bottom:10px;
+}
+.lang-label.en{background:var(--tag-en-bg);color:var(--tag-en-txt);}
+.lang-label.bn{background:var(--tag-bn-bg);color:var(--tag-bn-txt);}
+
+.lang-block p{font-size:14.5px;line-height:1.85;color:var(--text-body);}
+.lang-block.bn p{font-family:'Hind Siliguri',sans-serif;}
+
+.blist{list-style:none;padding:0;}
+.blist li{
+  padding:7px 0 7px 22px;position:relative;
+  font-size:14px;line-height:1.75;color:var(--text-body);
+  border-bottom:1px solid rgba(0,0,0,0.04);
+}
+.blist li:last-child{border-bottom:none;}
+.blist li::before{
+  content:'';position:absolute;left:0;top:15px;
+  width:7px;height:7px;background:var(--gold);
+  border-radius:2px;transform:rotate(45deg);
+}
+.blist.bn li{font-family:'Hind Siliguri',sans-serif;}
+
+.notice{
+  display:flex;gap:12px;align-items:flex-start;
+  border-radius:10px;padding:14px 18px;margin-top:20px;
+}
+.notice.amber{background:var(--amber-bg);border:1px solid var(--amber-bd);}
+.notice.green{background:var(--green-bg);border:1px solid var(--green-bd);}
+.notice-icon{font-size:18px;flex-shrink:0;line-height:1.5;}
+.notice-body p{font-size:13.5px;line-height:1.75;color:var(--text-dark);}
+.notice-body p+p{margin-top:6px;}
+.notice-body .bn{font-family:'Hind Siliguri',sans-serif;color:var(--text-muted);font-size:13px;}
+
+.rera-box{
+  background:linear-gradient(135deg,#f0f7ff,#e8f0fe);
+  border:1px solid #bfdbfe;border-radius:10px;padding:16px 20px;margin-top:18px;
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+}
+@media(max-width:640px){.rera-box{grid-template-columns:1fr;}}
+.rera-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1e40af;margin-bottom:6px;}
+.rera-text{font-size:13.5px;color:#1e3a8a;line-height:1.7;}
+.rera-text.bn{font-family:'Hind Siliguri',sans-serif;}
+
+.effective-date{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--navy);color:rgba(255,255,255,0.75);
+  font-size:11px;font-weight:600;padding:4px 12px;
+  border-radius:50px;margin-top:14px;letter-spacing:0.4px;
+}
+
+strong{color:var(--navy);font-weight:600;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.section-card:nth-child(1){animation-delay:0.04s;}
+.section-card:nth-child(2){animation-delay:0.08s;}
+.section-card:nth-child(3){animation-delay:0.12s;}
+.section-card:nth-child(4){animation-delay:0.16s;}
+.section-card:nth-child(5){animation-delay:0.20s;}
+.section-card:nth-child(6){animation-delay:0.24s;}
+.section-card:nth-child(7){animation-delay:0.28s;}
+.section-card:nth-child(8){animation-delay:0.32s;}
+.section-card:nth-child(9){animation-delay:0.36s;}
+.section-card:nth-child(10){animation-delay:0.40s;}
+.section-card:nth-child(11){animation-delay:0.44s;}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);padding:44px 24px 32px;}
+.footer-inner{max-width:900px;margin:0 auto;text-align:center;}
+.footer-logo{font-family:'DM Serif Display',serif;font-size:26px;color:#fff;margin-bottom:6px;}
+.footer-logo span{color:var(--gold-light);font-style:italic;}
+.footer-tagline{font-family:'Hind Siliguri',sans-serif;font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:18px;}
+.footer-rule{border:none;border-top:1px solid rgba(255,255,255,0.08);margin:18px 0;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.8;}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:20px;margin-top:14px;}
+.footer-links a{font-size:12px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold-light);}
+.footer-home-btn{
+  display:inline-block;margin-top:16px;
+  background:var(--gold);color:#fff;
+  padding:10px 28px;border-radius:8px;
+  font-size:13px;font-weight:600;text-decoration:none;
+  transition:opacity 0.2s;letter-spacing:0.3px;
+}
+.footer-home-btn:hover{opacity:0.85;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     CONSENT POPUP — shown before page
+     ══════════════════════════════════ -->
+<div id="consent-overlay">
+  <div id="consent-box">
+    <div class="consent-header">
+      <div class="consent-logo">Broker<span>Mukto</span>.com</div>
+      <div class="consent-tagline">Real Estate Made Simple &nbsp;|&nbsp; সম্পত্তি কেনা-বেচার সহজ সমাধান</div>
+    </div>
+    <div class="consent-body">
+      <div class="consent-title">Before you continue</div>
+      <div class="consent-title-bn">এগিয়ে যাওয়ার আগে একটু পড়ুন</div>
+      <div class="consent-items">
+        <div class="consent-item">
+          <div class="ci-icon">&#x1F4CB;</div>
+          <div class="ci-text">
+            <strong>I have read the Terms &amp; Conditions on this page.</strong>
+            <span>&#x2714; আমি এই পৃষ্ঠার শর্তাবলী পড়েছি।</span>
+          </div>
+        </div>
+        <div class="consent-item">
+          <div class="ci-icon">&#x1F3E0;</div>
+          <div class="ci-text">
+            <strong>I understand listings are user-posted and not verified by BrokerMukto.</strong>
+            <span>&#x2714; তালিকাগুলো ব্যবহারকারী পোস্ট করা, BrokerMukto যাচাই করেনি।</span>
+          </div>
+        </div>
+        <div class="consent-item">
+          <div class="ci-icon">&#x1F512;</div>
+          <div class="ci-text">
+            <strong>My personal data will be handled per DPDPA 2023.</strong>
+            <span>&#x2714; আমার ব্যক্তিগত তথ্য DPDPA 2023 অনুযায়ী পরিচালিত হবে।</span>
+          </div>
+        </div>
+        <div class="consent-item">
+          <div class="ci-icon">&#x1F4B0;</div>
+          <div class="ci-text">
+            <strong>All transactions are between users. BrokerMukto is not liable.</strong>
+            <span>&#x2714; সকল লেনদেন ব্যবহারকারীদের মধ্যে; BrokerMukto দায়বদ্ধ নয়।</span>
+          </div>
+        </div>
+      </div>
+      <div class="consent-note">
+        By clicking below, you agree to our
+        <a href="https://www.brokermukto.com/terms" target="_blank">Terms &amp; Conditions</a>
+        and
+        <a href="https://www.brokermukto.com/privacy" target="_blank">Privacy Policy</a>.
+        <br>নিচে ক্লিক করে আপনি আমাদের শর্তাবলী ও গোপনীয়তা নীতিতে সম্মত হচ্ছেন।
+      </div>
+      <button class="consent-btn" onclick="acceptConsent()">
+        &#x2714;&nbsp; I Agree &amp; Continue &nbsp;/&nbsp; সম্মত আছি, এগিয়ে যান
+      </button>
+      <div class="consent-btn-sub">&#x1F512; Your data is safe with us &nbsp;|&nbsp; আপনার তথ্য আমাদের কাছে সুরক্ষিত</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     STICKY TOP BAR
+     ══════════════════════════ -->
+<div class="lang-bar">
+  <div class="lang-bar-left">
+    <div class="lang-bar-brand">Broker<span>Mukto</span>.com</div>
+    <a href="https://www.brokermukto.com" class="lang-bar-home">&#x2302; Home</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="switchLang(this,'both')">EN + &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</button>
+    <button class="lang-btn" onclick="switchLang(this,'en')">English</button>
+    <button class="lang-btn" onclick="switchLang(this,'bn')">&#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════
+     HEADER
+     ══════════════════════════ -->
+<header>
+  <div class="header-pattern"></div>
+  <div class="header-inner">
+    <div class="header-badge">
+      <div class="badge-dot">BM</div>
+      <span class="badge-text">Legal &middot; Terms &amp; Conditions</span>
+    </div>
+    <h1 class="header-title-en">Terms &amp; <span>Conditions</span></h1>
+    <div class="header-title-bn">&#x09B6;&#x09B0;&#x09CD;&#x09A4;&#x09BE;&#x09AC;&#x09B2;&#x09C0; &#x0993; &#x09A8;&#x09BF;&#x09AF;&#x09BC;&#x09AE;&#x09A8;&#x09C0;&#x09A4;&#x09BF;</div>
+    <div class="header-divider"></div>
+    <div class="header-pills">
+      <div class="pill">&#x1F4C5; Effective: June 2026</div>
+      <div class="pill">&#x2696;&#xFE0F; Governed by Indian Law</div>
+      <div class="pill">&#x1F3E1; RERA Acknowledged</div>
+      <div class="pill">&#x1F4DC; Version 2.0</div>
+    </div>
+  </div>
+</header>
+<div class="accent-bar"></div>
+
+<!-- ══════════════════════════
+     MAIN CONTENT
+     ══════════════════════════ -->
+<main>
+
+  <!-- 1. Acceptance -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">1</div>
+      <div class="card-titles">
+        <div class="card-title-en">Acceptance of Terms</div>
+        <div class="card-title-bn">&#x09B6;&#x09B0;&#x09CD;&#x09A4;&#x09BE;&#x09AC;&#x09B2;&#x09C0;&#x09B0; &#x09B8;&#x09CD;&#x09AC;&#x09C0;&#x0995;&#x09C3;&#x09A4;&#x09BF;</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>By accessing or using BrokerMukto.com, you confirm that you have read, understood, and agree to be bound by these Terms and Conditions. If you do not agree, please discontinue use immediately. Access from outside India is subject to local laws; users are responsible for compliance.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>BrokerMukto.com &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0; &#x0995;&#x09B0;&#x09C7; &#x0986;&#x09AA;&#x09A8;&#x09BF; &#x09A8;&#x09BF;&#x09B6;&#x09CD;&#x099A;&#x09BF;&#x09A4; &#x0995;&#x09B0;&#x099B;&#x09C7;&#x09A8; &#x09AF;&#x09C7; &#x0986;&#x09AA;&#x09A8;&#x09BF; &#x098F;&#x0987; &#x09B6;&#x09B0;&#x09CD;&#x09A4;&#x09BE;&#x09AC;&#x09B2;&#x09C0; &#x09AA;&#x09DC;&#x09C7;&#x099B;&#x09C7;&#x09A8;, &#x09AC;&#x09C1;&#x099D;&#x09C7;&#x099B;&#x09C7;&#x09A8; &#x098F;&#x09AC;&#x0982; &#x09AE;&#x09BE;&#x09A8;&#x09A4;&#x09C7; &#x09B8;&#x09AE;&#x09CD;&#x09AE;&#x09A4; &#x09B9;&#x09AF;&#x09BC;&#x09C7;&#x099B;&#x09C7;&#x09A8;&#x0964; &#x09B8;&#x09AE;&#x09CD;&#x09AE;&#x09A4; &#x09A8;&#x09BE; &#x09B9;&#x09B2;&#x09C7; &#x0985;&#x09AC;&#x09BF;&#x09B2;&#x09AE;&#x09CD;&#x09AC;&#x09C7; &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0; &#x09AC;&#x09A8;&#x09CD;&#x09A7; &#x0995;&#x09B0;&#x09C1;&#x09A8;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Nature of Service -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">2</div>
+      <div class="card-titles">
+        <div class="card-title-en">Nature of Service</div>
+        <div class="card-title-bn">&#x09AA;&#x09B0;&#x09BF;&#x09B8;&#x09C7;&#x09AC;&#x09BE;&#x09B0; &#x09B8;&#x09CD;&#x09AC;&#x09B0;&#x09C2;&#x09AA;</div>
+      </div>
+      <div class="fixed-badge">Fixed</div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>BrokerMukto.com is an online listing and discovery platform connecting property buyers, sellers, tenants, and agents. We do <strong>not</strong> act as an agent, broker, or representative for any party, and do <strong>not</strong> participate in or guarantee any property transaction. All listings are posted directly by registered users.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>BrokerMukto.com &#x098F;&#x0995;&#x099F;&#x09BF; &#x0985;&#x09A8;&#x09B2;&#x09BE;&#x0987;&#x09A8; &#x09AA;&#x09CD;&#x09B2;&#x09CD;&#x09AF;&#x09BE;&#x099F;&#x09AB;&#x09B0;&#x09CD;&#x09AE; &#x09AF;&#x09BE; &#x0995;&#x09CD;&#x09B0;&#x09C7;&#x09A4;&#x09BE;, &#x09AC;&#x09BF;&#x0995;&#x09CD;&#x09B0;&#x09C7;&#x09A4;&#x09BE;, &#x09AD;&#x09BE;&#x09DC;&#x09BE;&#x099F;&#x09C7; &#x0993; &#x09A6;&#x09BE;&#x09B2;&#x09BE;&#x09B2;&#x09A6;&#x09C7;&#x09B0; &#x09B8;&#x0982;&#x09AF;&#x09C1;&#x0995;&#x09CD;&#x09A4; &#x0995;&#x09B0;&#x09C7;&#x0964; &#x0986;&#x09AE;&#x09B0;&#x09BE; &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09AA;&#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09B0; <strong>&#x098F;&#x099C;&#x09C7;&#x09A8;&#x09CD;&#x099F;, &#x09A6;&#x09BE;&#x09B2;&#x09BE;&#x09B2; &#x09AC;&#x09BE; &#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BF;&#x09A8;&#x09BF;&#x09A7;&#x09BF; &#x09A8;&#x0987;</strong>, &#x098F;&#x09AC;&#x0982; &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x09B2;&#x09C7;&#x09A8;&#x09A6;&#x09C7;&#x09A8;&#x09C7; &#x0985;&#x0982;&#x09B6;&#x0997;&#x09CD;&#x09B0;&#x09B9;&#x09A3; &#x0995;&#x09B0;&#x09BF; &#x09A8;&#x09BE;&#x0964;</p>
+        </div>
+      </div>
+      <div class="rera-box">
+        <div>
+          <div class="rera-title">&#x1F3DB;&#xFE0F; RERA Compliance Notice</div>
+          <p class="rera-text">Agents posting on BrokerMukto.com must hold a valid RERA registration under the Real Estate (Regulation &amp; Development) Act, 2016. Providing false RERA details is a legal offence.</p>
+        </div>
+        <div>
+          <div class="rera-title">&#x1F3DB;&#xFE0F; &#x09B0;&#x09C7;&#x09B0;&#x09BE; &#x09B8;&#x09AE;&#x09CD;&#x09AE;&#x09A4;&#x09BF; &#x09A8;&#x09CB;&#x099F;&#x09BF;&#x09B6;</div>
+          <p class="rera-text bn">BrokerMukto.com-&#x098F; &#x09AA;&#x09CB;&#x09B8;&#x09CD;&#x099F; &#x0995;&#x09B0;&#x09BE; &#x098F;&#x099C;&#x09C7;&#x09A8;&#x09CD;&#x099F;&#x09A6;&#x09C7;&#x09B0; &#x09B0;&#x09BF;&#x09AF;&#x09BC;&#x09C7;&#x09B2; &#x098F;&#x09B8;&#x09CD;&#x099F;&#x09C7;&#x099F; &#x0986;&#x0987;&#x09A8;, &#x09E8;&#x09E6;&#x09E7;&#x09EC; &#x0985;&#x09A8;&#x09C1;&#x09AF;&#x09BE;&#x09AF;&#x09BC;&#x09C0; &#x09AC;&#x09C8;&#x09A7; &#x09B0;&#x09C7;&#x09B0;&#x09BE; &#x09A8;&#x09BF;&#x09AC;&#x09A8;&#x09CD;&#x09A7;&#x09A8; &#x09A5;&#x09BE;&#x0995;&#x09A4;&#x09C7; &#x09B9;&#x09AC;&#x09C7;&#x0964; &#x09AE;&#x09BF;&#x09A5;&#x09CD;&#x09AF;&#x09BE; &#x09B0;&#x09C7;&#x09B0;&#x09BE; &#x09A4;&#x09A5;&#x09CD;&#x09AF; &#x09AA;&#x09CD;&#x09B0;&#x09A6;&#x09BE;&#x09A8; &#x0986;&#x0987;&#x09A8;&#x09C7;&#x09B0; &#x0985;&#x09AA;&#x09B0;&#x09BE;&#x09A7;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Accuracy Disclaimer -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">3</div>
+      <div class="card-titles">
+        <div class="card-title-en">Disclaimer of Accuracy</div>
+        <div class="card-title-bn">&#x09A4;&#x09A5;&#x09CD;&#x09AF;&#x09C7;&#x09B0; &#x09A8;&#x09BF;&#x09B0;&#x09CD;&#x09AD;&#x09C1;&#x09B2;&#x09A4;&#x09BE; &#x09B8;&#x0982;&#x0995;&#x09CD;&#x09B0;&#x09BE;&#x09A8;&#x09CD;&#x09A4; &#x09A6;&#x09BE;&#x09AF;&#x09BC;&#x09AE;&#x09C1;&#x0995;&#x09CD;&#x09A4;&#x09BF;</div>
+      </div>
+      <div class="fixed-badge">Fixed</div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual-list">
+        <div>
+          <div class="lang-label en" style="margin-bottom:12px;">&#x1F1EC;&#x1F1E7; English</div>
+          <ul class="blist">
+            <li>All property descriptions, prices, photos, floor plans &amp; availability are provided by the <strong>user who posted the listing</strong> — not by BrokerMukto.com.</li>
+            <li>BrokerMukto.com makes no warranties regarding accuracy, completeness, or reliability of any listing.</li>
+            <li>We do not verify ownership, title, or encumbrance status of any listed property.</li>
+            <li>Users must conduct independent due diligence — including site visits and title verification — before any financial commitment.</li>
+            <li>Prices shown are indicative only and may not reflect current market values.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lang-label bn" style="margin-bottom:12px;">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <ul class="blist bn">
+            <li>&#x09B8;&#x0995;&#x09B2; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF;&#x09B0; &#x09AC;&#x09BF;&#x09AC;&#x09B0;&#x09A3;, &#x09AE;&#x09C2;&#x09B2;&#x09CD;&#x09AF;, &#x099B;&#x09AC;&#x09BF; &#x0993; &#x09A4;&#x09A5;&#x09CD;&#x09AF; <strong>&#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE; &#x09AA;&#x09CB;&#x09B8;&#x09CD;&#x099F;&#x0995;&#x09BE;&#x09B0;&#x09C0; &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0;&#x0995;&#x09BE;&#x09B0;&#x09C0;</strong> &#x09B8;&#x09B0;&#x09AC;&#x09B0;&#x09BE;&#x09B9; &#x0995;&#x09B0;&#x09C7;&#x09A8; &mdash; BrokerMukto.com &#x09A8;&#x09AF;&#x09BC;&#x0964;</li>
+            <li>BrokerMukto.com &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE;&#x09B0; &#x09AF;&#x09A5;&#x09BE;&#x09B0;&#x09CD;&#x09A5;&#x09A4;&#x09BE; &#x09AC;&#x09BE; &#x09A8;&#x09BF;&#x09B0;&#x09CD;&#x09AD;&#x09B0;&#x09AF;&#x09CB;&#x0997;&#x09CD;&#x09AF;&#x09A4;&#x09BE;&#x09B0; &#x09AC;&#x09BF;&#x09B7;&#x09AF;&#x09BC;&#x09C7; &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BF;&#x09B6;&#x09CD;&#x09B0;&#x09C1;&#x09A4;&#x09BF; &#x09A6;&#x09C7;&#x09AF;&#x09BC; &#x09A8;&#x09BE;&#x0964;</li>
+            <li>&#x0986;&#x09AE;&#x09B0;&#x09BE; &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE;&#x09B0; &#x09AE;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE;&#x09A8;&#x09BE; &#x09AC;&#x09BE; &#x09A6;&#x09B2;&#x09BF;&#x09B2; &#x09AF;&#x09BE;&#x099A;&#x09BE;&#x0987; &#x0995;&#x09B0;&#x09BF; &#x09A8;&#x09BE;&#x0964;</li>
+            <li>&#x0986;&#x09B0;&#x09CD;&#x09A5;&#x09BF;&#x0995; &#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BF;&#x09B6;&#x09CD;&#x09B0;&#x09C1;&#x09A4;&#x09BF;&#x09B0; &#x0986;&#x0997;&#x09C7; &#x09B8;&#x09B0;&#x09C7;&#x099C;&#x09AE;&#x09BF;&#x09A8;&#x09C7; &#x09AA;&#x09B0;&#x09BF;&#x09A6;&#x09B0;&#x09CD;&#x09B6;&#x09A8; &#x0993; &#x09A6;&#x09B2;&#x09BF;&#x09B2; &#x09AF;&#x09BE;&#x099A;&#x09BE;&#x0987; &#x0985;&#x09AC;&#x09B6;&#x09CD;&#x09AF;&#x0987; &#x0995;&#x09B0;&#x09C1;&#x09A8;&#x0964;</li>
+            <li>&#x09AA;&#x09CD;&#x09B0;&#x09A6;&#x09B0;&#x09CD;&#x09B6;&#x09BF;&#x09A4; &#x09AE;&#x09C2;&#x09B2;&#x09CD;&#x09AF; &#x0995;&#x09C7;&#x09AC;&#x09B2; &#x0986;&#x09A8;&#x09C1;&#x09AE;&#x09BE;&#x09A8;&#x09BF;&#x0995; &#x098F;&#x09AC;&#x0982; &#x09AC;&#x09B0;&#x09CD;&#x09A4;&#x09AE;&#x09BE;&#x09A8; &#x09AC;&#x09BE;&#x099C;&#x09BE;&#x09B0;&#x09AE;&#x09C2;&#x09B2;&#x09CD;&#x09AF; &#x09A8;&#x09BE;&#x0993; &#x09B9;&#x09A4;&#x09C7; &#x09AA;&#x09BE;&#x09B0;&#x09C7;&#x0964;</li>
+          </ul>
+        </div>
+      </div>
+      <div class="notice amber">
+        <div class="notice-icon">&#x26A0;&#xFE0F;</div>
+        <div class="notice-body">
+          <p><strong>Important:</strong> Always visit the property in person and verify legal documents with a qualified lawyer before any transaction.</p>
+          <p class="bn">&#x09AF;&#x09C7;&#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09B2;&#x09C7;&#x09A8;&#x09A6;&#x09C7;&#x09A8;&#x09C7;&#x09B0; &#x0986;&#x0997;&#x09C7; &#x09B8;&#x09B0;&#x09C7;&#x099C;&#x09AE;&#x09BF;&#x09A8;&#x09C7; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x09AA;&#x09B0;&#x09BF;&#x09A6;&#x09B0;&#x09CD;&#x09B6;&#x09A8; &#x0995;&#x09B0;&#x09C1;&#x09A8; &#x098F;&#x09AC;&#x0982; &#x09AF;&#x09CB;&#x0997;&#x09CD;&#x09AF; &#x0986;&#x0987;&#x09A8;&#x099C;&#x09C0;&#x09AC;&#x09C0;&#x09B0; &#x09AE;&#x09BE;&#x09A7;&#x09CD;&#x09AF;&#x09AE;&#x09C7; &#x09B8;&#x0995;&#x09B2; &#x0986;&#x0987;&#x09A8;&#x09BF; &#x09A6;&#x09B2;&#x09BF;&#x09B2; &#x09AF;&#x09BE;&#x099A;&#x09BE;&#x0987; &#x0995;&#x09B0;&#x09C1;&#x09A8;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. User Obligations -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">4</div>
+      <div class="card-titles">
+        <div class="card-title-en">User Obligations</div>
+        <div class="card-title-bn">&#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0;&#x0995;&#x09BE;&#x09B0;&#x09C0;&#x09B0; &#x09A6;&#x09BE;&#x09AF;&#x09BC;&#x09BF;&#x09A4;&#x09CD;&#x09AC;</div>
+      </div>
+      <div class="fixed-badge">Fixed</div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual-list">
+        <div>
+          <div class="lang-label en" style="margin-bottom:12px;">&#x1F1EC;&#x1F1E7; English</div>
+          <ul class="blist">
+            <li>You must provide accurate, truthful, and complete information in all listings.</li>
+            <li><strong>No ghost listings:</strong> Do not post properties unavailable for sale/rent or that you have no authority to list.</li>
+            <li>Agent users must disclose their <strong>valid RERA registration number</strong> in their profile and listings.</li>
+            <li>You must not distribute spam, malicious software, or engage in fraudulent activity.</li>
+            <li>You are solely responsible for the confidentiality of your account credentials.</li>
+            <li>You agree not to scrape, copy, or republish listings without written consent.</li>
+            <li>Fraudulent or misleading listings may be removed without notice.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lang-label bn" style="margin-bottom:12px;">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <ul class="blist bn">
+            <li>&#x09B8;&#x0995;&#x09B2; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE;&#x09AF;&#x09BC; &#x09B8;&#x09A0;&#x09BF;&#x0995; &#x0993; &#x09B8;&#x09A4;&#x09CD;&#x09AF;&#x09BF;&#x0995;&#x09BE;&#x09B0;&#x09C7;&#x09B0; &#x09A4;&#x09A5;&#x09CD;&#x09AF; &#x09AA;&#x09CD;&#x09B0;&#x09A6;&#x09BE;&#x09A8; &#x0995;&#x09B0;&#x09A4;&#x09C7; &#x09B9;&#x09AC;&#x09C7;&#x0964;</li>
+            <li><strong>&#x09AD;&#x09C1;&#x09AF;&#x09BC;&#x09BE; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE; &#x09A8;&#x09BF;&#x09B7;&#x09BF;&#x09A6;&#x09CD;&#x09A7;:</strong> &#x09AF;&#x09C7; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x09AC;&#x09BF;&#x0995;&#x09CD;&#x09B0;&#x09AF;&#x09BC;/&#x09AD;&#x09BE;&#x09DC;&#x09BE;&#x09B0; &#x099C;&#x09A8;&#x09CD;&#x09AF; &#x09AA;&#x09BE;&#x0993;&#x09AF;&#x09BC;&#x09BE; &#x09AF;&#x09BE;&#x09AF;&#x09BC; &#x09A8;&#x09BE; &#x09AC;&#x09BE; &#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE;&#x09AD;&#x09C1;&#x0995;&#x09CD;&#x09A4; &#x0995;&#x09B0;&#x09BE;&#x09B0; &#x0985;&#x09A7;&#x09BF;&#x0995;&#x09BE;&#x09B0; &#x09A8;&#x09C7;&#x0987; &#x09A4;&#x09BE; &#x09AA;&#x09CB;&#x09B8;&#x09CD;&#x099F; &#x0995;&#x09B0;&#x09AC;&#x09C7;&#x09A8; &#x09A8;&#x09BE;&#x0964;</li>
+            <li>&#x098F;&#x099C;&#x09C7;&#x09A8;&#x09CD;&#x099F; &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0;&#x0995;&#x09BE;&#x09B0;&#x09C0;&#x09A6;&#x09C7;&#x09B0; &#x09AA;&#x09CD;&#x09B0;&#x09CB;&#x09AB;&#x09BE;&#x0987;&#x09B2;&#x09C7; <strong>&#x09AC;&#x09C8;&#x09A7; &#x09B0;&#x09C7;&#x09B0;&#x09BE; &#x09A8;&#x09BF;&#x09AC;&#x09A8;&#x09CD;&#x09A7;&#x09A8; &#x09A8;&#x09AE;&#x09CD;&#x09AC;&#x09B0;</strong> &#x09AA;&#x09CD;&#x09B0;&#x0995;&#x09BE;&#x09B6; &#x0995;&#x09B0;&#x09A4;&#x09C7; &#x09B9;&#x09AC;&#x09C7;&#x0964;</li>
+            <li>&#x09B8;&#x09CD;&#x09AA;&#x09CD;&#x09AF;&#x09BE;&#x09AE;, &#x0995;&#x09CD;&#x09B7;&#x09A4;&#x09BF;&#x0995;&#x09B0; &#x09B8;&#x09AB;&#x099F;&#x0993;&#x09AF;&#x09BC;&#x09CD;&#x09AF;&#x09BE;&#x09B0; &#x09AC;&#x09BF;&#x09A4;&#x09B0;&#x09A3; &#x09AC;&#x09BE; &#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BE;&#x09B0;&#x09A3;&#x09BE;&#x09AE;&#x09C2;&#x09B2;&#x0995; &#x0995;&#x09BE;&#x09B0;&#x09CD;&#x09AF;&#x0995;&#x09CD;&#x09B0;&#x09AE;&#x09C7; &#x09AA;&#x09CD;&#x09B2;&#x09CD;&#x09AF;&#x09BE;&#x099F;&#x09AB;&#x09B0;&#x09CD;&#x09AE; &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0; &#x0995;&#x09B0;&#x09BE; &#x09AF;&#x09BE;&#x09AC;&#x09C7; &#x09A8;&#x09BE;&#x0964;</li>
+            <li>&#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0; &#x0985;&#x09CD;&#x09AF;&#x09BE;&#x0995;&#x09BE;&#x0989;&#x09A8;&#x09CD;&#x099F;&#x09C7;&#x09B0; &#x09A4;&#x09A5;&#x09CD;&#x09AF; &#x0997;&#x09CB;&#x09AA;&#x09A8;&#x09C0;&#x09AF;&#x09BC; &#x09B0;&#x09BE;&#x0996;&#x09BE;&#x09B0; &#x09A6;&#x09BE;&#x09AF;&#x09BC;&#x09BF;&#x09A4;&#x09CD;&#x09AC; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09C2;&#x09B0;&#x09CD;&#x09A3;&#x09B0;&#x09C2;&#x09AA;&#x09C7; &#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0;&#x0964;</li>
+            <li>&#x09B2;&#x09BF;&#x0996;&#x09BF;&#x09A4; &#x09B8;&#x09AE;&#x09CD;&#x09AE;&#x09A4;&#x09BF; &#x099B;&#x09BE;&#x09DC;&#x09BE; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE; &#x0995;&#x09AA;&#x09BF; &#x09AC;&#x09BE; &#x09AA;&#x09C1;&#x09A8;&#x09B0;&#x09BE;&#x09AF;&#x09BC; &#x09AA;&#x09CD;&#x09B0;&#x0995;&#x09BE;&#x09B6; &#x0995;&#x09B0;&#x09BE; &#x09AF;&#x09BE;&#x09AC;&#x09C7; &#x09A8;&#x09BE;&#x0964;</li>
+            <li>&#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BE;&#x09B0;&#x09A3;&#x09BE;&#x09AE;&#x09C2;&#x09B2;&#x0995; &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE; &#x09A8;&#x09CB;&#x099F;&#x09BF;&#x09B6; &#x099B;&#x09BE;&#x09DC;&#x09BE;&#x0987; &#x09B8;&#x09B0;&#x09BF;&#x09AF;&#x09BC;&#x09C7; &#x09A6;&#x09C7;&#x0993;&#x09AF;&#x09BC;&#x09BE; &#x09B9;&#x09A4;&#x09C7; &#x09AA;&#x09BE;&#x09B0;&#x09C7;&#x0964;</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Intellectual Property -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">5</div>
+      <div class="card-titles">
+        <div class="card-title-en">Intellectual Property</div>
+        <div class="card-title-bn">&#x09AE;&#x09C7;&#x09A7;&#x09BE; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x0985;&#x09A7;&#x09BF;&#x0995;&#x09BE;&#x09B0;</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>All content on BrokerMukto.com — including the brand name "BrokerMukto," logos, graphics, text, and software — is the exclusive property of BrokerMukto.com and is protected under applicable Indian intellectual property laws. Unauthorised reproduction or distribution is strictly prohibited.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>BrokerMukto.com-&#x098F;&#x09B0; &#x09B8;&#x09AE;&#x09B8;&#x09CD;&#x09A4; &#x09AC;&#x09BF;&#x09B7;&#x09AF;&#x09BC;&#x09AC;&#x09B8;&#x09CD;&#x09A4;&#x09C1; &mdash; "BrokerMukto" &#x09AC;&#x09CD;&#x09B0;&#x09CD;&#x09AF;&#x09BE;&#x09A8;&#x09CD;&#x09A1; &#x09A8;&#x09BE;&#x09AE;, &#x09B2;&#x09CB;&#x0997;&#x09CB;, &#x0997;&#x09CD;&#x09B0;&#x09BE;&#x09AB;&#x09BF;&#x0995;&#x09CD;&#x09B8;, &#x099F;&#x09C7;&#x0995;&#x09CD;&#x09B8;&#x099F; &#x0993; &#x09B8;&#x09AB;&#x099F;&#x0993;&#x09AF;&#x09BC;&#x09CD;&#x09AF;&#x09BE;&#x09B0; &#x09B8;&#x09B9; &mdash; BrokerMukto.com-&#x098F;&#x09B0; &#x098F;&#x0995;&#x099A;&#x09C7;&#x099F;&#x09BF;&#x09AF;&#x09BC;&#x09BE; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x098F;&#x09AC;&#x0982; &#x09AD;&#x09BE;&#x09B0;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x0986;&#x0987;&#x09A8;&#x09C7; &#x09B8;&#x0982;&#x09B0;&#x0995;&#x09CD;&#x09B7;&#x09BF;&#x09A4;&#x0964; &#x0985;&#x09A8;&#x09C1;&#x09AE;&#x09A4;&#x09BF; &#x099B;&#x09BE;&#x09DC;&#x09BE; &#x09AA;&#x09C1;&#x09A8;&#x09B0;&#x09C1;&#x09CE;&#x09AA;&#x09BE;&#x09A6;&#x09A8; &#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09C2;&#x09B0;&#x09CD;&#x09A3; &#x09A8;&#x09BF;&#x09B7;&#x09BF;&#x09A6;&#x09CD;&#x09A7;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Limitation of Liability -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">6</div>
+      <div class="card-titles">
+        <div class="card-title-en">Limitation of Liability</div>
+        <div class="card-title-bn">&#x09A6;&#x09BE;&#x09AF;&#x09BC;&#x09AC;&#x09A6;&#x09CD;&#x09A7;&#x09A4;&#x09BE;&#x09B0; &#x09B8;&#x09C0;&#x09AE;&#x09BE;&#x09AC;&#x09A6;&#x09CD;&#x09A7;&#x09A4;&#x09BE;</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>To the fullest extent permitted by Indian law, BrokerMukto.com shall not be liable for any direct, indirect, incidental, or consequential damages arising from: use of this platform; reliance on listing information; transactions between users; or technical failures or data loss. Our maximum aggregate liability shall not exceed fees paid by you in the preceding three months.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>&#x09AD;&#x09BE;&#x09B0;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x0986;&#x0987;&#x09A8;&#x09C7; &#x0985;&#x09A8;&#x09C1;&#x09AE;&#x09CB;&#x09A6;&#x09BF;&#x09A4; &#x09B8;&#x09B0;&#x09CD;&#x09AC;&#x09CB;&#x099A;&#x09CD;&#x099A; &#x09AA;&#x09B0;&#x09BF;&#x09AE;&#x09BE;&#x09A3;&#x09C7;, BrokerMukto.com &#x09AA;&#x09CD;&#x09B2;&#x09CD;&#x09AF;&#x09BE;&#x099F;&#x09AB;&#x09B0;&#x09CD;&#x09AE; &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0;, &#x09A4;&#x09BE;&#x09B2;&#x09BF;&#x0995;&#x09BE;&#x09B0; &#x09A4;&#x09A5;&#x09CD;&#x09AF;&#x09C7; &#x09A8;&#x09BF;&#x09B0;&#x09CD;&#x09AD;&#x09B0;&#x09A4;&#x09BE;, &#x09AC;&#x09CD;&#x09AF;&#x09AC;&#x09B9;&#x09BE;&#x09B0;&#x0995;&#x09BE;&#x09B0;&#x09C0;&#x09A6;&#x09C7;&#x09B0; &#x09AE;&#x09A7;&#x09CD;&#x09AF;&#x09C7; &#x09B2;&#x09C7;&#x09A8;&#x09A6;&#x09C7;&#x09A8;, &#x09AC;&#x09BE; &#x09AA;&#x09CD;&#x09B0;&#x09AF;&#x09C1;&#x0995;&#x09CD;&#x09A4;&#x09BF;&#x0997;&#x09A4; &#x09AC;&#x09CD;&#x09AF;&#x09B0;&#x09CD;&#x09A5;&#x09A4;&#x09BE; &#x09A5;&#x09C7;&#x0995;&#x09C7; &#x0989;&#x09A6;&#x09CD;&#x09AD;&#x09C2;&#x09A4; &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x0995;&#x09CD;&#x09B7;&#x09A4;&#x09BF;&#x09B0; &#x099C;&#x09A8;&#x09CD;&#x09AF; &#x09A6;&#x09BE;&#x09AF;&#x09BC;&#x09C0; &#x09A5;&#x09BE;&#x0995;&#x09AC;&#x09C7; &#x09A8;&#x09BE;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Third-Party Links -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">7</div>
+      <div class="card-titles">
+        <div class="card-title-en">Third-Party Links</div>
+        <div class="card-title-bn">&#x09A4;&#x09C3;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x09AA;&#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09B0; &#x09B2;&#x09BF;&#x0982;&#x0995;</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>BrokerMukto.com may display links to third-party websites for informational purposes. We do not control, endorse, or accept responsibility for any third-party site's content, privacy policies, or practices. Accessing such links is entirely at your own risk.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>BrokerMukto.com &#x09A4;&#x09A5;&#x09CD;&#x09AF;&#x09C7;&#x09B0; &#x0989;&#x09A6;&#x09CD;&#x09A6;&#x09C7;&#x09B6;&#x09CD;&#x09AF;&#x09C7; &#x09A4;&#x09C3;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x09AA;&#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09B0; &#x09B5;&#x09C7;&#x09AC;&#x09B8;&#x09BE;&#x0987;&#x099F;&#x09C7;&#x09B0; &#x09B2;&#x09BF;&#x0982;&#x0995; &#x09AA;&#x09CD;&#x09B0;&#x09A6;&#x09B0;&#x09CD;&#x09B6;&#x09A8; &#x0995;&#x09B0;&#x09A4;&#x09C7; &#x09AA;&#x09BE;&#x09B0;&#x09C7;&#x0964; &#x0986;&#x09AE;&#x09B0;&#x09BE; &#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09A4;&#x09C3;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x09AA;&#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09B0; &#x09B8;&#x09BE;&#x0987;&#x099F;&#x09C7;&#x09B0; &#x09AC;&#x09BF;&#x09B7;&#x09AF;&#x09BC;&#x09AC;&#x09B8;&#x09CD;&#x09A4;&#x09C1; &#x09AC;&#x09BE; &#x0997;&#x09CB;&#x09AA;&#x09A8;&#x09C0;&#x09AF;&#x09BC;&#x09A4;&#x09BE; &#x09A8;&#x09C0;&#x09A4;&#x09BF;&#x09B0; &#x099C;&#x09A8;&#x09CD;&#x09AF; &#x09A6;&#x09BE;&#x09AF;&#x09BC;&#x09C0; &#x09A8;&#x0987;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Privacy & Data — NEW -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">8</div>
+      <div class="card-titles">
+        <div class="card-title-en">Privacy &amp; Personal Data</div>
+        <div class="card-title-bn">&#x0997;&#x09CB;&#x09AA;&#x09A8;&#x09C0;&#x09AF;&#x09BC;&#x09A4;&#x09BE; &#x0993; &#x09AC;&#x09CD;&#x09AF;&#x0995;&#x09CD;&#x09A4;&#x09BF;&#x0997;&#x09A4; &#x09A4;&#x09A5;&#x09CD;&#x09AF;</div>
+      </div>
+      <div class="new-badge">New</div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>BrokerMukto.com collects personal data (name, phone, email, location preference) strictly to operate the platform and connect users. Under India's <strong>Digital Personal Data Protection Act, 2023 (DPDPA)</strong>, we do not sell your data to third parties. By registering, you consent to our Privacy Policy covering data retention, access, and deletion rights.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>BrokerMukto.com &#x09AC;&#x09CD;&#x09AF;&#x0995;&#x09CD;&#x09A4;&#x09BF;&#x0997;&#x09A4; &#x09A4;&#x09A5;&#x09CD;&#x09AF; (&#x09A8;&#x09BE;&#x09AE;, &#x09AB;&#x09CB;&#x09A8;, &#x0987;&#x09AE;&#x09C7;&#x0987;&#x09B2;, &#x0985;&#x09AC;&#x09B8;&#x09CD;&#x09A5;&#x09BE;&#x09A8; &#x09AA;&#x099B;&#x09A8;&#x09CD;&#x09A6;) &#x0995;&#x09C7;&#x09AC;&#x09B2; &#x09AA;&#x09CD;&#x09B2;&#x09CD;&#x09AF;&#x09BE;&#x099F;&#x09AB;&#x09B0;&#x09CD;&#x09AE; &#x09AA;&#x09B0;&#x09BF;&#x099A;&#x09BE;&#x09B2;&#x09A8;&#x09BE;&#x09B0; &#x0989;&#x09A6;&#x09CD;&#x09A6;&#x09C7;&#x09B6;&#x09CD;&#x09AF;&#x09C7; &#x09B8;&#x0982;&#x0997;&#x09CD;&#x09B0;&#x09B9; &#x0995;&#x09B0;&#x09C7;&#x0964; &#x09AD;&#x09BE;&#x09B0;&#x09A4;&#x09C7;&#x09B0; <strong>DPDPA 2023</strong> &#x0985;&#x09A8;&#x09C1;&#x09AF;&#x09BE;&#x09AF;&#x09BC;&#x09C0;, &#x0986;&#x09AE;&#x09B0;&#x09BE; &#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0; &#x09A4;&#x09A5;&#x09CD;&#x09AF; &#x09A4;&#x09C3;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x09AA;&#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09B0; &#x0995;&#x09BE;&#x099B;&#x09C7; &#x09AC;&#x09BF;&#x0995;&#x09CD;&#x09B0;&#x09BF; &#x0995;&#x09B0;&#x09BF; &#x09A8;&#x09BE;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Dispute Resolution — NEW -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">9</div>
+      <div class="card-titles">
+        <div class="card-title-en">Dispute Resolution &amp; Arbitration</div>
+        <div class="card-title-bn">&#x09AC;&#x09BF;&#x09B0;&#x09CB;&#x09A7; &#x09A8;&#x09BF;&#x09B7;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x0993; &#x09B8;&#x09BE;&#x09B2;&#x09BF;&#x09B6;&#x09BF;</div>
+      </div>
+      <div class="new-badge">New</div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>In the event of any dispute, both parties agree to first attempt resolution through mutual negotiation within 30 days. If unresolved, the dispute shall be referred to arbitration under the <strong>Arbitration and Conciliation Act, 1996 of India</strong>, with proceedings in <strong>[Your City, e.g., Kolkata]</strong> in English or Bengali.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>&#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09AC;&#x09BF;&#x09B0;&#x09CB;&#x09A7;&#x09C7;&#x09B0; &#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09A4;&#x09CD;&#x09B0;&#x09C7;, &#x0989;&#x09AD;&#x09AF;&#x09BC; &#x09AA;&#x0995;&#x09CD;&#x09B7; &#x09AA;&#x09CD;&#x09B0;&#x09A5;&#x09AE;&#x09C7; &#x09E9;&#x09E6; &#x09A6;&#x09BF;&#x09A8;&#x09C7;&#x09B0; &#x09AE;&#x09A7;&#x09CD;&#x09AF;&#x09C7; &#x0986;&#x09B2;&#x09CB;&#x099A;&#x09A8;&#x09BE;&#x09B0; &#x09AE;&#x09BE;&#x09A7;&#x09CD;&#x09AF;&#x09AE;&#x09C7; &#x09B8;&#x09AE;&#x09BE;&#x09A7;&#x09BE;&#x09A8;&#x09C7;&#x09B0; &#x099A;&#x09C7;&#x09B7;&#x09CD;&#x099F;&#x09BE; &#x0995;&#x09B0;&#x09AC;&#x09C7;&#x09A8;&#x0964; &#x0985;&#x09AE;&#x09C0;&#x09AE;&#x09BE;&#x0982;&#x09B8;&#x09BF;&#x09A4; &#x09B9;&#x09B2;&#x09C7; <strong>&#x09B8;&#x09BE;&#x09B2;&#x09BF;&#x09B6;&#x09BF; &#x0993; &#x09AE;&#x09A7;&#x09CD;&#x09AF;&#x09B8;&#x09CD;&#x09A5;&#x09A4;&#x09BE; &#x0986;&#x0987;&#x09A8;, &#x09E7;&#x09EF;&#x09EF;&#x09EC;</strong> &#x0985;&#x09A8;&#x09C1;&#x09AF;&#x09BE;&#x09AF;&#x09BC;&#x09C0; <strong>[&#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0; &#x09B6;&#x09B9;&#x09B0;, &#x09AF;&#x09C7;&#x09AE;&#x09A8;: &#x0995;&#x09B2;&#x0995;&#x09BE;&#x09A4;&#x09BE;]</strong>-&#x098F; &#x09A8;&#x09BF;&#x09B7;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x09B9;&#x09AC;&#x09C7;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Governing Law -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">10</div>
+      <div class="card-titles">
+        <div class="card-title-en">Governing Law &amp; Jurisdiction</div>
+        <div class="card-title-bn">&#x09AA;&#x09CD;&#x09B0;&#x09AF;&#x09CB;&#x099C;&#x09CD;&#x09AF; &#x0986;&#x0987;&#x09A8; &#x0993; &#x09AC;&#x09BF;&#x099A;&#x09BE;&#x09B0; &#x0995;&#x09CD;&#x09B7;&#x09C7;&#x09A4;&#x09CD;&#x09B0;</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>These Terms are governed by the laws of India. Subject to the arbitration clause above, any disputes proceeding to court shall be under the exclusive jurisdiction of courts in <strong>[Your City/State, e.g., West Bengal, India]</strong>.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>&#x098F;&#x0987; &#x09B6;&#x09B0;&#x09CD;&#x09A4;&#x09BE;&#x09AC;&#x09B2;&#x09C0; &#x09AD;&#x09BE;&#x09B0;&#x09A4;&#x09C7;&#x09B0; &#x0986;&#x0987;&#x09A8; &#x09A6;&#x09CD;&#x09AC;&#x09BE;&#x09B0;&#x09BE; &#x09AA;&#x09B0;&#x09BF;&#x099A;&#x09BE;&#x09B2;&#x09BF;&#x09A4;&#x0964; &#x09B8;&#x09BE;&#x09B2;&#x09BF;&#x09B6;&#x09BF; &#x09A7;&#x09BE;&#x09B0;&#x09BE;&#x09B0; &#x0985;&#x09A7;&#x09C0;&#x09A8;&#x09C7; &#x09A8;&#x09BF;&#x09B7;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x09A8;&#x09BE; &#x09B9;&#x09B2;&#x09C7;, &#x09AF;&#x09C7;&#x0995;&#x09CB;&#x09A8;&#x09CB; &#x0986;&#x0987;&#x09A8;&#x09BF; &#x09AC;&#x09BF;&#x09B0;&#x09CB;&#x09A7; <strong>[&#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0; &#x09B6;&#x09B9;&#x09B0;/&#x09B0;&#x09BE;&#x099C;&#x09CD;&#x09AF;, &#x09AF;&#x09C7;&#x09AE;&#x09A8;: &#x09AA;&#x09B6;&#x09CD;&#x099A;&#x09BF;&#x09AE;&#x09AC;&#x0999;&#x09CD;&#x0997;, &#x09AD;&#x09BE;&#x09B0;&#x09A4;]</strong>-&#x098F;&#x09B0; &#x0986;&#x09A6;&#x09BE;&#x09B2;&#x09A4;&#x09C7;&#x09B0; &#x098F;&#x0996;&#x09A4;&#x09BF;&#x09AF;&#x09BC;&#x09BE;&#x09B0;&#x09C7;&#x09B0; &#x0985;&#x09A7;&#x09C0;&#x09A8;&#x09C7; &#x09B9;&#x09AC;&#x09C7;&#x0964;</p>
+        </div>
+      </div>
+      <div class="notice amber">
+        <div class="notice-icon">&#x1F4CC;</div>
+        <div class="notice-body">
+          <p><strong>Action required:</strong> Replace <em>[Your City/State]</em> with your actual location before publishing.</p>
+          <p class="bn">&#x09AA;&#x09CD;&#x09B0;&#x0995;&#x09BE;&#x09B6; &#x0995;&#x09B0;&#x09BE;&#x09B0; &#x0986;&#x0997;&#x09C7; <em>[&#x0986;&#x09AA;&#x09A8;&#x09BE;&#x09B0; &#x09B6;&#x09B9;&#x09B0;/&#x09B0;&#x09BE;&#x099C;&#x09CD;&#x09AF;]</em> &#x0985;&#x0982;&#x09B6;&#x099F;&#x09BF; &#x09AA;&#x09CD;&#x09B0;&#x09A4;&#x09BF;&#x09B8;&#x09CD;&#x09A5;&#x09BE;&#x09AA;&#x09A8; &#x0995;&#x09B0;&#x09C1;&#x09A8;&#x0964;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Changes to Terms -->
+  <div class="section-card">
+    <div class="card-header">
+      <div class="card-num">11</div>
+      <div class="card-titles">
+        <div class="card-title-en">Changes to Terms</div>
+        <div class="card-title-bn">&#x09B6;&#x09B0;&#x09CD;&#x09A4;&#x09BE;&#x09AC;&#x09B2;&#x09C0; &#x09AA;&#x09B0;&#x09BF;&#x09AC;&#x09B0;&#x09CD;&#x09A4;&#x09A8;&#x09C7;&#x09B0; &#x0985;&#x09A7;&#x09BF;&#x0995;&#x09BE;&#x09B0;</div>
+      </div>
+      <div class="fixed-badge">Fixed</div>
+    </div>
+    <div class="card-body">
+      <div class="bilingual">
+        <div class="lang-block en">
+          <div class="lang-label en">&#x1F1EC;&#x1F1E7; English</div>
+          <p>BrokerMukto.com reserves the right to update these Terms at any time. When changes are made, the <strong>Effective Date</strong> at the top of this page will be updated. For material changes, we will attempt to notify registered users via email or in-platform notification. Continued use after the effective date constitutes acceptance.</p>
+        </div>
+        <div class="lang-block bn">
+          <div class="lang-label bn">&#x1F1EE;&#x1F1F3; &#x09AC;&#x09BE;&#x0982;&#x09B2;&#x09BE;</div>
+          <p>BrokerMukto.com &#x09AF;&#x09C7;&#x0995;&#x09CB;&#x09A8;&#x09CB; &#x09B8;&#x09AE;&#x09AF;&#x09BC; &#x098F;&#x0987; &#x09B6;&#x09B0;&#x09CD;&#x09A4;&#x09BE;&#x09AC;&#x09B2;&#x09C0; &#x0986;&#x09AA;&#x09A1;&#x09C7;&#x099F; &#x0995;&#x09B0;&#x09BE;&#x09B0; &#x0985;&#x09A7;&#x09BF;&#x0995;&#x09BE;&#x09B0; &#x09B8;&#x0982;&#x09B0;&#x0995;&#x09CD;&#x09B7;&#x09A3; &#x0995;&#x09B0;&#x09C7;&#x0964; &#x09AA;&#x09B0;&#x09BF;&#x09AC;&#x09B0;&#x09CD;&#x09A4;&#x09A8;&#x09C7;&#x09B0; &#x09B8;&#x09AE;&#x09AF;&#x09BC; &#x09AA;&#x09C3;&#x09B7;&#x09CD;&#x09A0;&#x09BE;&#x09B0; &#x09B6;&#x09C0;&#x09B0;&#x09CD;&#x09B7;&#x09C7; <strong>&#x0995;&#x09BE;&#x09B0;&#x09CD;&#x09AF;&#x0995;&#x09B0; &#x09A4;&#x09BE;&#x09B0;&#x09BF;&#x0996;</strong> &#x0986;&#x09AA;&#x09A1;&#x09C7;&#x099F; &#x0995;&#x09B0;&#x09BE; &#x09B9;&#x09AC;&#x09C7;&#x0964; &#x0997;&#x09C1;&#x09B0;&#x09C1;&#x09A4;&#x09CD;&#x09AC;&#x09AA;&#x09C2;&#x09B0;&#x09CD;&#x09A3; &#x09AA;&#x09B0;&#x09BF;&#x09AC;&#x09B0;&#x09CD;&#x09A4;&#x09A8;&#x09C7;&#x09B0; &#x09A8;&#x09CB;&#x099F;&#x09BF;&#x09AB;&#x09BF;&#x0995;&#x09C7;&#x09B6;&#x09A8; &#x09A6;&#x09C7;&#x0993;&#x09AF;&#x09BC;&#x09BE;&#x09B0; &#x099A;&#x09C7;&#x09B7;&#x09CD;&#x099F;&#x09BE; &#x0995;&#x09B0;&#x09BE; &#x09B9;&#x09AC;&#x09C7;&#x0964;</p>
+        </div>
+      </div>
+      <div class="effective-date">
+        &#x1F4C5;&nbsp; Current Effective Date: June 2026 &nbsp;&middot;&nbsp; Version 2.0
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Broker<span>Mukto</span>.com</div>
+    <div class="footer-tagline">&#x09B8;&#x09AE;&#x09CD;&#x09AA;&#x09A4;&#x09CD;&#x09A4;&#x09BF; &#x0995;&#x09C7;&#x09A8;&#x09BE;-&#x09AC;&#x09C7;&#x099A;&#x09BE;&#x09B0; &#x09B8;&#x09B9;&#x099C; &#x09B8;&#x09AE;&#x09BE;&#x09A7;&#x09BE;&#x09A8; &nbsp;&middot;&nbsp; Real Estate Made Simple</div>
+    <a href="https://www.brokermukto.com" class="footer-home-btn">&#x2302; Go to BrokerMukto.com</a>
+    <hr class="footer-rule">
+    <div class="footer-copy">
+      &copy; 2026 BrokerMukto.com &nbsp;&middot;&nbsp; &#x09B8;&#x09B0;&#x09CD;&#x09AC;&#x09B8;&#x09CD;&#x09AC;&#x09A4;&#x09CD;&#x09AC; &#x09B8;&#x0982;&#x09B0;&#x0995;&#x09CD;&#x09B7;&#x09BF;&#x09A4; &nbsp;&middot;&nbsp; All Rights Reserved<br>
+      <span style="font-size:11px;opacity:0.7;">Governed by Indian Law &nbsp;&middot;&nbsp; &#x09AD;&#x09BE;&#x09B0;&#x09A4;&#x09C0;&#x09AF;&#x09BC; &#x0986;&#x0987;&#x09A8; &#x0985;&#x09A8;&#x09C1;&#x09AF;&#x09BE;&#x09AF;&#x09BC;&#x09C0; &#x09AA;&#x09B0;&#x09BF;&#x099A;&#x09BE;&#x09B2;&#x09BF;&#x09A4; &nbsp;&middot;&nbsp; Version 2.0 &mdash; June 2026</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.brokermukto.com">Home</a>
+      <a href="https://www.brokermukto.com/privacy">Privacy Policy</a>
+      <a href="https://www.brokermukto.com/terms">Terms</a>
+      <a href="https://www.brokermukto.com/contact">Contact Us</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function acceptConsent() {
+  var overlay = document.getElementById('consent-overlay');
+  overlay.style.opacity = '0';
+  overlay.style.transition = 'opacity 0.4s ease';
+  setTimeout(function() {
+    overlay.style.display = 'none';
+  }, 400);
+}
+
+function switchLang(btn, mode) {
+  var buttons = document.querySelectorAll('.lang-btn');
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].classList.remove('active');
+  }
+  btn.classList.add('active');
+
+  var enBlocks = document.querySelectorAll('.lang-block.en');
+  var bnBlocks = document.querySelectorAll('.lang-block.bn');
+  var enLists  = document.querySelectorAll('.blist:not(.bn)');
+  var bnLists  = document.querySelectorAll('.blist.bn');
+  var reraAll  = document.querySelectorAll('.rera-box > div');
+
+  var grids = document.querySelectorAll('.bilingual, .bilingual-list, .rera-box');
+
+  if (mode === 'en') {
+    show(enBlocks); hide(bnBlocks);
+    show(enLists);  hide(bnLists);
+    if (reraAll.length >= 2) { show([reraAll[0]]); hide([reraAll[1]]); }
+    setGrid(grids, '1fr');
+  } else if (mode === 'bn') {
+    hide(enBlocks); show(bnBlocks);
+    hide(enLists);  show(bnLists);
+    if (reraAll.length >= 2) { hide([reraAll[0]]); show([reraAll[1]]); }
+    setGrid(grids, '1fr');
+  } else {
+    show(enBlocks); show(bnBlocks);
+    show(enLists);  show(bnLists);
+    for (var j = 0; j < reraAll.length; j++) { reraAll[j].style.display = ''; }
+    setGrid(grids, '');
+  }
+}
+
+function show(els) {
+  for (var i = 0; i < els.length; i++) { els[i].style.display = ''; }
+}
+function hide(els) {
+  for (var i = 0; i < els.length; i++) { els[i].style.display = 'none'; }
+}
+function setGrid(els, val) {
+  for (var i = 0; i < els.length; i++) { els[i].style.gridTemplateColumns = val; }
+}
+</script>
+</body>
+</html>
